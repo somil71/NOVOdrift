@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import NewsletterForm from './NewsletterForm'
 
 export default function Footer() {
   return (
@@ -73,16 +74,7 @@ export default function Footer() {
             <p className="font-body-sm text-body-sm text-on-surface-variant mb-md">
               Curated fits, dropped weekly.
             </p>
-            <div className="flex gap-xs">
-              <input
-                type="email"
-                placeholder="your@email.com"
-                className="flex-1 min-w-0 bg-surface-container border border-outline-variant rounded px-md py-xs font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:border-secondary transition-colors"
-              />
-              <button className="bg-secondary text-on-secondary font-label-caps text-label-caps uppercase px-md py-xs rounded hover:bg-secondary-fixed transition-colors tracking-widest flex-shrink-0">
-                Join
-              </button>
-            </div>
+            <NewsletterForm />
             <p className="font-body-sm text-body-sm text-on-surface-variant opacity-50 mt-xs">
               No spam. Unsubscribe anytime.
             </p>

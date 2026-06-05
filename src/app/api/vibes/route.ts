@@ -2,7 +2,10 @@ import { NextResponse } from 'next/server'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 import { VIBE_FILTERS } from '@/lib/constants'
 
-export const revalidate = 300 // cache 5 min — vibes change infrequently
+// force-dynamic: this route uses cookies() via createSupabaseServerClient.
+// Cannot combine revalidate with dynamic cookie access in Next.js 14 —
+// background ISR has no request context and cookies() throws.
+export const dynamic = 'force-dynamic'
 
 export async function GET() {
   try {
