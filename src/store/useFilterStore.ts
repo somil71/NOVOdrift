@@ -1,7 +1,7 @@
 import { create } from 'zustand'
+import { VIBE_FILTERS, type VibeFilter } from '@/lib/constants'
 
-export const VIBE_FILTERS = ['All', 'Street', 'Minimal', 'Dark Academia', 'Ethnic', 'Formal', 'Casual'] as const
-export type VibeFilter = (typeof VIBE_FILTERS)[number]
+export { VIBE_FILTERS, type VibeFilter }
 
 interface FilterStore {
   vibeFilter: VibeFilter

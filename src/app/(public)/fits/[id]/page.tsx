@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 import type { Fit, Pin } from '@/lib/supabase/types'
-import Navbar from '@/components/ui/Navbar'
 import FitDetail from '@/components/detail/FitDetail'
 
 export const revalidate = 30
@@ -52,7 +51,6 @@ export default async function FitDetailPage({ params }: PageProps) {
 
   return (
     <>
-      <Navbar />
       <FitDetail fit={result.fit} pins={result.pins} />
     </>
   )

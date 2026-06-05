@@ -26,7 +26,7 @@ export async function createSupabaseServerClient() {
   )
 }
 
-export async function createSupabaseServiceClient() {
+export async function createSupabaseAdminClient() {
   const cookieStore = await cookies()
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

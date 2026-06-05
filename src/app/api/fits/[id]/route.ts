@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createSupabaseServerClient, createSupabaseServiceClient } from '@/lib/supabase/server'
+import { createSupabaseServerClient, createSupabaseAdminClient } from '@/lib/supabase/server'
 import { updateFitSchema } from '@/lib/validations/fit'
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
@@ -47,7 +47,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
       )
     }
 
-    const supabase = await createSupabaseServiceClient()
+    const supabase = await createSupabaseAdminClient()
     const { data, error } = await supabase
       .from('fits')
       .update(parsed.data)
@@ -74,7 +74,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
   }
 
   try {
-    const supabase = await createSupabaseServiceClient()
+    const supabase = await createSupabaseAdminClient()
     const { error } = await supabase.from('fits').delete().eq('id', params.id)
     if (error) throw error
     return NextResponse.json({ data: { id: params.id }, error: null })

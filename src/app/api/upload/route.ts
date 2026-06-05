@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createSupabaseServerClient, createSupabaseServiceClient } from '@/lib/supabase/server'
+import { createSupabaseServerClient, createSupabaseAdminClient } from '@/lib/supabase/server'
 import { randomUUID } from 'crypto'
 
 const ALLOWED_BUCKETS = ['fit-images', 'product-images'] as const
@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
     const filename = `${randomUUID()}.${ext}`
     const buffer = Buffer.from(await file.arrayBuffer())
 
-    const supabase = await createSupabaseServiceClient()
+    const supabase = await createSupabaseAdminClient()
     const { error: uploadError } = await supabase.storage
       .from(bucket)
       .upload(filename, buffer, { contentType: file.type, upsert: false })

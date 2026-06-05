@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import type { Fit } from '@/lib/supabase/types'
-import Navbar from '@/components/ui/Navbar'
 import SearchBar from '@/components/search/SearchBar'
 import FitCard from '@/components/feed/FitCard'
 import { FitCardSkeleton } from '@/components/ui/Skeleton'
@@ -72,7 +71,6 @@ export default function SearchFitsPage() {
 
   return (
     <>
-      <Navbar />
       <main className="max-w-7xl mx-auto px-6 py-8">
         <h1 className="text-3xl font-bold text-on-surface mb-6">Search Fits</h1>
 

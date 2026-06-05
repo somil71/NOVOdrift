@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createSupabaseServerClient, createSupabaseServiceClient } from '@/lib/supabase/server'
+import { createSupabaseServerClient, createSupabaseAdminClient } from '@/lib/supabase/server'
 import { createProductSchema } from '@/lib/validations/product'
 
 export async function GET(request: NextRequest) {
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const supabase = await createSupabaseServiceClient()
+    const supabase = await createSupabaseAdminClient()
     const { data, error } = await supabase
       .from('products')
       .insert({ ...parsed.data, tags: parsed.data.tags ?? [], published: false })

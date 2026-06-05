@@ -2,7 +2,6 @@ import { redirect } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
-import Navbar from '@/components/ui/Navbar'
 import type { Fit } from '@/lib/supabase/types'
 
 export const dynamic = 'force-dynamic'
@@ -31,7 +30,6 @@ export default async function ProfilePage() {
 
   return (
     <>
-      <Navbar />
       <main className="max-w-[800px] mx-auto px-lg pt-[120px] pb-huge">
         {/* Profile Header */}
         <section className="flex flex-col items-center text-center">

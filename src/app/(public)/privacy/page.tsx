@@ -1,9 +1,7 @@
-import Navbar from '@/components/ui/Navbar'
 
 export default function PrivacyPage() {
   return (
     <>
-      <Navbar />
       <main className="max-w-3xl mx-auto px-6 py-16">
         <h1 className="text-4xl font-bold text-on-surface mb-2">Privacy Policy</h1>
         <p className="text-on-surface-variant text-sm mb-8">Last updated: June 2026</p>

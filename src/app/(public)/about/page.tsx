@@ -1,9 +1,7 @@
-import Navbar from '@/components/ui/Navbar'
 
 export default function AboutPage() {
   return (
     <>
-      <Navbar />
       <main className="max-w-3xl mx-auto px-6 py-16">
         <h1 className="text-4xl font-bold text-on-surface mb-6">About FitBoard</h1>
         <div className="prose prose-invert max-w-none space-y-4 text-on-surface-variant leading-relaxed">

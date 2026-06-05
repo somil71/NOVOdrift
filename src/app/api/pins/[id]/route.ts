@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createSupabaseServerClient, createSupabaseServiceClient } from '@/lib/supabase/server'
+import { createSupabaseServerClient, createSupabaseAdminClient } from '@/lib/supabase/server'
 import { updatePinSchema } from '@/lib/validations/pin'
 
 export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
@@ -19,7 +19,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
       )
     }
 
-    const supabase = await createSupabaseServiceClient()
+    const supabase = await createSupabaseAdminClient()
     const { data, error } = await supabase.from('pins').update(parsed.data).eq('id', params.id).select().single()
     if (error) {
       if (error.code === 'PGRST116') return NextResponse.json({ data: null, error: { message: 'Pin not found', code: 'NOT_FOUND' } }, { status: 404 })
@@ -40,7 +40,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
   }
 
   try {
-    const supabase = await createSupabaseServiceClient()
+    const supabase = await createSupabaseAdminClient()
     const { error } = await supabase.from('pins').delete().eq('id', params.id)
     if (error) throw error
     return NextResponse.json({ data: { id: params.id }, error: null })

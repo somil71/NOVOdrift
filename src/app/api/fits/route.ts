@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createSupabaseServerClient, createSupabaseServiceClient } from '@/lib/supabase/server'
+import { createSupabaseServerClient, createSupabaseAdminClient } from '@/lib/supabase/server'
 import { createFitSchema } from '@/lib/validations/fit'
 
 export async function GET(request: NextRequest) {
@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Service role used only after auth is confirmed
-    const supabase = await createSupabaseServiceClient()
+    const supabase = await createSupabaseAdminClient()
     const { data, error } = await supabase
       .from('fits')
       .insert({ ...parsed.data, vibe_tags: parsed.data.vibe_tags ?? [], published: false, user_id: user.id })

@@ -1,12 +1,10 @@
 import { Suspense } from 'react'
-import Navbar from '@/components/ui/Navbar'
 import ProductGrid from '@/components/search/ProductGrid'
 import { ProductCardSkeleton } from '@/components/ui/Skeleton'
 
 export default function SearchProductsPage() {
   return (
     <>
-      <Navbar />
       <main className="max-w-7xl mx-auto px-6 py-8">
         <h1 className="text-3xl font-bold text-on-surface mb-6">Search Products</h1>
         <Suspense

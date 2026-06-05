@@ -1,7 +1,24 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? '*'
+
+function withCors(response: NextResponse): NextResponse {
+  response.headers.set('Access-Control-Allow-Origin', SITE_URL)
+  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  return response
+}
+
 export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl
+  const { method } = request
+
+  // Handle OPTIONS preflight
+  if (method === 'OPTIONS') {
+    return withCors(new NextResponse(null, { status: 204 }))
+  }
+
   let supabaseResponse = NextResponse.next({ request })
 
   const supabase = createServerClient(
@@ -9,9 +26,7 @@ export async function middleware(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        getAll() {
-          return request.cookies.getAll()
-        },
+        getAll() { return request.cookies.getAll() },
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
           supabaseResponse = NextResponse.next({ request })
@@ -23,20 +38,46 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  // Always use getUser() — never getSession() — getUser re-validates with Supabase server
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  // Always use getUser() — validates session against Supabase server
+  const { data: { user } } = await supabase.auth.getUser()
 
-  if (!user) {
-    const loginUrl = new URL('/admin/login', request.url)
-    return NextResponse.redirect(loginUrl)
+  // Protect admin frontend pages
+  if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login') && !user) {
+    return withCors(NextResponse.redirect(new URL('/admin/login', request.url)))
   }
 
-  return supabaseResponse
+  // Protect mutation API routes — belt-and-suspenders on top of per-route checks
+  const isApiMutation = (
+    pathname.startsWith('/api/fits') ||
+    pathname.startsWith('/api/pins') ||
+    pathname.startsWith('/api/products') ||
+    pathname.startsWith('/api/upload')
+  ) && ['POST', 'PATCH', 'DELETE', 'PUT'].includes(request.method)
+
+  if (isApiMutation && !user) {
+    return withCors(
+      NextResponse.json(
+        { data: null, error: { message: 'Unauthorized', code: 'UNAUTHORIZED' } },
+        { status: 401 }
+      )
+    )
+  }
+
+  // Protect /profile
+  if (pathname === '/profile' && !user) {
+    return withCors(NextResponse.redirect(new URL('/auth?next=/profile', request.url)))
+  }
+
+  return withCors(supabaseResponse)
 }
 
 export const config = {
-  // Protect all /admin/* paths except /admin/login
-  matcher: ['/admin/((?!login).*)'],
+  matcher: [
+    '/admin/((?!login).*)',
+    '/profile',
+    '/api/fits/:path*',
+    '/api/pins/:path*',
+    '/api/products/:path*',
+    '/api/upload',
+  ],
 }

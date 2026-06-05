@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { createSupabaseServerClient, createSupabaseServiceClient } from '@/lib/supabase/server'
+import { createSupabaseServerClient, createSupabaseAdminClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
 
@@ -12,7 +12,7 @@ export async function GET() {
   }
 
   try {
-    const supabase = await createSupabaseServiceClient()
+    const supabase = await createSupabaseAdminClient()
 
     const [
       { count: totalFits },

@@ -1,6 +1,7 @@
 import { z } from 'zod'
+import { PRODUCT_CATEGORIES } from '@/lib/constants'
 
-export const PRODUCT_CATEGORIES = ['Tops', 'Bottoms', 'Shoes', 'Accessories', 'Outerwear', 'Bags'] as const
+export { PRODUCT_CATEGORIES }
 
 export const createProductSchema = z.object({
   name: z.string().min(1, 'Name is required'),

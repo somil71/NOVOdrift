@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createSupabaseServerClient, createSupabaseServiceClient } from '@/lib/supabase/server'
+import { createSupabaseServerClient, createSupabaseAdminClient } from '@/lib/supabase/server'
 import { createPinSchema } from '@/lib/validations/pin'
 
 export async function POST(request: NextRequest) {
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const supabase = await createSupabaseServiceClient()
+    const supabase = await createSupabaseAdminClient()
     const { data: fit } = await supabase.from('fits').select('id').eq('id', parsed.data.fit_id).single()
     if (!fit) {
       return NextResponse.json({ data: null, error: { message: 'Fit not found', code: 'NOT_FOUND' } }, { status: 404 })

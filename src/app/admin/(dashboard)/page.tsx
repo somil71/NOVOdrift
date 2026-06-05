@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { createSupabaseServiceClient } from '@/lib/supabase/server'
+import { createSupabaseAdminClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
 
@@ -18,7 +18,7 @@ interface AnalyticsSummary {
 }
 
 async function getDashboardData(): Promise<AnalyticsSummary> {
-  const supabase = await createSupabaseServiceClient()
+  const supabase = await createSupabaseAdminClient()
 
   const [
     { count: totalFits },
