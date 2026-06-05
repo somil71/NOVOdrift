@@ -63,9 +63,9 @@ export async function middleware(request: NextRequest) {
     )
   }
 
-  // Protect /profile
-  if (pathname === '/profile' && !user) {
-    return withCors(NextResponse.redirect(new URL('/auth?next=/profile', request.url)))
+  // Protect user-only pages
+  if ((pathname === '/profile' || pathname === '/account') && !user) {
+    return withCors(NextResponse.redirect(new URL(`/auth?next=${pathname}`, request.url)))
   }
 
   return withCors(supabaseResponse)
@@ -77,6 +77,7 @@ export const config = {
     '/admin',
     '/admin/((?!login).*)',
     '/profile',
+    '/account',
     '/api/fits/:path*',
     '/api/pins/:path*',
     '/api/products/:path*',

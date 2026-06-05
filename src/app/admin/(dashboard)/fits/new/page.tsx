@@ -12,7 +12,7 @@ export default function NewFitPage() {
   }
 
   return (
-    <div className="p-8">
+    <div className="p-8 max-w-2xl mx-auto">
       <h1 className="text-2xl font-bold text-on-surface mb-6">New Fit</h1>
       <FitForm mode="create" onSuccess={handleSuccess} />
     </div>

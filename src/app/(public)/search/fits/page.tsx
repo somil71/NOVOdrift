@@ -47,7 +47,7 @@ export default function SearchFitsPage() {
     },
     staleTime: 10_000,
     gcTime: 120_000,
-    enabled: debouncedSearch.length > 0,
+    // Always enabled — show all published fits by default, filter as the user types
   })
 
   const fits = data?.pages.flatMap((p) => p.data) ?? []
@@ -81,13 +81,7 @@ export default function SearchFitsPage() {
           className="mb-8"
         />
 
-        {!debouncedSearch && (
-          <p className="text-on-surface-variant text-sm text-center py-12">
-            Type something to search across all fits and their products
-          </p>
-        )}
-
-        {isLoading && debouncedSearch && (
+        {isLoading && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {Array.from({ length: 6 }).map((_, i) => (
               <FitCardSkeleton key={i} />
@@ -95,11 +89,13 @@ export default function SearchFitsPage() {
           </div>
         )}
 
-        {!isLoading && debouncedSearch && fits.length === 0 && (
+        {!isLoading && fits.length === 0 && (
           <div className="flex flex-col items-center justify-center py-16 text-on-surface-variant gap-md">
-            <p className="font-headline-sm text-headline-sm">No fits found for &quot;{debouncedSearch}&quot;</p>
+            <p className="font-headline-sm text-headline-sm">
+              {debouncedSearch ? `No fits found for "${debouncedSearch}"` : 'No fits published yet'}
+            </p>
             <a href="/fits" className="font-label-caps text-label-caps uppercase text-secondary hover:text-secondary-fixed transition-colors tracking-widest">
-              ← Browse all fits
+              ← Back to feed
             </a>
           </div>
         )}
