@@ -89,7 +89,7 @@ export default function FitDetail({ fit, pins }: FitDetailProps) {
               {pins.map((pin) => (
                 <a
                   key={pin.id}
-                  href={pin.affiliate_url}
+                  href={`/api/track/r?pin=${pin.id}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-between p-3 bg-surface-container-low border border-outline-variant rounded-lg

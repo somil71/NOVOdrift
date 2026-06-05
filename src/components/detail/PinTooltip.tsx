@@ -7,7 +7,7 @@ interface PinTooltipProps { pin: Pin }
 
 export default function PinTooltip({ pin }: PinTooltipProps) {
   const handleShopNow = () => {
-    window.open(pin.affiliate_url, '_blank', 'noopener,noreferrer')
+    window.open(`/api/track/r?pin=${pin.id}`, '_blank', 'noopener,noreferrer')
   }
 
   return (

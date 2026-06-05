@@ -10,6 +10,7 @@ export interface Database {
           image_url: string
           vibe_tags: string[]
           published: boolean
+          user_id: string | null
           created_at: string
           updated_at: string
         }
@@ -108,6 +109,48 @@ export interface Database {
         }
         Relationships: []
       }
+      click_events: {
+        Row: {
+          id: string
+          type: 'pin' | 'product'
+          fit_id: string | null
+          pin_id: string | null
+          product_id: string | null
+          destination_url: string
+          referrer: string | null
+          user_id: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          type: 'pin' | 'product'
+          fit_id?: string | null
+          pin_id?: string | null
+          product_id?: string | null
+          destination_url: string
+          referrer?: string | null
+          user_id?: string | null
+          created_at?: string
+        }
+        Update: Record<string, never>
+        Relationships: []
+      }
+      wishlists: {
+        Row: {
+          id: string
+          user_id: string
+          fit_id: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          fit_id: string
+          created_at?: string
+        }
+        Update: Record<string, never>
+        Relationships: []
+      }
     }
     Views: Record<string, never>
     Functions: Record<string, never>
@@ -119,3 +162,5 @@ export interface Database {
 export type Fit = Database['public']['Tables']['fits']['Row']
 export type Pin = Database['public']['Tables']['pins']['Row']
 export type Product = Database['public']['Tables']['products']['Row']
+export type ClickEvent = Database['public']['Tables']['click_events']['Row']
+export type Wishlist = Database['public']['Tables']['wishlists']['Row']

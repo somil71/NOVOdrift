@@ -12,7 +12,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const handleBuy = () => {
-    window.open(product.affiliate_url, '_blank', 'noopener,noreferrer')
+    window.open(`/api/track/r?product=${product.id}`, '_blank', 'noopener,noreferrer')
   }
 
   return (
