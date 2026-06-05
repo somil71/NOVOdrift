@@ -51,7 +51,7 @@ export default function PinForm({ pin, onSave, onCancel, isLoading }: PinFormPro
   }, [pin, reset])
 
   return (
-    <div className="bg-surface-container-low border border-outline-variant rounded-xl p-4 shadow-xl w-72">
+    <div className="w-full">
       <div className="flex items-center justify-between mb-3">
         <h3 className="text-sm font-semibold text-on-surface">
           {pin?.id ? 'Edit Pin' : 'New Pin'}

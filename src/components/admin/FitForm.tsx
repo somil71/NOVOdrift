@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -30,6 +31,7 @@ async function uploadImage(file: File): Promise<string> {
 }
 
 export default function FitForm({ mode, initialData, onSuccess }: FitFormProps) {
+  const router = useRouter()
   const queryClient = useQueryClient()
   const toast = useToast()
   const [imagePreview, setImagePreview] = useState<string>(initialData?.image_url ?? '')
@@ -40,6 +42,7 @@ export default function FitForm({ mode, initialData, onSuccess }: FitFormProps) 
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<CreateFitInput>({
     resolver: zodResolver(createFitSchema),
@@ -65,6 +68,7 @@ export default function FitForm({ mode, initialData, onSuccess }: FitFormProps) 
     },
     onSuccess: (fit) => {
       queryClient.invalidateQueries({ queryKey: ['admin-fits'] })
+      router.refresh()
       toast.success(mode === 'create' ? 'Fit created!' : 'Fit updated!')
       onSuccess?.(fit)
     },
@@ -107,9 +111,12 @@ export default function FitForm({ mode, initialData, onSuccess }: FitFormProps) 
     mutation.mutate({ ...data, vibe_tags: selectedVibes })
   }
 
+  const liveTitle = watch('title')
+
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5 max-w-lg">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 items-start">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
         <Input
           id="title"
           label="Outfit Title *"
@@ -186,9 +193,46 @@ export default function FitForm({ mode, initialData, onSuccess }: FitFormProps) 
           loading={mutation.isPending || uploading}
           className="w-fit"
         >
-          {mode === 'create' ? 'Create Fit' : 'Save Changes'}
+          {mode === 'create' ? 'Create Fit & Add Pins' : 'Save Changes'}
         </Button>
       </form>
+
+      {/* Live preview — mirrors the public feed card */}
+      <div className="lg:sticky lg:top-8">
+        <p className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-3">
+          Feed Card Preview
+        </p>
+        <div className="bg-surface-container-low border border-outline-variant rounded-lg overflow-hidden">
+          <div className="relative w-full bg-surface-container" style={{ aspectRatio: '3/4' }}>
+            {imagePreview ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={imagePreview} alt="preview" className="w-full h-full object-cover" />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-on-surface-variant">
+                <Upload size={28} className="opacity-40" />
+              </div>
+            )}
+            <div className="absolute top-[40%] left-[60%] z-20 w-3 h-3 bg-white rounded-full border border-surface-container flex items-center justify-center animate-pulse">
+              <div className="w-1.5 h-1.5 bg-black rounded-full" />
+            </div>
+          </div>
+          <div className="p-sm flex justify-between items-center">
+            <div className="min-w-0">
+              <h3 className="font-headline-sm text-headline-sm text-on-surface truncate">{liveTitle || 'Outfit title'}</h3>
+              {selectedVibes.length > 0 && (
+                <p className="font-body-sm text-body-sm text-on-surface-variant">{selectedVibes[0]}</p>
+              )}
+            </div>
+            <span className="material-symbols-outlined text-on-surface-variant">arrow_outward</span>
+          </div>
+        </div>
+        <p className="font-body-sm text-body-sm text-on-surface-variant mt-3">
+          {mode === 'create'
+            ? 'After creating, you’ll place shoppable pins on the image.'
+            : 'Edit details, then manage pins from the Pin Editor.'}
+        </p>
+      </div>
+      </div>
       <ToastContainer toasts={toast.toasts} onDismiss={toast.dismiss} />
     </>
   )

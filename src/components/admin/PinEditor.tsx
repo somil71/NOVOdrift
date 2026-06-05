@@ -178,7 +178,11 @@ export default function PinEditor({ fitId, imageUrl, initialPins }: PinEditorPro
         </div>
 
         {/* Side panel: pending pin form or editing pin form */}
-        <div className="flex-1">
+        <div className="flex-1 bg-surface-container-low border border-outline-variant rounded-xl p-lg min-h-[200px]">
+          <p className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-md flex items-center gap-xs">
+            <span className="material-symbols-outlined text-[16px]">push_pin</span>
+            Pin Details
+          </p>
           <AnimatePresence mode="wait">
             {pendingPin && (
               <motion.div

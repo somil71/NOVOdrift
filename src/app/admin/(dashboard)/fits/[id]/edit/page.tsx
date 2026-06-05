@@ -13,7 +13,7 @@ export default async function EditFitPage({ params }: PageProps) {
   if (!fit) notFound()
 
   return (
-    <div className="p-8 max-w-2xl mx-auto">
+    <div className="p-8 max-w-4xl">
       <h1 className="text-2xl font-bold text-on-surface mb-6">Edit Fit</h1>
       <FitForm mode="edit" initialData={fit} />
     </div>

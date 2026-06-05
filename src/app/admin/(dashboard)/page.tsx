@@ -119,40 +119,45 @@ export default async function AdminDashboardPage() {
         </div>
       </header>
 
-      {/* Stats Row */}
-      <section className="grid grid-cols-2 lg:grid-cols-4 gap-lg mb-xxl">
+      {/* Stats — single balanced grid, primary KPIs */}
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-lg mb-lg">
         {statCards.map(({ label, value, icon, gold }) => (
           <div
             key={label}
-            className="bg-surface-container-low border border-outline-variant rounded p-lg flex flex-col justify-between h-[140px] hover:bg-surface-container transition-colors duration-300"
+            className={`relative overflow-hidden rounded-xl p-lg flex flex-col justify-between h-[150px] border transition-all duration-300 hover:-translate-y-0.5 ${
+              gold
+                ? 'bg-gradient-to-br from-secondary/15 to-surface-container-low border-secondary/40'
+                : 'bg-surface-container-low border-outline-variant hover:border-outline'
+            }`}
           >
             <div className="flex justify-between items-start">
               <span className={`font-label-caps text-label-caps uppercase tracking-widest ${gold ? 'text-secondary' : 'text-on-surface-variant'}`}>
                 {label}
               </span>
-              <span
-                className={`material-symbols-outlined opacity-50 text-[20px] ${gold ? 'text-secondary' : 'text-on-surface-variant'}`}
-              >
-                {icon}
-              </span>
+              <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${gold ? 'bg-secondary/20' : 'bg-surface-container-high'}`}>
+                <span className={`material-symbols-outlined text-[18px] ${gold ? 'text-secondary' : 'text-on-surface-variant'}`}>{icon}</span>
+              </div>
             </div>
-            <div className={`font-headline-lg text-headline-lg ${gold ? 'text-secondary' : 'text-on-surface'}`}>
+            <div className={`font-display-mobile text-display-mobile ${gold ? 'text-secondary' : 'text-on-surface'}`}>
               {value}
             </div>
           </div>
         ))}
       </section>
 
-      {/* Secondary stats row */}
-      <div className="grid grid-cols-3 gap-lg mb-xxl text-center">
+      {/* Secondary KPIs — inline strip */}
+      <div className="flex flex-wrap gap-x-xxl gap-y-md bg-surface-container-low border border-outline-variant rounded-xl px-lg py-md mb-xxl">
         {[
-          { label: 'Total Fits', value: stats.totalFits },
-          { label: 'Clicks (7d)', value: stats.clicks7d },
-          { label: 'Total Clicks', value: stats.totalClicks },
-        ].map(({ label, value }) => (
-          <div key={label} className="bg-surface-container-low border border-outline-variant rounded p-lg">
-            <p className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-xs">{label}</p>
-            <p className="font-headline-md text-headline-md text-on-surface">{fmt(value)}</p>
+          { label: 'Total Fits', value: stats.totalFits, icon: 'style' },
+          { label: 'Clicks (7d)', value: stats.clicks7d, icon: 'trending_up' },
+          { label: 'All-Time Clicks', value: stats.totalClicks, icon: 'ads_click' },
+        ].map(({ label, value, icon }) => (
+          <div key={label} className="flex items-center gap-sm">
+            <span className="material-symbols-outlined text-[20px] text-on-surface-variant opacity-60">{icon}</span>
+            <div>
+              <p className="font-headline-sm text-headline-sm text-on-surface leading-none">{fmt(value)}</p>
+              <p className="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest mt-0.5">{label}</p>
+            </div>
           </div>
         ))}
       </div>
@@ -160,7 +165,7 @@ export default async function AdminDashboardPage() {
       {/* Main content split */}
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-lg">
         {/* Top fits by CTR */}
-        <div className="lg:col-span-2 bg-surface border border-outline-variant rounded flex flex-col">
+        <div className="lg:col-span-2 bg-surface-container-low border border-outline-variant rounded-xl flex flex-col">
           <div className="p-lg border-b border-outline-variant flex justify-between items-center">
             <h3 className="font-headline-sm text-headline-sm text-on-surface">Top Fits (7 days)</h3>
             <Link href="/admin/fits" className="font-label-caps text-label-caps text-secondary hover:text-secondary-fixed transition-colors uppercase tracking-widest">
@@ -201,7 +206,7 @@ export default async function AdminDashboardPage() {
         </div>
 
         {/* Pending Drafts */}
-        <div className="bg-surface border border-outline-variant rounded flex flex-col">
+        <div className="bg-surface-container-low border border-outline-variant rounded-xl flex flex-col">
           <div className="p-lg border-b border-outline-variant flex justify-between items-center">
             <h3 className="font-headline-sm text-headline-sm text-on-surface">Pending Drafts</h3>
             <span className="font-label-caps text-label-caps text-on-surface-variant">{draftFits.length}</span>
