@@ -74,7 +74,7 @@ export default function SearchFitsPage() {
     <>
       <Navbar />
       <main className="max-w-7xl mx-auto px-6 py-8">
-        <h1 className="text-3xl font-bold text-text-primary mb-6">Search Fits</h1>
+        <h1 className="text-3xl font-bold text-on-surface mb-6">Search Fits</h1>
 
         <SearchBar
           value={search}
@@ -84,7 +84,7 @@ export default function SearchFitsPage() {
         />
 
         {!debouncedSearch && (
-          <p className="text-text-muted text-sm text-center py-12">
+          <p className="text-on-surface-variant text-sm text-center py-12">
             Type something to search across all fits and their products
           </p>
         )}
@@ -98,7 +98,7 @@ export default function SearchFitsPage() {
         )}
 
         {!isLoading && debouncedSearch && fits.length === 0 && (
-          <div className="flex flex-col items-center justify-center py-16 text-text-muted">
+          <div className="flex flex-col items-center justify-center py-16 text-on-surface-variant">
             <p className="text-lg font-medium">No fits found for &quot;{debouncedSearch}&quot;</p>
           </div>
         )}

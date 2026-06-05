@@ -113,10 +113,10 @@ export default function FitForm({ mode, initialData, onSuccess }: FitFormProps) 
 
         {/* Image upload */}
         <div className="flex flex-col gap-1">
-          <label className="text-[13px] font-medium text-text-muted">Outfit Image *</label>
+          <label className="text-[13px] font-medium text-on-surface-variant">Outfit Image *</label>
           <label className="cursor-pointer">
             {imagePreview ? (
-              <div className="relative w-48 aspect-[3/4] rounded-card overflow-hidden border border-border group">
+              <div className="relative w-48 aspect-[3/4] rounded-xl overflow-hidden border border-outline-variant group">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -124,9 +124,9 @@ export default function FitForm({ mode, initialData, onSuccess }: FitFormProps) 
                 </div>
               </div>
             ) : (
-              <div className="w-48 aspect-[3/4] rounded-card border-2 border-dashed border-border hover:border-accent-gold transition-colors flex flex-col items-center justify-center gap-2 text-text-muted">
+              <div className="w-48 aspect-[3/4] rounded-xl border-2 border-dashed border-outline-variant hover:border-secondary transition-colors flex flex-col items-center justify-center gap-2 text-on-surface-variant">
                 {uploading ? (
-                  <div className="w-5 h-5 border-2 border-accent-gold border-t-transparent rounded-full animate-spin" />
+                  <div className="w-5 h-5 border-2 border-secondary border-t-transparent rounded-full animate-spin" />
                 ) : (
                   <>
                     <Upload size={24} />
@@ -148,7 +148,7 @@ export default function FitForm({ mode, initialData, onSuccess }: FitFormProps) 
 
         {/* Vibe tags */}
         <div className="flex flex-col gap-2">
-          <label className="text-[13px] font-medium text-text-muted">
+          <label className="text-[13px] font-medium text-on-surface-variant">
             Vibe Tags (max 5)
           </label>
           <div className="flex flex-wrap gap-2">

@@ -105,14 +105,14 @@ export default function ProductGrid() {
     <div className="flex flex-col lg:flex-row gap-8">
       {/* Sidebar filters */}
       <aside className="w-full lg:w-56 flex-shrink-0">
-        <div className="bg-bg-card border border-border rounded-card p-4 sticky top-32">
-          <h3 className="text-sm font-semibold text-text-primary mb-3">Category</h3>
+        <div className="bg-surface-container-low border border-outline-variant rounded-xl p-4 sticky top-32">
+          <h3 className="text-sm font-semibold text-on-surface mb-3">Category</h3>
           <div className="flex flex-col gap-1.5">
             <button
               onClick={() => updateParam('category', '')}
               className={cn(
                 'text-left text-sm px-2 py-1.5 rounded transition-colors',
-                !category ? 'text-accent-gold' : 'text-text-muted hover:text-text-primary'
+                !category ? 'text-secondary' : 'text-on-surface-variant hover:text-on-surface'
               )}
             >
               All
@@ -123,7 +123,7 @@ export default function ProductGrid() {
                 onClick={() => updateParam('category', category === cat ? '' : cat)}
                 className={cn(
                   'text-left text-sm px-2 py-1.5 rounded transition-colors',
-                  category === cat ? 'text-accent-gold' : 'text-text-muted hover:text-text-primary'
+                  category === cat ? 'text-secondary' : 'text-on-surface-variant hover:text-on-surface'
                 )}
               >
                 {cat}
@@ -131,7 +131,7 @@ export default function ProductGrid() {
             ))}
           </div>
 
-          <h3 className="text-sm font-semibold text-text-primary mb-3 mt-6">Sort</h3>
+          <h3 className="text-sm font-semibold text-on-surface mb-3 mt-6">Sort</h3>
           <div className="flex flex-col gap-1.5">
             {[
               { value: 'newest', label: 'Newest' },
@@ -143,7 +143,7 @@ export default function ProductGrid() {
                 onClick={() => updateParam('sort', option.value)}
                 className={cn(
                   'text-left text-sm px-2 py-1.5 rounded transition-colors',
-                  sort === option.value ? 'text-accent-gold' : 'text-text-muted hover:text-text-primary'
+                  sort === option.value ? 'text-secondary' : 'text-on-surface-variant hover:text-on-surface'
                 )}
               >
                 {option.label}
@@ -169,7 +169,7 @@ export default function ProductGrid() {
             ))}
           </div>
         ) : products.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24 text-text-muted">
+          <div className="flex flex-col items-center justify-center py-24 text-on-surface-variant">
             <p className="text-lg font-medium">No products found</p>
             <p className="text-sm mt-1">Try adjusting your search or filters</p>
           </div>

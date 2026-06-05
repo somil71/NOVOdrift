@@ -26,12 +26,12 @@ export default function FitDetail({ fit, pins }: FitDetailProps) {
   }
 
   return (
-    <div className="min-h-screen bg-bg-primary">
+    <div className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Back link */}
         <Link
           href="/fits"
-          className="inline-flex items-center gap-2 text-sm text-text-muted hover:text-text-primary transition-colors mb-6"
+          className="inline-flex items-center gap-2 text-sm text-on-surface-variant hover:text-on-surface transition-colors mb-6"
         >
           <ArrowLeft size={16} />
           Back to Feed
@@ -40,7 +40,7 @@ export default function FitDetail({ fit, pins }: FitDetailProps) {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Image with pins */}
           <div
-            className="relative w-full lg:w-[60%] overflow-hidden rounded-card border border-border bg-bg-card"
+            className="relative w-full lg:w-[60%] overflow-hidden rounded-xl border border-outline-variant bg-surface-container-low"
             style={{ aspectRatio: '3/4', maxHeight: '80vh' }}
             onClick={handleImageClick}
           >
@@ -68,7 +68,7 @@ export default function FitDetail({ fit, pins }: FitDetailProps) {
           {/* Right panel */}
           <div className="flex-1 flex flex-col gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-text-primary">{fit.title}</h1>
+              <h1 className="text-2xl font-bold text-on-surface">{fit.title}</h1>
               {fit.vibe_tags.length > 0 && (
                 <div className="flex flex-wrap gap-2 mt-2">
                   {fit.vibe_tags.map((tag) => (
@@ -80,7 +80,7 @@ export default function FitDetail({ fit, pins }: FitDetailProps) {
               )}
             </div>
 
-            <p className="text-sm text-text-muted">
+            <p className="text-sm text-on-surface-variant">
               {pins.length} item{pins.length !== 1 ? 's' : ''} in this outfit. Hover over the pins to shop.
             </p>
 
@@ -92,20 +92,20 @@ export default function FitDetail({ fit, pins }: FitDetailProps) {
                   href={pin.affiliate_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 bg-bg-card border border-border rounded-button
-                    hover:border-accent-gold transition-colors duration-200"
+                  className="flex items-center justify-between p-3 bg-surface-container-low border border-outline-variant rounded-lg
+                    hover:border-secondary transition-colors duration-200"
                 >
                   <div>
-                    <p className="text-sm font-medium text-text-primary">{pin.product_name}</p>
-                    {pin.brand && <p className="text-xs text-text-muted">{pin.brand}</p>}
+                    <p className="text-sm font-medium text-on-surface">{pin.product_name}</p>
+                    {pin.brand && <p className="text-xs text-on-surface-variant">{pin.brand}</p>}
                   </div>
                   <div className="text-right">
                     {pin.price != null && (
-                      <p className="text-sm text-accent-gold font-medium">
+                      <p className="text-sm text-secondary font-medium">
                         ₹{pin.price.toLocaleString('en-IN')}
                       </p>
                     )}
-                    <p className="text-xs text-text-muted">Shop →</p>
+                    <p className="text-xs text-on-surface-variant">Shop →</p>
                   </div>
                 </a>
               ))}

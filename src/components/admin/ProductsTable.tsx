@@ -53,7 +53,7 @@ export default function ProductsTable({ products }: ProductsTableProps) {
 
   if (products.length === 0) {
     return (
-      <div className="text-center py-16 text-text-muted">
+      <div className="text-center py-16 text-on-surface-variant">
         <p className="text-lg font-medium">No products yet</p>
       </div>
     )
@@ -61,14 +61,14 @@ export default function ProductsTable({ products }: ProductsTableProps) {
 
   return (
     <>
-      <div className="overflow-hidden rounded-card border border-border">
+      <div className="overflow-hidden rounded-xl border border-outline-variant">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-border bg-bg-surface">
-              <th className="text-left px-4 py-3 text-text-muted font-medium">Product</th>
-              <th className="text-left px-4 py-3 text-text-muted font-medium">Category</th>
-              <th className="text-left px-4 py-3 text-text-muted font-medium">Price</th>
-              <th className="text-left px-4 py-3 text-text-muted font-medium">Status</th>
+            <tr className="border-b border-outline-variant bg-surface-container">
+              <th className="text-left px-4 py-3 text-on-surface-variant font-medium">Product</th>
+              <th className="text-left px-4 py-3 text-on-surface-variant font-medium">Category</th>
+              <th className="text-left px-4 py-3 text-on-surface-variant font-medium">Price</th>
+              <th className="text-left px-4 py-3 text-on-surface-variant font-medium">Status</th>
               <th className="px-4 py-3" />
             </tr>
           </thead>
@@ -76,11 +76,11 @@ export default function ProductsTable({ products }: ProductsTableProps) {
             {products.map((product) => (
               <tr
                 key={product.id}
-                className="border-b border-border last:border-0 hover:bg-bg-surface/50"
+                className="border-b border-outline-variant last:border-0 hover:bg-surface-container/50"
               >
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded bg-bg-surface border border-border flex-shrink-0 overflow-hidden relative">
+                    <div className="w-10 h-10 rounded bg-surface-container border border-outline-variant flex-shrink-0 overflow-hidden relative">
                       {product.image_url ? (
                         <Image
                           src={product.image_url}
@@ -91,14 +91,14 @@ export default function ProductsTable({ products }: ProductsTableProps) {
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
-                          <ShoppingBag size={14} className="text-text-muted" />
+                          <ShoppingBag size={14} className="text-on-surface-variant" />
                         </div>
                       )}
                     </div>
                     <div>
-                      <p className="font-medium text-text-primary">{product.name}</p>
+                      <p className="font-medium text-on-surface">{product.name}</p>
                       {product.brand && (
-                        <p className="text-xs text-text-muted">{product.brand}</p>
+                        <p className="text-xs text-on-surface-variant">{product.brand}</p>
                       )}
                     </div>
                   </div>
@@ -106,7 +106,7 @@ export default function ProductsTable({ products }: ProductsTableProps) {
                 <td className="px-4 py-3">
                   <Badge variant="default">{product.category}</Badge>
                 </td>
-                <td className="px-4 py-3 text-text-muted">
+                <td className="px-4 py-3 text-on-surface-variant">
                   {product.price != null ? `₹${product.price.toLocaleString('en-IN')}` : '—'}
                 </td>
                 <td className="px-4 py-3">
@@ -115,7 +115,7 @@ export default function ProductsTable({ products }: ProductsTableProps) {
                       'text-xs font-medium px-2 py-0.5 rounded-full',
                       product.published
                         ? 'bg-green-900/40 text-green-400 border border-green-700/50'
-                        : 'bg-bg-surface text-text-muted border border-border'
+                        : 'bg-surface-container text-on-surface-variant border border-outline-variant'
                     )}
                   >
                     {product.published ? 'Published' : 'Draft'}
@@ -127,14 +127,14 @@ export default function ProductsTable({ products }: ProductsTableProps) {
                       onClick={() =>
                         togglePublish.mutate({ id: product.id, published: !product.published })
                       }
-                      className="text-text-muted hover:text-text-primary transition-colors"
+                      className="text-on-surface-variant hover:text-on-surface transition-colors"
                       title={product.published ? 'Unpublish' : 'Publish'}
                     >
                       {product.published ? <EyeOff size={16} /> : <Eye size={16} />}
                     </button>
                     <Link
                       href={`/admin/products/${product.id}/edit`}
-                      className="text-text-muted hover:text-text-primary transition-colors"
+                      className="text-on-surface-variant hover:text-on-surface transition-colors"
                     >
                       <Edit2 size={16} />
                     </Link>
@@ -148,7 +148,7 @@ export default function ProductsTable({ products }: ProductsTableProps) {
                         </button>
                         <button
                           onClick={() => setDeletingId(null)}
-                          className="text-xs text-text-muted hover:text-text-primary"
+                          className="text-xs text-on-surface-variant hover:text-on-surface"
                         >
                           Cancel
                         </button>
@@ -156,7 +156,7 @@ export default function ProductsTable({ products }: ProductsTableProps) {
                     ) : (
                       <button
                         onClick={() => setDeletingId(product.id)}
-                        className="text-text-muted hover:text-red-400 transition-colors"
+                        className="text-on-surface-variant hover:text-red-400 transition-colors"
                       >
                         <Trash2 size={16} />
                       </button>

@@ -8,7 +8,7 @@ export default function NewProductPage() {
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold text-text-primary mb-6">New Product</h1>
+      <h1 className="text-2xl font-bold text-on-surface mb-6">New Product</h1>
       <ProductForm mode="create" onSuccess={() => router.push('/admin/products')} />
     </div>
   )

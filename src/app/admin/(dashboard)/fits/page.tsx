@@ -21,13 +21,13 @@ export default async function AdminFitsPage() {
     <div className="p-8">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-text-primary">Fits</h1>
-          <p className="text-text-muted text-sm mt-0.5">{fits.length} total</p>
+          <h1 className="text-2xl font-bold text-on-surface">Fits</h1>
+          <p className="text-on-surface-variant text-sm mt-0.5">{fits.length} total</p>
         </div>
         <Link
           href="/admin/fits/new"
-          className="flex items-center gap-2 bg-accent-gold text-bg-primary font-semibold
-            px-4 py-2 rounded-button hover:bg-accent-gold/90 transition-colors text-sm"
+          className="flex items-center gap-2 bg-secondary text-on-secondary font-semibold
+            px-4 py-2 rounded-lg hover:bg-secondary-fixed transition-colors text-sm"
         >
           <Plus size={16} />
           New Fit

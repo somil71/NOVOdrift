@@ -37,10 +37,10 @@ export default function AdminSettingsPage() {
 
   return (
     <div className="p-8 max-w-lg">
-      <h1 className="text-2xl font-bold text-text-primary mb-6">Settings</h1>
+      <h1 className="text-2xl font-bold text-on-surface mb-6">Settings</h1>
 
-      <div className="bg-bg-card border border-border rounded-card p-6">
-        <h2 className="text-lg font-semibold text-text-primary mb-4">Change Password</h2>
+      <div className="bg-surface-container-low border border-outline-variant rounded-xl p-6">
+        <h2 className="text-lg font-semibold text-on-surface mb-4">Change Password</h2>
         <form onSubmit={handlePasswordChange} className="flex flex-col gap-4">
           <Input
             id="new-password"

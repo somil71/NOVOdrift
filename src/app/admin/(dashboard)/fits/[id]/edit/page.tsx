@@ -14,7 +14,7 @@ export default async function EditFitPage({ params }: PageProps) {
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold text-text-primary mb-6">Edit Fit</h1>
+      <h1 className="text-2xl font-bold text-on-surface mb-6">Edit Fit</h1>
       <FitForm mode="edit" initialData={fit} />
     </div>
   )

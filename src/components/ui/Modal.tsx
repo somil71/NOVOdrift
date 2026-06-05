@@ -48,13 +48,13 @@ export default function Modal({ isOpen, onClose, children, className }: ModalPro
             transition={{ duration: 0.2, ease: 'easeOut' }}
             className={cn(
               'fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50',
-              'bg-bg-card border border-border rounded-card shadow-2xl',
+              'bg-surface-container-low border border-outline-variant rounded-xl shadow-2xl',
               className
             )}
           >
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-text-muted hover:text-text-primary transition-colors z-10"
+              className="absolute top-4 right-4 text-on-surface-variant hover:text-on-surface transition-colors z-10"
               aria-label="Close"
             >
               <X size={20} />

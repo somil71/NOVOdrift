@@ -105,7 +105,7 @@ export default function PinEditor({ fitId, imageUrl, initialPins }: PinEditorPro
         {/* Image with pins */}
         <div
           ref={imageRef}
-          className="relative rounded-card overflow-hidden border border-border cursor-crosshair bg-bg-card flex-shrink-0"
+          className="relative rounded-xl overflow-hidden border border-outline-variant cursor-crosshair bg-surface-container-low flex-shrink-0"
           style={{ width: '100%', maxWidth: 480, aspectRatio: '3/4' }}
           onClick={handleImageClick}
         >
@@ -149,7 +149,7 @@ export default function PinEditor({ fitId, imageUrl, initialPins }: PinEditorPro
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              className="absolute w-6 h-6 rounded-full bg-white/80 border-2 border-accent-gold z-10 pointer-events-none"
+              className="absolute w-6 h-6 rounded-full bg-white/80 border-2 border-secondary z-10 pointer-events-none"
               style={{
                 left: `${pendingPin.x_percent}%`,
                 top: `${pendingPin.y_percent}%`,
@@ -223,9 +223,9 @@ export default function PinEditor({ fitId, imageUrl, initialPins }: PinEditorPro
                 key="idle"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-text-muted text-sm"
+                className="text-on-surface-variant text-sm"
               >
-                <p className="font-medium text-text-primary mb-1">
+                <p className="font-medium text-on-surface mb-1">
                   {pins.length} pin{pins.length !== 1 ? 's' : ''} placed
                 </p>
                 <p>Click on the image to add a pin. Click an existing pin to edit it.</p>
@@ -234,15 +234,15 @@ export default function PinEditor({ fitId, imageUrl, initialPins }: PinEditorPro
                     <button
                       key={pin.id}
                       onClick={() => setEditingPinId(pin.id)}
-                      className="flex items-center justify-between p-2.5 bg-bg-card border border-border rounded-button
-                        hover:border-accent-gold transition-colors text-left"
+                      className="flex items-center justify-between p-2.5 bg-surface-container-low border border-outline-variant rounded-lg
+                        hover:border-secondary transition-colors text-left"
                     >
                       <div>
-                        <p className="text-sm font-medium text-text-primary">{pin.product_name}</p>
-                        {pin.brand && <p className="text-xs text-text-muted">{pin.brand}</p>}
+                        <p className="text-sm font-medium text-on-surface">{pin.product_name}</p>
+                        {pin.brand && <p className="text-xs text-on-surface-variant">{pin.brand}</p>}
                       </div>
                       {pin.price != null && (
-                        <p className="text-xs text-accent-gold">₹{pin.price.toLocaleString('en-IN')}</p>
+                        <p className="text-xs text-secondary">₹{pin.price.toLocaleString('en-IN')}</p>
                       )}
                     </button>
                   ))}

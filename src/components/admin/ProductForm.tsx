@@ -102,10 +102,10 @@ export default function ProductForm({ mode, initialData, onSuccess }: ProductFor
         <div className="flex gap-4">
           <Input label="Brand" placeholder="e.g. H&M" className="flex-1" {...register('brand')} />
           <div className="flex flex-col gap-1 flex-1">
-            <label className="text-[13px] font-medium text-text-muted">Category *</label>
+            <label className="text-[13px] font-medium text-on-surface-variant">Category *</label>
             <select
-              className="bg-bg-surface border border-border rounded-button px-3 py-2 text-text-primary text-sm
-                focus:outline-none focus:border-accent-gold transition-colors"
+              className="bg-surface-container border border-outline-variant rounded-lg px-3 py-2 text-on-surface text-sm
+                focus:outline-none focus:border-secondary transition-colors"
               {...register('category')}
             >
               <option value="">Select category</option>
@@ -130,10 +130,10 @@ export default function ProductForm({ mode, initialData, onSuccess }: ProductFor
 
         {/* Product image */}
         <div className="flex flex-col gap-1">
-          <label className="text-[13px] font-medium text-text-muted">Product Image</label>
+          <label className="text-[13px] font-medium text-on-surface-variant">Product Image</label>
           <label className="cursor-pointer w-fit">
             {imagePreview ? (
-              <div className="relative w-32 h-32 rounded-card overflow-hidden border border-border group">
+              <div className="relative w-32 h-32 rounded-xl overflow-hidden border border-outline-variant group">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -141,9 +141,9 @@ export default function ProductForm({ mode, initialData, onSuccess }: ProductFor
                 </div>
               </div>
             ) : (
-              <div className="w-32 h-32 rounded-card border-2 border-dashed border-border hover:border-accent-gold transition-colors flex flex-col items-center justify-center gap-1 text-text-muted">
+              <div className="w-32 h-32 rounded-xl border-2 border-dashed border-outline-variant hover:border-secondary transition-colors flex flex-col items-center justify-center gap-1 text-on-surface-variant">
                 {uploading ? (
-                  <div className="w-4 h-4 border-2 border-accent-gold border-t-transparent rounded-full animate-spin" />
+                  <div className="w-4 h-4 border-2 border-secondary border-t-transparent rounded-full animate-spin" />
                 ) : (
                   <>
                     <Upload size={18} />

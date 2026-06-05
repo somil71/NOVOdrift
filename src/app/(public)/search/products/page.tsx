@@ -8,7 +8,7 @@ export default function SearchProductsPage() {
     <>
       <Navbar />
       <main className="max-w-7xl mx-auto px-6 py-8">
-        <h1 className="text-3xl font-bold text-text-primary mb-6">Search Products</h1>
+        <h1 className="text-3xl font-bold text-on-surface mb-6">Search Products</h1>
         <Suspense
           fallback={
             <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">

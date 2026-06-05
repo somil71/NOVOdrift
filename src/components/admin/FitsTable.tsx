@@ -52,7 +52,7 @@ export default function FitsTable({ fits }: FitsTableProps) {
 
   if (fits.length === 0) {
     return (
-      <div className="text-center py-16 text-text-muted">
+      <div className="text-center py-16 text-on-surface-variant">
         <p className="text-lg font-medium">No fits yet</p>
         <p className="text-sm mt-1">Create your first fit to get started</p>
       </div>
@@ -61,21 +61,21 @@ export default function FitsTable({ fits }: FitsTableProps) {
 
   return (
     <>
-      <div className="overflow-hidden rounded-card border border-border">
+      <div className="overflow-hidden rounded-xl border border-outline-variant">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-border bg-bg-surface">
-              <th className="text-left px-4 py-3 text-text-muted font-medium">Title</th>
-              <th className="text-left px-4 py-3 text-text-muted font-medium">Vibes</th>
-              <th className="text-left px-4 py-3 text-text-muted font-medium">Status</th>
-              <th className="text-left px-4 py-3 text-text-muted font-medium">Created</th>
+            <tr className="border-b border-outline-variant bg-surface-container">
+              <th className="text-left px-4 py-3 text-on-surface-variant font-medium">Title</th>
+              <th className="text-left px-4 py-3 text-on-surface-variant font-medium">Vibes</th>
+              <th className="text-left px-4 py-3 text-on-surface-variant font-medium">Status</th>
+              <th className="text-left px-4 py-3 text-on-surface-variant font-medium">Created</th>
               <th className="px-4 py-3" />
             </tr>
           </thead>
           <tbody>
             {fits.map((fit) => (
-              <tr key={fit.id} className="border-b border-border last:border-0 hover:bg-bg-surface/50">
-                <td className="px-4 py-3 text-text-primary font-medium">{fit.title}</td>
+              <tr key={fit.id} className="border-b border-outline-variant last:border-0 hover:bg-surface-container/50">
+                <td className="px-4 py-3 text-on-surface font-medium">{fit.title}</td>
                 <td className="px-4 py-3">
                   <div className="flex flex-wrap gap-1">
                     {fit.vibe_tags.map((tag) => (
@@ -91,34 +91,34 @@ export default function FitsTable({ fits }: FitsTableProps) {
                       'text-xs font-medium px-2 py-0.5 rounded-full',
                       fit.published
                         ? 'bg-green-900/40 text-green-400 border border-green-700/50'
-                        : 'bg-bg-surface text-text-muted border border-border'
+                        : 'bg-surface-container text-on-surface-variant border border-outline-variant'
                     )}
                   >
                     {fit.published ? 'Published' : 'Draft'}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-text-muted">
+                <td className="px-4 py-3 text-on-surface-variant">
                   {new Date(fit.created_at).toLocaleDateString()}
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2 justify-end">
                     <button
                       onClick={() => togglePublish.mutate({ id: fit.id, published: !fit.published })}
-                      className="text-text-muted hover:text-text-primary transition-colors"
+                      className="text-on-surface-variant hover:text-on-surface transition-colors"
                       title={fit.published ? 'Unpublish' : 'Publish'}
                     >
                       {fit.published ? <EyeOff size={16} /> : <Eye size={16} />}
                     </button>
                     <Link
                       href={`/admin/fits/${fit.id}/pins`}
-                      className="text-text-muted hover:text-accent-gold transition-colors"
+                      className="text-on-surface-variant hover:text-secondary transition-colors"
                       title="Edit pins"
                     >
                       <MapPin size={16} />
                     </Link>
                     <Link
                       href={`/admin/fits/${fit.id}/edit`}
-                      className="text-text-muted hover:text-text-primary transition-colors"
+                      className="text-on-surface-variant hover:text-on-surface transition-colors"
                       title="Edit fit"
                     >
                       <Edit2 size={16} />
@@ -133,7 +133,7 @@ export default function FitsTable({ fits }: FitsTableProps) {
                         </button>
                         <button
                           onClick={() => setDeletingId(null)}
-                          className="text-xs text-text-muted hover:text-text-primary"
+                          className="text-xs text-on-surface-variant hover:text-on-surface"
                         >
                           Cancel
                         </button>
@@ -141,7 +141,7 @@ export default function FitsTable({ fits }: FitsTableProps) {
                     ) : (
                       <button
                         onClick={() => setDeletingId(fit.id)}
-                        className="text-text-muted hover:text-red-400 transition-colors"
+                        className="text-on-surface-variant hover:text-red-400 transition-colors"
                         title="Delete fit"
                       >
                         <Trash2 size={16} />

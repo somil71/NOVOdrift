@@ -29,17 +29,17 @@ function Toast({ toast, onDismiss }: ToastProps) {
       exit={{ opacity: 0, y: -10, scale: 0.95 }}
       transition={{ duration: 0.2 }}
       className={cn(
-        'flex items-center gap-3 px-4 py-3 rounded-button border shadow-lg min-w-[280px]',
+        'flex items-center gap-3 px-4 py-3 rounded-lg border shadow-lg min-w-[280px]',
         toast.type === 'success'
-          ? 'bg-bg-card border-green-700 text-green-400'
-          : 'bg-bg-card border-red-700 text-red-400'
+          ? 'bg-surface-container-low border-green-700 text-green-400'
+          : 'bg-surface-container-low border-red-700 text-red-400'
       )}
     >
       {toast.type === 'success' ? <CheckCircle size={18} /> : <XCircle size={18} />}
-      <span className="text-sm text-text-primary flex-1">{toast.message}</span>
+      <span className="text-sm text-on-surface flex-1">{toast.message}</span>
       <button
         onClick={() => onDismiss(toast.id)}
-        className="text-text-muted hover:text-text-primary transition-colors"
+        className="text-on-surface-variant hover:text-on-surface transition-colors"
       >
         <X size={16} />
       </button>

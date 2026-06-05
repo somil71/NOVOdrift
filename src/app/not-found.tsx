@@ -6,12 +6,12 @@ export default function NotFound() {
     <>
       <Navbar />
       <main className="flex flex-col items-center justify-center min-h-[60vh] px-6 text-center">
-        <p className="text-8xl font-bold text-accent-gold mb-4">404</p>
-        <h1 className="text-2xl font-bold text-text-primary mb-2">Page Not Found</h1>
-        <p className="text-text-muted mb-8">This fit doesn&apos;t exist or has been unpublished.</p>
+        <p className="text-8xl font-bold text-secondary mb-4">404</p>
+        <h1 className="text-2xl font-bold text-on-surface mb-2">Page Not Found</h1>
+        <p className="text-on-surface-variant mb-8">This fit doesn&apos;t exist or has been unpublished.</p>
         <Link
           href="/fits"
-          className="bg-accent-gold text-bg-primary font-semibold px-6 py-3 rounded-button hover:bg-accent-gold/90 transition-colors"
+          className="bg-secondary text-on-secondary font-semibold px-6 py-3 rounded-lg hover:bg-secondary-fixed transition-colors"
         >
           Back to Feed
         </Link>

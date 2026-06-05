@@ -24,7 +24,7 @@ export default async function PinsEditorPage({ params }: PageProps) {
     <div className="p-8">
       <Link
         href="/admin/fits"
-        className="inline-flex items-center gap-2 text-sm text-text-muted hover:text-text-primary transition-colors mb-6"
+        className="inline-flex items-center gap-2 text-sm text-on-surface-variant hover:text-on-surface transition-colors mb-6"
       >
         <ArrowLeft size={16} />
         Back to Fits
@@ -32,12 +32,12 @@ export default async function PinsEditorPage({ params }: PageProps) {
 
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-text-primary">Pin Editor</h1>
-          <p className="text-text-muted text-sm mt-0.5">{fit.title}</p>
+          <h1 className="text-2xl font-bold text-on-surface">Pin Editor</h1>
+          <p className="text-on-surface-variant text-sm mt-0.5">{fit.title}</p>
         </div>
         <Link
           href={`/admin/fits/${fit.id}/edit`}
-          className="text-sm text-text-muted hover:text-text-primary transition-colors"
+          className="text-sm text-on-surface-variant hover:text-on-surface transition-colors"
         >
           Edit metadata →
         </Link>

@@ -32,7 +32,7 @@ export default function AdminLoginPage() {
       <div className="hidden md:flex md:w-1/2 relative items-center justify-center bg-surface-container-lowest overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center scale-105"
-          style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuB5ZUrHXMEhGf_akGX2IglDfUPdkuJmyJuu1VsFAB6_p7GI_HZxpU8himPL9qVFzRxS9K9RM838UuhvTJVUW-KDM9-iCPunqCz3fLEBsvqPPCuaF6s1F6frHotmqiHAd5BM2iN5oCZgrhAtCENtW-fBjumiHcAxQD71GJV3IZjrUL9T4fBVUqmrV7ZSD87gMug8NyE1nYaFU7sO2xc7xd1BOjNDLypqlFDyMsNaOi0m2TCF9AWOcuTREVFv-2anffkpDGue2JnMUjA')" }}
+          style={{ backgroundImage: "url('/images/admin-login-bg.jpg')" }}
         />
         <div className="absolute inset-0 bg-background/60 backdrop-blur-sm mix-blend-multiply" />
         <div className="absolute inset-0 bg-gradient-to-r from-background/90 to-background/20" />
@@ -51,7 +51,7 @@ export default function AdminLoginPage() {
         {/* Mobile background fallback */}
         <div
           className="md:hidden absolute inset-0 bg-cover bg-center opacity-20"
-          style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuB5ZUrHXMEhGf_akGX2IglDfUPdkuJmyJuu1VsFAB6_p7GI_HZxpU8himPL9qVFzRxS9K9RM838UuhvTJVUW-KDM9-iCPunqCz3fLEBsvqPPCuaF6s1F6frHotmqiHAd5BM2iN5oCZgrhAtCENtW-fBjumiHcAxQD71GJV3IZjrUL9T4fBVUqmrV7ZSD87gMug8NyE1nYaFU7sO2xc7xd1BOjNDLypqlFDyMsNaOi0m2TCF9AWOcuTREVFv-2anffkpDGue2JnMUjA')" }}
+          style={{ backgroundImage: "url('/images/admin-login-bg.jpg')" }}
         />
 
         <div className="w-full max-w-[400px] bg-surface-container-low border border-outline-variant p-xl sm:p-xxl rounded shadow-2xl relative z-10 backdrop-blur-md">
