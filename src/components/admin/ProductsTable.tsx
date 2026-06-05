@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Edit2, Trash2, Eye, EyeOff, ShoppingBag } from 'lucide-react'
 import type { Product } from '@/lib/supabase/types'
@@ -15,6 +16,7 @@ interface ProductsTableProps {
 }
 
 export default function ProductsTable({ products }: ProductsTableProps) {
+  const router = useRouter()
   const queryClient = useQueryClient()
   const toast = useToast()
   const [deletingId, setDeletingId] = useState<string | null>(null)
@@ -32,6 +34,7 @@ export default function ProductsTable({ products }: ProductsTableProps) {
     },
     onSuccess: (product) => {
       queryClient.invalidateQueries({ queryKey: ['admin-products'] })
+      router.refresh()
       toast.success(product.published ? 'Product published' : 'Product unpublished')
     },
     onError: (err) => toast.error(err.message),
@@ -45,6 +48,7 @@ export default function ProductsTable({ products }: ProductsTableProps) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-products'] })
+      router.refresh()
       toast.success('Product deleted')
       setDeletingId(null)
     },

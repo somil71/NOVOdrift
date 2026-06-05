@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Edit2, Trash2, MapPin, Eye, EyeOff } from 'lucide-react'
 import type { Fit } from '@/lib/supabase/types'
@@ -14,6 +15,7 @@ interface FitsTableProps {
 }
 
 export default function FitsTable({ fits }: FitsTableProps) {
+  const router = useRouter()
   const queryClient = useQueryClient()
   const toast = useToast()
   const [deletingId, setDeletingId] = useState<string | null>(null)
@@ -31,6 +33,7 @@ export default function FitsTable({ fits }: FitsTableProps) {
     },
     onSuccess: (fit) => {
       queryClient.invalidateQueries({ queryKey: ['admin-fits'] })
+      router.refresh()
       toast.success(fit.published ? 'Fit published' : 'Fit unpublished')
     },
     onError: (err) => toast.error(err.message),
@@ -44,6 +47,7 @@ export default function FitsTable({ fits }: FitsTableProps) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-fits'] })
+      router.refresh()
       toast.success('Fit deleted')
       setDeletingId(null)
     },
