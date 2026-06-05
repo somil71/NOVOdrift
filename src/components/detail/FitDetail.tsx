@@ -39,30 +39,33 @@ export default function FitDetail({ fit, pins }: FitDetailProps) {
           Back to Feed
         </Link>
 
-        <div className="flex flex-col lg:flex-row gap-8 lg:items-start">
-          {/* Image with pins — height-capped so the whole view fits without scrolling */}
+        <div className="flex flex-col lg:flex-row gap-10 lg:items-start">
+          {/* Image with pins — height-capped, pins NOT clipped so tooltips show fully */}
           <div className="w-full lg:w-auto flex justify-center lg:justify-start flex-shrink-0">
             <div
-              className="relative overflow-hidden rounded-xl border border-outline-variant bg-surface-container-low"
-              style={{ aspectRatio, height: 'min(72vh, 640px)', maxWidth: '100%' }}
+              className="relative"
+              style={{ aspectRatio, height: 'min(82vh, 760px)', maxWidth: '100%' }}
               onClick={handleImageClick}
             >
-              <Image
-                src={fit.image_url}
-                alt={fit.title}
-                fill
-                sizes="(max-width: 1024px) 100vw, 55vw"
-                className="object-contain"
-                priority
-                onLoad={(e) => {
-                  const img = e.currentTarget
-                  if (img.naturalWidth && img.naturalHeight) {
-                    setAspectRatio(`${img.naturalWidth} / ${img.naturalHeight}`)
-                  }
-                }}
-              />
+              {/* Image wrapper clips only the image to rounded corners */}
+              <div className="absolute inset-0 overflow-hidden rounded-xl border border-outline-variant bg-surface-container-low">
+                <Image
+                  src={fit.image_url}
+                  alt={fit.title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-contain"
+                  priority
+                  onLoad={(e) => {
+                    const img = e.currentTarget
+                    if (img.naturalWidth && img.naturalHeight) {
+                      setAspectRatio(`${img.naturalWidth} / ${img.naturalHeight}`)
+                    }
+                  }}
+                />
+              </div>
 
-              {/* Pin dots — positioned by % within this ratio-matched container */}
+              {/* Pin dots — siblings of the clipping wrapper, so tooltips overflow freely */}
               {pins.map((pin, i) => (
                 <PinDot
                   key={pin.id}
@@ -75,8 +78,8 @@ export default function FitDetail({ fit, pins }: FitDetailProps) {
             </div>
           </div>
 
-          {/* Right panel */}
-          <div className="flex-1 flex flex-col gap-4">
+          {/* Right panel — capped width so product cards don't stretch across the screen */}
+          <div className="flex-1 max-w-xl flex flex-col gap-4">
             <div>
               <h1 className="text-2xl font-bold text-on-surface">{fit.title}</h1>
               {fit.vibe_tags.length > 0 && (
