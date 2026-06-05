@@ -5,10 +5,11 @@ export { PRODUCT_CATEGORIES }
 
 export const createProductSchema = z.object({
   name: z.string().min(1, 'Name is required'),
-  brand: z.string().optional(),
+  brand: z.string().nullish(),
   category: z.enum(PRODUCT_CATEGORIES, { error: 'Invalid category' }),
-  price: z.number().positive().optional(),
-  image_url: z.string().url().optional(),
+  // valueAsNumber on an empty field yields NaN — coerce NaN to undefined
+  price: z.number().positive().nullish().or(z.nan().transform(() => undefined)),
+  image_url: z.string().url().nullish().or(z.literal('')),
   affiliate_url: z.string().url('Must be a valid URL'),
   tags: z.array(z.string()).optional(),
 })

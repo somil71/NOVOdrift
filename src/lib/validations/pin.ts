@@ -5,15 +5,16 @@ export const createPinSchema = z.object({
   x_percent: z.number().min(0).max(100),
   y_percent: z.number().min(0).max(100),
   product_name: z.string().min(1, 'Product name is required'),
-  brand: z.string().optional(),
-  price: z.number().positive().optional(),
+  // nullish() accepts null OR undefined — the editor sends null for empty optionals
+  brand: z.string().nullish(),
+  price: z.number().positive().nullish(),
   affiliate_url: z.string().url('Must be a valid URL'),
 })
 
 export const updatePinSchema = z.object({
   product_name: z.string().min(1).optional(),
-  brand: z.string().optional(),
-  price: z.number().positive().optional(),
+  brand: z.string().nullish(),
+  price: z.number().positive().nullish(),
   affiliate_url: z.string().url().optional(),
 })
 
