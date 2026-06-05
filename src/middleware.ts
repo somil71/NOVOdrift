@@ -73,6 +73,8 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
+    // Catch /admin exactly AND /admin/* except /admin/login
+    '/admin',
     '/admin/((?!login).*)',
     '/profile',
     '/api/fits/:path*',
