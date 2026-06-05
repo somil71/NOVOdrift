@@ -39,12 +39,12 @@ export default function FitDetail({ fit, pins }: FitDetailProps) {
           Back to Feed
         </Link>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Image with pins — container matches image's natural ratio so nothing is cropped */}
-          <div className="w-full lg:w-[55%] flex-shrink-0">
+        <div className="flex flex-col lg:flex-row gap-8 lg:items-start">
+          {/* Image with pins — height-capped so the whole view fits without scrolling */}
+          <div className="w-full lg:w-auto flex justify-center lg:justify-start flex-shrink-0">
             <div
-              className="relative w-full overflow-hidden rounded-xl border border-outline-variant bg-surface-container-low mx-auto"
-              style={{ aspectRatio }}
+              className="relative overflow-hidden rounded-xl border border-outline-variant bg-surface-container-low"
+              style={{ aspectRatio, height: 'min(72vh, 640px)', maxWidth: '100%' }}
               onClick={handleImageClick}
             >
               <Image
