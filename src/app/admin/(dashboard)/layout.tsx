@@ -2,9 +2,11 @@ import AdminSidebar from '@/components/ui/AdminSidebar'
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen bg-bg-primary">
+    <div className="bg-background min-h-screen flex overflow-hidden">
       <AdminSidebar />
-      <main className="flex-1 overflow-auto">{children}</main>
+      <main className="ml-[240px] flex-1 h-screen overflow-y-auto bg-background">
+        {children}
+      </main>
     </div>
   )
 }

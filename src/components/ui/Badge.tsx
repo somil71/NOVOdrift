@@ -3,16 +3,17 @@ import { cn } from '@/lib/utils'
 interface BadgeProps {
   children: React.ReactNode
   className?: string
-  variant?: 'default' | 'gold'
+  variant?: 'default' | 'gold' | 'active'
 }
 
 export default function Badge({ children, className, variant = 'default' }: BadgeProps) {
   return (
     <span
       className={cn(
-        'text-xs font-medium px-2 py-0.5 rounded-full border',
-        variant === 'default' && 'bg-bg-surface text-text-muted border-border',
-        variant === 'gold' && 'bg-accent-gold/10 text-accent-gold border-accent-gold/30',
+        'font-label-caps text-label-caps uppercase px-md py-xs rounded-full border transition-colors duration-200',
+        variant === 'default' && 'bg-surface-container text-on-surface-variant border-outline-variant',
+        variant === 'gold'    && 'bg-surface-container text-secondary border-secondary',
+        variant === 'active'  && 'bg-surface-container-high text-secondary border-secondary',
         className
       )}
     >

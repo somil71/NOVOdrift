@@ -2,11 +2,8 @@
 
 import { motion } from 'framer-motion'
 import type { Pin } from '@/lib/supabase/types'
-import Button from '@/components/ui/Button'
 
-interface PinTooltipProps {
-  pin: Pin
-}
+interface PinTooltipProps { pin: Pin }
 
 export default function PinTooltip({ pin }: PinTooltipProps) {
   const handleShopNow = () => {
@@ -19,25 +16,29 @@ export default function PinTooltip({ pin }: PinTooltipProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 8 }}
       transition={{ duration: 0.15, ease: 'easeOut' }}
-      className="absolute z-20 bg-bg-card border border-border rounded-card shadow-xl p-3"
+      className="absolute z-20 bg-surface-container-low border border-outline-variant rounded-lg shadow-xl p-sm"
       style={{ width: 200, bottom: 'calc(100% + 10px)', left: '50%', transform: 'translateX(-50%)' }}
       onClick={(e) => e.stopPropagation()}
     >
-      {/* Arrow pointing down */}
-      <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-border" />
+      <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-outline-variant" />
 
-      <p className="text-sm font-semibold text-text-primary line-clamp-2 leading-tight">
+      <p className="font-headline-sm text-headline-sm text-on-surface line-clamp-2 leading-tight">
         {pin.product_name}
       </p>
-      {pin.brand && <p className="text-xs text-text-muted mt-0.5">{pin.brand}</p>}
+      {pin.brand && (
+        <p className="font-body-sm text-body-sm text-on-surface-variant mt-xs">{pin.brand}</p>
+      )}
       {pin.price != null && (
-        <p className="text-[13px] text-accent-gold font-medium mt-1">
+        <p className="font-body-md text-body-md text-secondary mt-xs">
           ₹{pin.price.toLocaleString('en-IN')}
         </p>
       )}
-      <Button size="sm" className="w-full mt-2" onClick={handleShopNow}>
+      <button
+        onClick={handleShopNow}
+        className="w-full mt-sm bg-secondary text-on-secondary hover:bg-secondary-fixed font-label-caps text-label-caps uppercase rounded py-xs px-md transition-all duration-200 tracking-wider"
+      >
         Shop Now
-      </Button>
+      </button>
     </motion.div>
   )
 }

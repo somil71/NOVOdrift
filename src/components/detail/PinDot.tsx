@@ -25,17 +25,19 @@ export default function PinDot({ pin, index, isActive, onActivate }: PinDotProps
         zIndex: isActive ? 20 : 10,
       }}
     >
+      {/* White circle with black inner dot — matching Lookbook Pin design */}
       <button
-        className="relative w-6 h-6 rounded-full bg-accent-gold border-2 border-white/80
-          hover:scale-125 transition-transform duration-150 cursor-pointer
-          pin-pulse focus:outline-none"
+        className="relative w-3 h-3 bg-white rounded-full border border-surface-container flex items-center justify-center animate-pulse hover:scale-150 transition-transform duration-150 cursor-pointer focus:outline-none"
         onClick={(e) => {
           e.preventDefault()
           e.stopPropagation()
           onActivate(isActive ? null : pin.id)
         }}
         aria-label={`Pin: ${pin.product_name}`}
-      />
+      >
+        <div className="w-1.5 h-1.5 bg-black rounded-full" />
+      </button>
+
       <AnimatePresence>{isActive && <PinTooltip pin={pin} />}</AnimatePresence>
     </motion.div>
   )

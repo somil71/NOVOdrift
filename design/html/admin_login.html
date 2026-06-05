@@ -1,0 +1,181 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>FITBOARD | Admin Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#38393a",
+                        "background": "#121414",
+                        "on-primary": "#313030",
+                        "on-tertiary": "#002f68",
+                        "error": "#ffb4ab",
+                        "secondary": "#e9c169",
+                        "surface-tint": "#c9c6c5",
+                        "tertiary-fixed": "#d7e2ff",
+                        "on-primary-fixed": "#1c1b1b",
+                        "outline": "#8e9192",
+                        "on-secondary-container": "#f5cc72",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-tertiary-fixed": "#001a40",
+                        "inverse-surface": "#e3e2e2",
+                        "on-background": "#e3e2e2",
+                        "on-error": "#690005",
+                        "on-surface": "#e3e2e2",
+                        "on-secondary-fixed-variant": "#5b4300",
+                        "tertiary-container": "#000c25",
+                        "tertiary": "#acc7ff",
+                        "on-surface-variant": "#c4c7c7",
+                        "primary": "#c9c6c5",
+                        "surface-variant": "#343535",
+                        "on-tertiary-fixed-variant": "#004492",
+                        "surface-container-low": "#1a1c1c",
+                        "secondary-fixed": "#ffdf9d",
+                        "on-primary-container": "#7c7a7a",
+                        "primary-fixed": "#e5e2e1",
+                        "surface-container": "#1e2020",
+                        "on-tertiary-container": "#3578e0",
+                        "on-error-container": "#ffdad6",
+                        "inverse-primary": "#5f5e5e",
+                        "surface-dim": "#121414",
+                        "surface-container-highest": "#343535",
+                        "on-secondary-fixed": "#251a00",
+                        "secondary-fixed-dim": "#e9c169",
+                        "surface-container-high": "#292a2a",
+                        "on-secondary": "#3f2e00",
+                        "tertiary-fixed-dim": "#acc7ff",
+                        "primary-container": "#0d0d0d",
+                        "inverse-on-surface": "#2f3131",
+                        "surface": "#121414",
+                        "primary-fixed-dim": "#c9c6c5",
+                        "secondary-container": "#725501",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#0d0e0f",
+                        "outline-variant": "#444748"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "lg": "24px",
+                        "huge": "64px",
+                        "xl": "32px",
+                        "xxl": "48px",
+                        "md": "16px",
+                        "base": "4px",
+                        "xs": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["18px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "body-md": ["15px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.8px", "fontWeight": "500" }],
+                        "display-mobile": ["36px", { "lineHeight": "1.1", "fontWeight": "700" }],
+                        "body-sm": ["13px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "display": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen w-full flex overflow-hidden selection:bg-secondary selection:text-on-secondary">
+<!-- Left Column: Editorial Graphic -->
+<div class="hidden md:flex md:w-1/2 relative items-center justify-center bg-surface-container-lowest overflow-hidden">
+<!-- Background Image -->
+<div class="absolute inset-0 bg-cover bg-center transform scale-105" data-alt="A high-fashion editorial photograph featuring dramatic, low-key lighting. The scene is a minimalist, modern studio setting with stark contrasts between deep shadows and sharp, focused beams of light illuminating architectural details. The atmosphere is luxurious, exclusive, and moody, perfectly aligned with a dark, sophisticated aesthetic. The color palette relies heavily on rich blacks, charcoal grays, and very subtle warm tones, creating a cinematic and high-end visual experience." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB5ZUrHXMEhGf_akGX2IglDfUPdkuJmyJuu1VsFAB6_p7GI_HZxpU8himPL9qVFzRxS9K9RM838UuhvTJVUW-KDM9-iCPunqCz3fLEBsvqPPCuaF6s1F6frHotmqiHAd5BM2iN5oCZgrhAtCENtW-fBjumiHcAxQD71GJV3IZjrUL9T4fBVUqmrV7ZSD87gMug8NyE1nYaFU7sO2xc7xd1BOjNDLypqlFDyMsNaOi0m2TCF9AWOcuTREVFv-2anffkpDGue2JnMUjA');">
+</div>
+<!-- Blur & Dim Overlay -->
+<div class="absolute inset-0 bg-background/60 backdrop-blur-sm mix-blend-multiply"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-background/90 to-background/20"></div>
+<!-- Logotype -->
+<div class="relative z-10 text-center px-xl">
+<h1 class="font-display text-display tracking-[0.2em] text-on-surface uppercase drop-shadow-2xl">
+                FITBOARD
+            </h1>
+<p class="mt-lg font-label-caps text-label-caps text-secondary tracking-widest uppercase">
+                Curated Style Intelligence
+            </p>
+</div>
+</div>
+<!-- Right Column: Login Card -->
+<div class="w-full md:w-1/2 flex items-center justify-center p-lg relative z-20">
+<!-- Mobile background fallback -->
+<div class="md:hidden absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDJB14u00_OYqmr5YW6uu1mlIYu0vDh8KsYQKedYHmjxqEZTpa6WLo9EtsFaDOPCa1DbW7WvWdYM98BGKfxOkmvBcvU9vVSakmJTme-iLNdHpTYMJHWOPYYuRZn9aTfFbjZU5iLcNQMGiXisBAZhotIt50at0N3wH5UoJ_KOJqwUlcUHtz9ivZ1IhEYdVE5zhSe3dHyucixyVLAw4IK_ankUlhGlAfzFx6XLSfrC-xasukI3QfWuEkJYEo-dFnnaXhAJJTjO0ZPNlI');">
+</div>
+<!-- The Form Card -->
+<div class="w-full max-w-[400px] bg-surface-container-low border border-outline-variant p-xl sm:p-xxl rounded shadow-2xl relative z-10 backdrop-blur-md">
+<div class="mb-xl text-center md:text-left">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-xs">
+                    Admin Access
+                </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Secure portal for authorized personnel.
+                </p>
+</div>
+<form class="space-y-lg flex flex-col" onsubmit="event.preventDefault();">
+<!-- Email Input -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase" for="email">
+                        Corporate Email
+                    </label>
+<div class="relative">
+<input class="w-full bg-surface-container border border-outline-variant rounded px-md py-sm font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors" id="email" placeholder="admin@fitboard.com" required="" type="email">
+</div>
+</div>
+<!-- Password Input -->
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between items-center">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase" for="password">
+                            Password
+                        </label>
+</div>
+<div class="relative">
+<input class="w-full bg-surface-container border border-outline-variant rounded px-md py-sm font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors" id="password" placeholder="••••••••" required="" type="password">
+</div>
+</div>
+<!-- Action -->
+<div class="pt-sm">
+<button class="w-full bg-secondary text-on-secondary hover:bg-secondary-fixed hover:shadow-[0_0_15px_rgba(233,193,105,0.3)] transition-all duration-300 rounded py-sm px-lg font-label-caps text-label-caps uppercase tracking-wider flex items-center justify-center gap-sm" type="submit">
+<span>Sign In</span>
+<span class="material-symbols-outlined text-[16px]" data-weight="fill" style="font-variation-settings: 'FILL' 1;">
+                            arrow_forward
+                        </span>
+</button>
+</div>
+</form>
+<!-- Subtle Security Note -->
+<div class="mt-xxl flex items-center justify-center gap-xs text-on-surface-variant/50">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span class="font-label-caps text-label-caps uppercase text-[10px] tracking-widest">End-to-End Encrypted</span>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>FITBOARD - Product Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#38393a",
+                    "background": "#121414",
+                    "on-primary": "#313030",
+                    "on-tertiary": "#002f68",
+                    "error": "#ffb4ab",
+                    "secondary": "#e9c169",
+                    "surface-tint": "#c9c6c5",
+                    "tertiary-fixed": "#d7e2ff",
+                    "on-primary-fixed": "#1c1b1b",
+                    "outline": "#8e9192",
+                    "on-secondary-container": "#f5cc72",
+                    "on-primary-fixed-variant": "#474646",
+                    "on-tertiary-fixed": "#001a40",
+                    "inverse-surface": "#e3e2e2",
+                    "on-background": "#e3e2e2",
+                    "on-error": "#690005",
+                    "on-surface": "#e3e2e2",
+                    "on-secondary-fixed-variant": "#5b4300",
+                    "tertiary-container": "#000c25",
+                    "tertiary": "#acc7ff",
+                    "on-surface-variant": "#c4c7c7",
+                    "primary": "#c9c6c5",
+                    "surface-variant": "#343535",
+                    "on-tertiary-fixed-variant": "#004492",
+                    "surface-container-low": "#1a1c1c",
+                    "secondary-fixed": "#ffdf9d",
+                    "on-primary-container": "#7c7a7a",
+                    "primary-fixed": "#e5e2e1",
+                    "surface-container": "#1e2020",
+                    "on-tertiary-container": "#3578e0",
+                    "on-error-container": "#ffdad6",
+                    "inverse-primary": "#5f5e5e",
+                    "surface-dim": "#121414",
+                    "surface-container-highest": "#343535",
+                    "on-secondary-fixed": "#251a00",
+                    "secondary-fixed-dim": "#e9c169",
+                    "surface-container-high": "#292a2a",
+                    "on-secondary": "#3f2e00",
+                    "tertiary-fixed-dim": "#acc7ff",
+                    "primary-container": "#0d0d0d",
+                    "inverse-on-surface": "#2f3131",
+                    "surface": "#121414",
+                    "primary-fixed-dim": "#c9c6c5",
+                    "secondary-container": "#725501",
+                    "error-container": "#93000a",
+                    "surface-container-lowest": "#0d0e0f",
+                    "outline-variant": "#444748"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "12px",
+                    "lg": "24px",
+                    "huge": "64px",
+                    "xl": "32px",
+                    "xxl": "48px",
+                    "md": "16px",
+                    "base": "4px",
+                    "xs": "8px"
+            },
+            "fontFamily": {
+                    "headline-sm": [
+                            "Inter"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "label-caps": [
+                            "Inter"
+                    ],
+                    "display-mobile": [
+                            "Inter"
+                    ],
+                    "body-sm": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Inter"
+                    ],
+                    "display": [
+                            "Inter"
+                    ],
+                    "headline-lg": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "headline-sm": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "15px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "1.0",
+                                    "letterSpacing": "0.8px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "display-mobile": [
+                            "36px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-sm": [
+                            "13px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        /* Custom scrollbar for horizontal sections */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-outline-variant flat no shadows">
+<div class="flex justify-between items-center h-16 px-lg max-w-7xl mx-auto">
+<div class="font-headline-sm text-headline-sm tracking-[3px] text-on-surface">FITBOARD</div>
+<nav class="hidden md:flex gap-lg font-body-md text-body-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-70" href="#">Search Fits</a>
+<a class="text-primary border-b-2 border-secondary pb-1 hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-70" href="#">Shop Products</a>
+</nav>
+<div class="flex gap-sm">
+<button class="text-on-surface hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-70 p-2">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-[88px] pb-xxl px-md md:px-lg max-w-7xl mx-auto w-full">
+<!-- Product Detail Two-Column Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-xxl mb-huge">
+<!-- Left: Image Gallery -->
+<div class="md:col-span-7 flex flex-col gap-sm">
+<div class="aspect-square bg-surface-container-low rounded-lg overflow-hidden border border-outline-variant relative">
+<img alt="Product Image" class="w-full h-full object-cover" data-alt="A highly detailed close-up of a premium, dark minimalist leather jacket or high-end streetwear piece, photographed in a stark, moody studio environment. The lighting is cinematic and dramatic, emphasizing the texture of the material against a deep black background. The overall aesthetic perfectly aligns with a dark editorial, high-fashion magazine spread, utilizing deep shadows and crisp, cool highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_Atj0jMwwgVuzO8jhSMGkFyVoOpDDapJ32f96UJR4c0kRXdmORFt8FZ6hb6mkjZqV9cLSdGTSG85p27tw1zqVrOBb_oLteEwySQW7WTc0GbGNV6h-5-o7Bcn7qmDgpnvr0o958DPVZ63MmNYa9ftWNV1_Akq11x1siRlj3tvZhdgxsj5A19uKjZIr9ll3FLVU1eL4iAF9JhVOG9BvvNmW7bT81wxa9z-0Ew5m424ZOB88eKzx6j8YR_vJ4-imsOsN2KYRWb6Yqdw">
+<!-- Subtle inner glow overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+</div>
+<!-- Thumbnail Strip -->
+<div class="grid grid-cols-4 gap-sm">
+<div class="aspect-square bg-surface-container-low rounded-DEFAULT border-2 border-secondary overflow-hidden cursor-pointer">
+<img alt="Thumbnail 1" class="w-full h-full object-cover" data-alt="A macro shot of a dark zipper or fabric texture from a high-end streetwear garment, lit with stark, contrasty lighting to emphasize the material's premium quality within a dark, moody editorial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsZPfddQw2bwLzPf1OXV19uNkmhM-jkMR-VlvXs9iLw_CJf3P3ph2N89uV6oxNd52Leiv7nmqQhVwmWYf-6_619oiPINgYTZ2pbuefMhPRHFGXh9rMy-f0m1bTDhLh1FP5kNg4Fw95JdGF2dfN1C7CiXO1I9RDi_crz4OTHZ-clRq5hq1iy8vtSPKhYvFlQz92XHLtY4Dicnu28rLoJD2lpEX00Y_uwJvaOap1qRtVPyOC_sA6pO8-tn5qBhR6qKMHinN-M7rz0v4">
+</div>
+<div class="aspect-square bg-surface-container-lowest rounded-DEFAULT border border-outline-variant overflow-hidden opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<img alt="Thumbnail 2" class="w-full h-full object-cover" data-alt="A back view or alternative angle of a dark, luxurious minimalist garment worn by a model in silhouette against a dark gray background, maintaining the platform's signature high-contrast, noir fashion aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7gxBzq-TaORbM7XMt_nNDL_WbLqXInNTc72jtD89EOZMLAJRRaJYFmY85SZAg8ZJ21QqXz0oaMAVQwWz8uIyM10GuFFbx2iKDvIj1zH_F76z91LFRvLw0km68a5OzmagKRxrEW2ww94igufmozgpfXEPFkcQUSmCLc-NwReEaMDJPabaRzCTmQ-OA-Q6dmbyi-CW_92tR491cnDiOIcrfzSs0gu3tVT6uZumEjEvQDMYAZ2yAtilZT8ZsTBkIcmpROSVuBPu-LwU">
+</div>
+<div class="aspect-square bg-surface-container-lowest rounded-DEFAULT border border-outline-variant overflow-hidden opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<img alt="Thumbnail 3" class="w-full h-full object-cover" data-alt="A detailed shot focusing on the cuff, stitching, or pocket details of a dark avant-garde clothing item. The lighting is moody and directional, casting deep shadows that fit the minimalist-noir brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm-vu9GDDHpto2wUSzJNr4Gg8Iekap8VTMdpbL7v0e6yw6dWnSm5TkXh9hc-BpJwkgdENcWMO4oMPDTXg2UjVlsYDa_LrYXj3jR8RC4isk1mtgAG1xaqbgCauJJeviI65wnL_rj_nPekWt-DOGMJ2Uoq8K3FtN0traATsgLviZ2DoccVFoE8KgTYfGZujV-5baI0MTnAWUa-Elh19RqVII8E2NIPz0vAnkFT4zozPEpFnKg53uxBzN2my3omCTNeZIQGRilvuiTS0">
+</div>
+</div>
+</div>
+<!-- Right: Product Info -->
+<div class="md:col-span-5 flex flex-col pt-lg">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-base">Acne Studios</span>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-lg">Oversized Leather Aviator Jacket</h1>
+<div class="font-headline-md text-headline-md text-secondary mb-xl">$1,850</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-xl leading-relaxed">
+                    Crafted from heavyweight lamb leather, this oversized aviator silhouette features exaggerated shearling lapels and industrial hardware. Designed to anchor a stark, high-contrast look, it embodies the intersection of utilitarian function and brutalist luxury.
+                </p>
+<!-- Tags -->
+<div class="flex flex-wrap gap-xs mb-xxl">
+<span class="px-3 py-1 bg-surface-container-high rounded-full border border-outline-variant font-label-caps text-label-caps text-on-surface">OUTERWEAR</span>
+<span class="px-3 py-1 bg-surface-container-high rounded-full border border-outline-variant font-label-caps text-label-caps text-on-surface">LEATHER</span>
+<span class="px-3 py-1 bg-surface-container-high rounded-full border border-outline-variant font-label-caps text-label-caps text-on-surface">SS24</span>
+</div>
+<!-- CTA -->
+<button class="w-full bg-secondary text-on-secondary font-headline-sm text-headline-sm py-4 rounded-DEFAULT hover:bg-secondary-fixed transition-colors flex justify-center items-center gap-2">
+                    Buy Now on SSENSE
+                    <span class="material-symbols-outlined text-[20px]" data-icon="open_in_new">open_in_new</span>
+</button>
+</div>
+</div>
+<!-- Seen in these fits (Horizontal Scroll) -->
+<section class="mt-huge">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-lg pb-sm border-b border-outline-variant">Seen in these fits</h2>
+<div class="flex overflow-x-auto gap-lg pb-md hide-scrollbar snap-x">
+<!-- FitCard 1 -->
+<div class="min-w-[280px] md:min-w-[320px] flex-shrink-0 snap-start group cursor-pointer">
+<div class="relative aspect-[3/4] bg-surface-container-low rounded-lg overflow-hidden border border-outline-variant mb-sm">
+<img alt="Fit Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" data-alt="A full-body street style photograph of an effortlessly cool model wearing a dark oversized leather jacket layered over minimalist noir clothing. The setting is a stark, brutalist concrete urban environment at twilight. The image uses moody, high-contrast lighting typical of high-fashion editorial spreads, emphasizing deep blacks and subtle gray tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2DqrsjoRFWBX39WPzcsVHNib7fUc5aHx0SALL51cjyJMdNLt_e45cl8fOGhh_V0RmQcvjaOYMk3hPhV8F97txYFiKxhQmItlNAMA49lyuLSCXZG8Jsu4CMjZAGxfVwUdUnrUMgcPuFa-WFdvympEHJtH-Q48laUOG8lKXlh-gBnUJDMc0FPmX8UkA823iOucTCnR6N_nag71VqtgVF4dZGV4ipYq6mvh8MxnOIzwZSlBbbpS4BdSPzhNHy5NkbQW1omy1lYf-Ll8">
+<div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
+<!-- Lookbook Pin -->
+<div class="absolute top-1/3 left-1/2 w-4 h-4 bg-transparent border border-white rounded-full flex items-center justify-center">
+<div class="w-1.5 h-1.5 bg-white rounded-full animate-ping opacity-75"></div>
+</div>
+</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">Tokyo, JP</div>
+<div class="font-body-md text-body-md text-on-surface">Neo-Brutalist Winter</div>
+</div>
+<!-- FitCard 2 -->
+<div class="min-w-[280px] md:min-w-[320px] flex-shrink-0 snap-start group cursor-pointer">
+<div class="relative aspect-[3/4] bg-surface-container-low rounded-lg overflow-hidden border border-outline-variant mb-sm">
+<img alt="Fit Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" data-alt="A striking half-body editorial fashion portrait featuring a model in a dark, textured avant-garde outfit. The background is a clean, dark slate gray. The lighting is sculptural, casting sharp shadows that highlight the garment's silhouette and creating a sophisticated, minimalist-noir atmosphere suitable for a luxury fashion platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4sRh2SF755PBQtzpTqsZ-JHvMDDQ5Zy7oWF3HTPNZoN-2bfwjg3_mTPVjzipRJz96CwVBc90Pa2T0_Giaie3rjgucMLUkIqw2mxmtXHhcBNurT0epacshNnF6jeJsUaqCxmXAw6F5AWhvi2DvGQRCC2x3kpYHHs70Y9y1I4j0A_FkuQ2Zbk-6Uf1dDmcdn4noxn5ajaniF1RNJnK7HIZXI4jj3BvVAkmPeMb-CQ7Hoan-hAgo8Dqul4sR2u3f-szddB4jnMd-JMY">
+<div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
+</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">London, UK</div>
+<div class="font-body-md text-body-md text-on-surface">Monochrome Layering</div>
+</div>
+<!-- FitCard 3 -->
+<div class="min-w-[280px] md:min-w-[320px] flex-shrink-0 snap-start group cursor-pointer">
+<div class="relative aspect-[3/4] bg-surface-container-low rounded-lg overflow-hidden border border-outline-variant mb-sm">
+<img alt="Fit Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" data-alt="A candid, high-fashion editorial shot of a stylish individual walking down a shadowy, moody city street at night. They are wearing a dark, oversized statement piece. The ambient city lights create subtle, cool highlights on the dark fabrics, perfectly capturing the dark editorial, luxury streetwear aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRAFsWy0IY6JMwJ0JoiNUe5zJUAIe7V-BMQpgM-Dt-_A9K3lrsVtffJ3xr-UIK8wmZ_6dAj_XdJI49wKDoFLhtY40tcZ8usu_N1pVBK59Z2yTb5tjbklY_jCP7bw-a5yZmK3kKA5aZXHspJHAM40Idp6Iy0-KuIRUcWFDdJTg2vagvYkY0Wn_jlbmWD5PKPCAiHhIcNh99YbL-6AX6zlW07-ZjyiOv0Jsp32NZ4rHNLuFq7BG_br0EeSSMbJqOx3ajHm0c4y7gcug">
+<div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
+</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">New York, NY</div>
+<div class="font-body-md text-body-md text-on-surface">Midnight Standard</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-surface-container-lowest border-t border-outline-variant flat no shadows mt-auto">
+<div class="grid grid-cols-4 gap-lg p-xxl max-w-7xl mx-auto">
+<div class="col-span-4 md:col-span-1 mb-lg md:mb-0">
+<div class="font-headline-md text-headline-md text-on-surface tracking-[2px]">FITBOARD</div>
+</div>
+<div class="col-span-2 md:col-span-1 flex flex-col gap-sm">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">Terms of Service</a>
+</div>
+<div class="col-span-2 md:col-span-1 flex flex-col gap-sm">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">Contact</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">About</a>
+</div>
+<div class="col-span-4 md:col-span-1 flex items-end justify-start md:justify-end mt-lg md:mt-0">
+<span class="font-body-sm text-body-sm text-on-surface-variant">© 2024 FITBOARD. All rights reserved.</span>
+</div>
+</div>
+</footer>
+</body></html>

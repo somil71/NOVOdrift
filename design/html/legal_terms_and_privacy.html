@@ -1,0 +1,219 @@
+<!DOCTYPE html><html class="dark" lang="en" style="scroll-behavior: smooth;"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Terms &amp; Privacy - FITBOARD</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#38393a",
+                        "background": "#121414",
+                        "on-primary": "#313030",
+                        "on-tertiary": "#002f68",
+                        "error": "#ffb4ab",
+                        "secondary": "#e9c169",
+                        "surface-tint": "#c9c6c5",
+                        "tertiary-fixed": "#d7e2ff",
+                        "on-primary-fixed": "#1c1b1b",
+                        "outline": "#8e9192",
+                        "on-secondary-container": "#f5cc72",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-tertiary-fixed": "#001a40",
+                        "inverse-surface": "#e3e2e2",
+                        "on-background": "#e3e2e2",
+                        "on-error": "#690005",
+                        "on-surface": "#e3e2e2",
+                        "on-secondary-fixed-variant": "#5b4300",
+                        "tertiary-container": "#000c25",
+                        "tertiary": "#acc7ff",
+                        "on-surface-variant": "#c4c7c7",
+                        "primary": "#c9c6c5",
+                        "surface-variant": "#343535",
+                        "on-tertiary-fixed-variant": "#004492",
+                        "surface-container-low": "#1a1c1c",
+                        "secondary-fixed": "#ffdf9d",
+                        "on-primary-container": "#7c7a7a",
+                        "primary-fixed": "#e5e2e1",
+                        "surface-container": "#1e2020",
+                        "on-tertiary-container": "#3578e0",
+                        "on-error-container": "#ffdad6",
+                        "inverse-primary": "#5f5e5e",
+                        "surface-dim": "#121414",
+                        "surface-container-highest": "#343535",
+                        "on-secondary-fixed": "#251a00",
+                        "secondary-fixed-dim": "#e9c169",
+                        "surface-container-high": "#292a2a",
+                        "on-secondary": "#3f2e00",
+                        "tertiary-fixed-dim": "#acc7ff",
+                        "primary-container": "#0d0d0d",
+                        "inverse-on-surface": "#2f3131",
+                        "surface": "#121414",
+                        "primary-fixed-dim": "#c9c6c5",
+                        "secondary-container": "#725501",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#0d0e0f",
+                        "outline-variant": "#444748"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "lg": "24px",
+                        "huge": "64px",
+                        "xl": "32px",
+                        "xxl": "48px",
+                        "md": "16px",
+                        "base": "4px",
+                        "xs": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["18px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "body-md": ["15px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.8px", "fontWeight": "500" }],
+                        "display-mobile": ["36px", { "lineHeight": "1.1", "fontWeight": "700" }],
+                        "body-sm": ["13px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "display": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col font-body-md selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar Shared Component -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-outline-variant flat no shadows">
+<div class="flex justify-between items-center h-16 px-lg max-w-7xl mx-auto">
+<div class="font-headline-sm text-headline-sm tracking-[3px] text-on-surface">FITBOARD</div>
+<nav class="hidden md:flex gap-lg">
+<!-- Navigation links from JSON. None are active on this utility page. -->
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-70" href="#">Search Fits</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-70" href="#">Shop Products</a>
+</nav>
+<div class="flex items-center">
+<button class="text-on-surface font-body-md text-body-md hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-70 p-xs flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-[120px] pb-huge px-md w-full max-w-[760px] mx-auto">
+<!-- Header -->
+<header class="mb-xxl text-center">
+<h1 class="font-display text-display text-on-surface mb-md">Terms &amp; Privacy</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[600px] mx-auto">
+                Effective Date: October 24, 2024. Please review our terms of service, privacy policies, and affiliate disclosures carefully.
+            </p>
+</header>
+<!-- Table of Contents (Bento/Card style) -->
+<nav class="bg-surface-container-low border border-outline-variant rounded-lg p-xl mb-huge">
+<h2 class="font-label-caps text-label-caps text-on-surface mb-lg uppercase">Table of Contents</h2>
+<ul class="space-y-sm">
+<li><a class="font-body-md text-body-md text-primary hover:text-secondary transition-colors block py-base" href="#privacy-policy">1. Privacy Policy &amp; Data Collection</a></li>
+<li><a class="font-body-md text-body-md text-primary hover:text-secondary transition-colors block py-base" href="#terms-of-service">2. Terms of Service &amp; User Conduct</a></li>
+<li><a class="font-body-md text-body-md text-primary hover:text-secondary transition-colors block py-base" href="#intellectual-property">3. Intellectual Property</a></li>
+<li><a class="font-body-md text-body-md text-primary hover:text-secondary transition-colors block py-base" href="#affiliate-disclosure">4. Affiliate Disclosure</a></li>
+</ul>
+</nav>
+<!-- Section: Privacy Policy -->
+<section class="pt-xl mt-xl border-t border-outline-variant scroll-mt-[100px]" id="privacy-policy">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-lg">1. Privacy Policy</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">
+                We collect personal information that you voluntarily provide to us when you register on the platform, express an interest in obtaining information about us or our products and Services, when you participate in activities on the platform, or otherwise when you contact us.
+            </p>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">
+                The personal information that we collect depends on the context of your interactions with us and the platform, the choices you make, and the products and features you use. The personal information we collect may include the following: names, phone numbers, email addresses, mailing addresses, usernames, passwords, contact preferences, contact or authentication data, billing addresses, debit/credit card numbers, and other similar information.
+            </p>
+</section>
+<!-- Section: Terms of Service -->
+<section class="pt-xl mt-xxl border-t border-outline-variant scroll-mt-[100px]" id="terms-of-service">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-lg">2. Terms of Service</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">
+                By accessing our platform, you agree to be bound by these Terms of Service and all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this platform are protected by applicable copyright and trademark law.
+            </p>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-xl mb-sm">User Conduct</h3>
+<ul class="list-disc pl-lg space-y-xs font-body-md text-body-md text-on-surface-variant mb-md">
+<li>You must not use the platform for any illegal or unauthorized purpose.</li>
+<li>You must not modify, adapt or hack the platform or modify another website so as to falsely imply that it is associated with FITBOARD.</li>
+<li>You agree not to reproduce, duplicate, copy, sell, resell or exploit any portion of the Service, use of the Service, or access to the Service without the express written permission by us.</li>
+</ul>
+</section>
+<!-- Section: Intellectual Property -->
+<section class="pt-xl mt-xxl border-t border-outline-variant scroll-mt-[100px]" id="intellectual-property">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-lg">3. Intellectual Property</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">
+                The platform and its original content (excluding Content provided by users), features and functionality are and will remain the exclusive property of FITBOARD and its licensors. The platform is protected by copyright, trademark, and other laws of both the United States and foreign countries. Our trademarks and trade dress may not be used in connection with any product or service without the prior written consent of FITBOARD.
+            </p>
+</section>
+<!-- Section: Affiliate Disclosure (Callout Box) -->
+<section class="pt-xl mt-xxl border-t border-outline-variant scroll-mt-[100px]" id="affiliate-disclosure">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-lg">4. Affiliate Disclosure</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">
+                Transparency is critical to our editorial integrity. Please review our affiliate monetization strategies below.
+            </p>
+<div class="border-l-[4px] border-secondary bg-surface-container-low p-xl rounded-r-lg shadow-sm">
+<div class="flex items-start gap-md">
+<span class="material-symbols-outlined text-secondary mt-xs" style="font-variation-settings: 'FILL' 1;">info</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm">Commercial Relationships</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                            Some of the links on FITBOARD are "affiliate links." This means if you click on the link and purchase the item, we will receive an affiliate commission. Regardless, we only recommend products or services we believe will add value to our readers. We are disclosing this in accordance with the Federal Trade Commission's 16 CFR, Part 255: "Guides Concerning the Use of Endorsements and Testimonials in Advertising."
+                        </p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Shared Component -->
+<footer class="w-full bg-surface-container-lowest border-t border-outline-variant flat no shadows mt-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-lg p-xxl max-w-7xl mx-auto">
+<div class="col-span-1 md:col-span-2">
+<div class="font-headline-md text-headline-md text-on-surface mb-md">FITBOARD</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 FITBOARD. All rights reserved.</p>
+</div>
+<div class="col-span-1 md:col-span-2 flex flex-col md:flex-row gap-lg md:gap-xl justify-start md:justify-end">
+<div class="flex flex-col gap-sm">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-sm">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">Contact</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">About</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- Cookie Consent Bar -->
+<div class="fixed bottom-0 left-0 w-full bg-surface-container-highest border-t border-outline-variant p-md z-50 transform transition-transform duration-300 translate-y-0" id="cookie-bar">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-md">
+<p class="font-body-sm text-body-sm text-on-surface text-center md:text-left">
+                We use cookies to improve your experience and deliver personalized content. By continuing to use this site, you agree to our use of cookies as described in our <a class="underline hover:text-primary" href="#privacy-policy">Privacy Policy</a>.
+            </p>
+<button class="bg-primary text-primary-container font-label-caps text-label-caps px-xl py-sm rounded-DEFAULT hover:bg-surface-tint transition-colors whitespace-nowrap" onclick="document.getElementById('cookie-bar').classList.add('translate-y-full'); setTimeout(() =&gt; document.getElementById('cookie-bar').style.display='none', 300);">
+                ACCEPT &amp; CLOSE
+            </button>
+</div>
+</div>
+</body></html>

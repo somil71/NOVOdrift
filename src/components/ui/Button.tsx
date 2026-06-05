@@ -16,21 +16,24 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={disabled || loading}
         className={cn(
-          'inline-flex items-center justify-center font-semibold rounded-button transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed',
+          'inline-flex items-center justify-center font-label-caps text-label-caps uppercase tracking-wider rounded transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed',
           {
-            'bg-accent-gold text-bg-primary hover:bg-accent-gold/90': variant === 'primary',
-            'border border-border text-text-primary hover:bg-bg-surface': variant === 'ghost',
-            'bg-red-600 text-white hover:bg-red-700': variant === 'danger',
-            'px-3 py-1.5 text-sm': size === 'sm',
-            'px-4 py-2 text-sm': size === 'md',
-            'px-6 py-3 text-base': size === 'lg',
+            'bg-secondary text-on-secondary hover:bg-secondary-fixed hover:shadow-[0_0_15px_rgba(233,193,105,0.3)]':
+              variant === 'primary',
+            'bg-transparent text-secondary border border-outline-variant hover:border-secondary':
+              variant === 'ghost',
+            'bg-error-container text-on-error-container hover:opacity-90':
+              variant === 'danger',
+            'px-md py-xs text-[11px]': size === 'sm',
+            'px-lg py-sm':             size === 'md',
+            'px-xl py-md':             size === 'lg',
           },
           className
         )}
         {...props}
       >
         {loading ? (
-          <span className="flex items-center gap-2">
+          <span className="flex items-center gap-xs">
             <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
             {children}
           </span>

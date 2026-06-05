@@ -1,0 +1,325 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>FITBOARD - Pin Editor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#38393a",
+                        "background": "#121414",
+                        "on-primary": "#313030",
+                        "on-tertiary": "#002f68",
+                        "error": "#ffb4ab",
+                        "secondary": "#e9c169",
+                        "surface-tint": "#c9c6c5",
+                        "tertiary-fixed": "#d7e2ff",
+                        "on-primary-fixed": "#1c1b1b",
+                        "outline": "#8e9192",
+                        "on-secondary-container": "#f5cc72",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-tertiary-fixed": "#001a40",
+                        "inverse-surface": "#e3e2e2",
+                        "on-background": "#e3e2e2",
+                        "on-error": "#690005",
+                        "on-surface": "#e3e2e2",
+                        "on-secondary-fixed-variant": "#5b4300",
+                        "tertiary-container": "#000c25",
+                        "tertiary": "#acc7ff",
+                        "on-surface-variant": "#c4c7c7",
+                        "primary": "#c9c6c5",
+                        "surface-variant": "#343535",
+                        "on-tertiary-fixed-variant": "#004492",
+                        "surface-container-low": "#1a1c1c",
+                        "secondary-fixed": "#ffdf9d",
+                        "on-primary-container": "#7c7a7a",
+                        "primary-fixed": "#e5e2e1",
+                        "surface-container": "#1e2020",
+                        "on-tertiary-container": "#3578e0",
+                        "on-error-container": "#ffdad6",
+                        "inverse-primary": "#5f5e5e",
+                        "surface-dim": "#121414",
+                        "surface-container-highest": "#343535",
+                        "on-secondary-fixed": "#251a00",
+                        "secondary-fixed-dim": "#e9c169",
+                        "surface-container-high": "#292a2a",
+                        "on-secondary": "#3f2e00",
+                        "tertiary-fixed-dim": "#acc7ff",
+                        "primary-container": "#0d0d0d",
+                        "inverse-on-surface": "#2f3131",
+                        "surface": "#121414",
+                        "primary-fixed-dim": "#c9c6c5",
+                        "secondary-container": "#725501",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#0d0e0f",
+                        "outline-variant": "#444748"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "lg": "24px",
+                        "huge": "64px",
+                        "xl": "32px",
+                        "xxl": "48px",
+                        "md": "16px",
+                        "base": "4px",
+                        "xs": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["18px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "body-md": ["15px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.8px", "fontWeight": "500"}],
+                        "display-mobile": ["36px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                        "body-sm": ["13px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .pin-dot {
+            width: 24px;
+            height: 24px;
+            background-color: theme('colors.secondary');
+            border-radius: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            box-shadow: 0 0 0 0 rgba(233, 193, 105, 0.7);
+            animation: pulse-ring 2s infinite;
+        }
+        
+        .pin-dot::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-sizing: border-box;
+        }
+
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(233, 193, 105, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(233, 193, 105, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(233, 193, 105, 0); }
+        }
+
+        .tooltip-content {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 220px;
+            z-index: 10;
+        }
+
+        .pin-dot:hover .tooltip-content,
+        .pin-dot:focus .tooltip-content {
+            display: block;
+        }
+        
+        /* Custom scrollbar for right panel */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: theme('colors.surface-container-lowest');
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: theme('colors.outline-variant');
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-sans antialiased overflow-hidden flex h-screen">
+<!-- SideNavBar (Shared Component) -->
+<nav class="fixed left-0 top-0 h-screen w-[240px] bg-surface-container-lowest border-r border-outline-variant flex flex-col py-lg z-50">
+<div class="px-lg mb-xl">
+<h1 class="font-headline-sm text-headline-sm font-bold text-on-surface">FITBOARD</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-xs">Admin Console</p>
+</div>
+<ul class="flex-1 flex flex-col gap-base mt-md">
+<li class="flex items-center gap-sm text-on-surface-variant pl-4 py-3 hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer font-label-caps text-label-caps">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dashboard</span>
+                Dashboard
+            </li>
+<li class="flex items-center gap-sm text-on-surface-variant pl-4 py-3 hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer font-label-caps text-label-caps">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">style</span>
+                Fits Manager
+            </li>
+<li class="flex items-center gap-sm text-on-surface-variant pl-4 py-3 hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer font-label-caps text-label-caps">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">shopping_bag</span>
+                Products Manager
+            </li>
+<!-- Active State -->
+<li class="flex items-center gap-sm text-secondary-fixed border-l-2 border-secondary-fixed bg-surface-container-low pl-4 py-3 cursor-pointer font-label-caps text-label-caps">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">push_pin</span>
+                Pin Editor
+            </li>
+<li class="flex items-center gap-sm text-on-surface-variant pl-4 py-3 hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer font-label-caps text-label-caps mt-auto">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+                Settings
+            </li>
+<li class="flex items-center gap-sm text-on-surface-variant pl-4 py-3 hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer font-label-caps text-label-caps">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">logout</span>
+                Logout
+            </li>
+</ul>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-[240px] flex w-[calc(100%-240px)] h-full">
+<!-- Left Panel: High-Res Image (65%) -->
+<section class="w-[65%] h-full relative bg-primary-container overflow-hidden group">
+<img class="w-full h-full object-cover" data-alt="A high-fashion editorial photograph of a model wearing a sophisticated, avant-garde outfit. The lighting is dramatic and moody, utilizing deep blacks and stark contrasts indicative of a Minimalist-Noir aesthetic. The model stands against a stark, shadowed concrete background, allowing the textures of the dark clothing and subtle metallic accents to pop intensely." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApY4iuSRNC-ndhcuOAdGQgW4mrNiCMyHHq_joXsu7eIfHzqQ15mvCIiAs55lV001EPLem9Jp6zO_29KGyqsBz7jiWiDOrdxN5ph3h-WatAm_R3s2t9BpDcb9gFUViRnXdxGPIyKeoe2NHSDDF0LZHrCZs4nVOBF7q0J2huFZoUfpfdeDyvNHX0lpzh-OUDN7qGQvp09t7K8hCxaR90FJcndb9WCPItN1VIxRrhxFzOUtaYqq81WdCcweu9vhXIw2wbSYfr6CnXgPo">
+<!-- Subtle overlay for better dot visibility -->
+<div class="absolute inset-0 bg-black/10 pointer-events-none"></div>
+<!-- Fullscreen Toggle -->
+<button class="absolute top-lg right-lg w-12 h-12 rounded-full bg-surface-container/80 backdrop-blur-md border border-outline-variant flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors z-20">
+<span class="material-symbols-outlined">fullscreen</span>
+</button>
+<!-- PinDot 1: Jacket -->
+<div class="pin-dot" style="top: 35%; left: 45%;" tabindex="0">
+<!-- Tooltip -->
+<div class="tooltip-content">
+<div class="bg-surface-container-high border border-outline-variant rounded-lg p-sm shadow-xl backdrop-blur-xl">
+<div class="flex gap-sm items-start">
+<img class="w-12 h-12 object-cover rounded bg-surface-dim" data-alt="Close up shot of a textured, dark leather designer jacket. The image focuses on the intricate stitching and premium material quality against a minimalist dark grey background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdhtVrDpERpOvfG1vUycuF_dV-1fVll5I1f2lcVIzfzwTRDAnd7aHWji1yZGgivf-jxDJUdjiiEc-fOFHf0EiTH30UE-c1PsvNtd-Yz9o7v0Jjn2360Q75bJiGtPaAD5tZ5AUZpM_QXSixfSp-_OneYHRFSqfwYHZLYKuMeortFMBjPl-KW07fJSei10nr7giWrUqz6X8gsSo9F9vNtw1vBgYQ_af4Afl-fZ6-vtZijESdKqEV3OK3lfRXgKnSa2CZFG75S_BzZTE">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant">BALENCIAGA</p>
+<p class="font-body-sm text-body-sm text-on-surface font-semibold mt-1">Oversized Leather Blazer</p>
+<p class="font-body-md text-body-md text-on-surface mt-1">$2,450</p>
+</div>
+</div>
+<button class="w-full mt-sm bg-on-surface text-background font-label-caps text-label-caps py-xs rounded hover:opacity-90 transition-opacity">
+                            Shop Now
+                        </button>
+</div>
+</div>
+</div>
+<!-- PinDot 2: Pants -->
+<div class="pin-dot" style="top: 65%; left: 52%;" tabindex="0">
+<div class="tooltip-content">
+<div class="bg-surface-container-high border border-outline-variant rounded-lg p-sm shadow-xl backdrop-blur-xl">
+<div class="flex gap-sm items-start">
+<img class="w-12 h-12 object-cover rounded bg-surface-dim" data-alt="Detail shot of tailored, wide-leg black trousers with a subtle sheen. The lighting highlights the drape and structural cut of the fabric in a moody, high-end editorial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9wYMxwHKlG-cbBwksYuMuZNlXB2ZAhKew-CorWQRpdzGdz05zbflAe-9K0NDu6gI5s9qqb649Vvq89YMFVFtQ2983T3Qzi4wAZtnbha1BfuKEcAIQ_wR9TGgpEBgbDrtI6hD0yNu1pwwWBlVAWWm7AMh1NIXF_MIjbQpGQl89B0pRdaaq2QmAhKe8hJkSwEZLOsAgiRvwABUb8HH4pQIO6SGpll6NWa3AqVgmOsv_X6n28-NQeSD3dxpNj3w1NLPv2ayVgl-r16o">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant">RICK OWENS</p>
+<p class="font-body-sm text-body-sm text-on-surface font-semibold mt-1">Astaires Wide-Leg Trousers</p>
+<p class="font-body-md text-body-md text-on-surface mt-1">$980</p>
+</div>
+</div>
+<button class="w-full mt-sm bg-on-surface text-background font-label-caps text-label-caps py-xs rounded hover:opacity-90 transition-opacity">
+                            Shop Now
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Panel: Info & Products (35%) -->
+<section class="w-[35%] h-full bg-surface border-l border-outline-variant overflow-y-auto custom-scrollbar">
+<div class="p-xl lg:p-xxl flex flex-col gap-xl">
+<!-- Header Info -->
+<div>
+<h2 class="font-display text-display text-on-surface">Midnight<br>Utility</h2>
+<div class="flex items-center gap-sm mt-md">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A stark, high-contrast portrait of a fashion stylist. The image uses deep shadows and intense highlights on a dark background, embodying the Minimalist-Noir aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPAmeKezbfZzc0tAAtDX289uVP-wOtsRlHFy_UKFXD19ZwacI-iv4L_75Tz8nxXKis-mwpCJgMu-2XS5PDZmyYacQJy66TdwHLkMq87xDzqtBfOKkjd_JsYhSShRByvjFIruUCo_25TiIPortXTjdU-jVzQZzgNptgbpX4eJfdhwMacCNLOfLKRV5eOLgsxDA8flnM2DgN61_MjhVYlLTCHGILudJ_ajJ1wsoWpaGPGeYoNFv3s0h3uVpNxP1QieUd1ep3lP1soLM">
+<span class="font-body-md text-body-md text-on-surface-variant">Styled by @alexa_v</span>
+</div>
+</div>
+<!-- Vibe Tags -->
+<div class="flex flex-wrap gap-xs">
+<span class="bg-surface-container-high text-on-surface font-label-caps text-label-caps px-sm py-base rounded-full border border-outline-variant">GOTHIC MINIMALISM</span>
+<span class="bg-surface-container-high text-on-surface font-label-caps text-label-caps px-sm py-base rounded-full border border-outline-variant">AVANT-GARDE</span>
+<span class="bg-surface-container-high text-on-surface font-label-caps text-label-caps px-sm py-base rounded-full border border-outline-variant">NIGHT OUT</span>
+</div>
+<div class="w-full h-px bg-outline-variant/50"></div>
+<!-- Products in Look -->
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-md">Products in this look</h3>
+<div class="flex flex-col gap-sm">
+<!-- Product Item 1 -->
+<div class="flex items-center gap-md p-sm rounded-lg border border-outline-variant bg-surface-container-low hover:bg-surface-container transition-colors group cursor-pointer">
+<img class="w-20 h-24 object-cover rounded bg-surface-dim" data-alt="Close up shot of a textured, dark leather designer jacket. The image focuses on the intricate stitching and premium material quality against a minimalist dark grey background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAahbNExE6AVpzX72BBSvMS6pcOq-PxjiuD8mz58NDzjuJ1PEYXnyVMiHIQlveyzy0ElN5pqEedH4l1w47WBUY1NF2xLso8PE6A_dU-kONUkkE-NcbLurFtmjE63Q4mzHau0wCGrqCGCTOX0uMzpy-f1ILiNIcIVUxwRJgmN4J8IdacFjia0V-HmAsHAnivKvJqgK-V3X5HAVLAwoMeVkatoHSr6vK3ISzJjBGqZ0b5qJjjDv4ZajbVwoOtMwakC56qtKgF1AmIOvo">
+<div class="flex-1">
+<p class="font-label-caps text-label-caps text-on-surface-variant">BALENCIAGA</p>
+<p class="font-body-md text-body-md text-on-surface font-semibold mt-1">Oversized Leather Blazer</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">$2,450</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface pr-sm">chevron_right</span>
+</div>
+<!-- Product Item 2 -->
+<div class="flex items-center gap-md p-sm rounded-lg border border-outline-variant bg-surface-container-low hover:bg-surface-container transition-colors group cursor-pointer">
+<img class="w-20 h-24 object-cover rounded bg-surface-dim" data-alt="Detail shot of tailored, wide-leg black trousers with a subtle sheen. The lighting highlights the drape and structural cut of the fabric in a moody, high-end editorial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxDwUgy7XV9gv1J1qpwoEXNwzJlD02bM6Wj7wj3SDKdAYNFHWuACOm9zIw6lTjhZkbkvYOHpkSk8ihAqcN668V21H9GSRJdcrduaDrQaj8RHpjkGODPUj4rCAPXGS0hFHqhcfVHhcgsuzX_Nu_-0KH1CL2TN9t5sHQLCUkatCyNier3suqOJxwcedlsqWPD0OFBlPebWRfR-bFoh5S5-WvlkYTo_4TlO8P7p6Q_1IRR2afc9hBiqLEYzdiaIWhsvbgZi_-Qzxq0z8">
+<div class="flex-1">
+<p class="font-label-caps text-label-caps text-on-surface-variant">RICK OWENS</p>
+<p class="font-body-md text-body-md text-on-surface font-semibold mt-1">Astaires Wide-Leg Trousers</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">$980</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface pr-sm">chevron_right</span>
+</div>
+<!-- Product Item 3 -->
+<div class="flex items-center gap-md p-sm rounded-lg border border-outline-variant bg-surface-container-low hover:bg-surface-container transition-colors group cursor-pointer">
+<img class="w-20 h-24 object-cover rounded bg-surface-dim" data-alt="A sleek, chunky black leather boot with aggressive sole detailing. Photographed under harsh, directional light to emphasize texture and form against a pure black background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuXvg_DQKs1fYOJrFclW8uNTPJKUaZPKQVUGNLbwFLn4uMhrCjkl5uVOBgI2EzaMbN5yKw1EDhxK2AOTSzyLoU48XY32lB6DTte9OW18stvWY4OeAJ6CzXQbz51VPl9vjPyNECtPVHPSgUmMe_Bp8mxwAUTef_N2ExuRxboEK1wHV0EGpMwn6fKbgA7xtX0GT1i9jJPyyFN8_la62WGk4zs_2GKRHki_U8OsxYvhY2W9l62lYMTP8qtIWWEQUN_Lvq4YUCpdwwSiY">
+<div class="flex-1">
+<p class="font-label-caps text-label-caps text-on-surface-variant">BOTTEGA VENETA</p>
+<p class="font-body-md text-body-md text-on-surface font-semibold mt-1">Tire Leather Chelsea Boots</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">$1,450</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface pr-sm">chevron_right</span>
+</div>
+</div>
+</div>
+<div class="w-full h-px bg-outline-variant/50"></div>
+<!-- Similar Vibes Grid -->
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-md">See similar vibes</h3>
+<div class="grid grid-cols-2 gap-sm">
+<div class="aspect-[3/4] relative rounded-lg overflow-hidden group cursor-pointer border border-outline-variant">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A fashion editorial image showing a model in a stark, angular black trench coat. The scene is lit with cool, moody tones, emphasizing a dystopian, high-fashion aesthetic within a dark gray architectural setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwEq5c38ZHrR6-f7d6zSRXtDlUo_SmqS96gpGVWMPy_AUamZHMnvWWGcdeBPAUc1CDLJaO-_P6353P2F5Viq1vow6HtjnSfBL6cu9jV5JAEliKB8ugnHftBv6601bj7PVk0FapwQdUKZ16jEYE4viEzuNSGnTznfL0-q4X7sG9YB0g9ECfHxOBrSsc4TUnethe0gsjtnZspKI51n88RqG8qcnQmuB4iMhQZknZXQIQ3jy7iVWgyOouYSpGZ_XCjr6fVESjIDFFrs0">
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors"></div>
+</div>
+<div class="aspect-[3/4] relative rounded-lg overflow-hidden group cursor-pointer border border-outline-variant">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A striking portrait of a model wearing an oversized, structured dark blazer. The image features deep, inky blacks and crisp white highlights, perfectly capturing the Minimalist-Noir brand identity in a studio setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAo8_wERBJnkDHtzSP6KDy5SXihsuBI_ynzlg36jj58QlzX6SJS2Yp2iOJTFpo3Ugkr3PpmLqcUdHwO8N-GjmmbnQlvIFKJ_sFgo1Rxzpi1sY8bCSI7Rp4fLQF9TUoSWXtrZ8504EV13kVbomIE_vqjkU_Yfwyw3_jarhfyd3fgNbHkSvb5lB2xKydQG__0pSkEOjZ9DWLFPofj3L0rvmN3QRuRr2S6vd3a5kpxCOo3ZjxRCZrXUJr8-b4iwlx0VAHY1TctK0KxXBY">
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors"></div>
+</div>
+<div class="aspect-[3/4] relative rounded-lg overflow-hidden group cursor-pointer border border-outline-variant">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A low-angle shot of a fashion look featuring draped, asymmetrical black garments. The harsh, contrasting light creates dramatic shadows, embodying an exclusive, edgy luxury aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDH8UfBNdiDGWM_Zg83qPhMqnPV38fzBEzp-yOqECwIz67Ey5pnFxPimeHcyYG_ubpnIyBTpLmNTVvewyok4oyxtsqJS3sYllj4OhvjJgEgvvbhDTh0A3sB2llprAJ5LWf0mLTXtk6sglXEgzDt0FQceyljcB_qvbpdk-HBkGpy5C9-qt-lLEiwd6UskzDuTxysYleGL7lr6BhMJdwwrgoXWg8bFcQ-A5amq3Gl0TaisopjcrhmCVmKXxY59pa7f6lDSfqUaX3REM">
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors"></div>
+</div>
+<div class="aspect-[3/4] relative rounded-lg overflow-hidden group cursor-pointer border border-outline-variant">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Detail shot of a model's torso wearing a complex, multi-layered black outfit with technical fabrics. The lighting is cinematic and dark, emphasizing the intricate textures and avant-garde silhouette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGYdefnlzgZt_BQcDHRZOgAcSHrZSd8gFKbqx8CaDJUSWQpUiuedFR3c4S9akHHWsxxtdAe4yRnarklh58VMQ0XdGxoBkJ5Ejhuz-CSU73RbUj4q0gmEqnkvNOwYfIdJG8bdnzG7fmHtC3G8vAz0qxPHzsGK0ikzWXx3Bp5Y9c2K9xz781_wObEJ11oHgTobWh2NVlGzEFmaJ1hYTz1UhZbwHxSKkeX5PKzFbnDEdqhNqyLf7eBXZm1rLHH-bod3BdiVvo8wvPiyk">
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors"></div>
+</div>
+</div>
+</div>
+<div class="h-xl"></div> <!-- Bottom spacing -->
+</div>
+</section>
+</main>
+</body></html>

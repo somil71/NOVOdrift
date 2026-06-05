@@ -1,0 +1,398 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Fitboard - Admin Products</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#38393a",
+                        "background": "#121414",
+                        "on-primary": "#313030",
+                        "on-tertiary": "#002f68",
+                        "error": "#ffb4ab",
+                        "secondary": "#e9c169",
+                        "surface-tint": "#c9c6c5",
+                        "tertiary-fixed": "#d7e2ff",
+                        "on-primary-fixed": "#1c1b1b",
+                        "outline": "#8e9192",
+                        "on-secondary-container": "#f5cc72",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-tertiary-fixed": "#001a40",
+                        "inverse-surface": "#e3e2e2",
+                        "on-background": "#e3e2e2",
+                        "on-error": "#690005",
+                        "on-surface": "#e3e2e2",
+                        "on-secondary-fixed-variant": "#5b4300",
+                        "tertiary-container": "#000c25",
+                        "tertiary": "#acc7ff",
+                        "on-surface-variant": "#c4c7c7",
+                        "primary": "#c9c6c5",
+                        "surface-variant": "#343535",
+                        "on-tertiary-fixed-variant": "#004492",
+                        "surface-container-low": "#1a1c1c",
+                        "secondary-fixed": "#ffdf9d",
+                        "on-primary-container": "#7c7a7a",
+                        "primary-fixed": "#e5e2e1",
+                        "surface-container": "#1e2020",
+                        "on-tertiary-container": "#3578e0",
+                        "on-error-container": "#ffdad6",
+                        "inverse-primary": "#5f5e5e",
+                        "surface-dim": "#121414",
+                        "surface-container-highest": "#343535",
+                        "on-secondary-fixed": "#251a00",
+                        "secondary-fixed-dim": "#e9c169",
+                        "surface-container-high": "#292a2a",
+                        "on-secondary": "#3f2e00",
+                        "tertiary-fixed-dim": "#acc7ff",
+                        "primary-container": "#0d0d0d",
+                        "inverse-on-surface": "#2f3131",
+                        "surface": "#121414",
+                        "primary-fixed-dim": "#c9c6c5",
+                        "secondary-container": "#725501",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#0d0e0f",
+                        "outline-variant": "#444748"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "lg": "24px",
+                        "huge": "64px",
+                        "xl": "32px",
+                        "xxl": "48px",
+                        "md": "16px",
+                        "base": "4px",
+                        "xs": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["18px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "body-md": ["15px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.8px", "fontWeight": "500"}],
+                        "display-mobile": ["36px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                        "body-sm": ["13px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for dark mode */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121414; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #343535; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444748; 
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased h-screen overflow-hidden flex selection:bg-secondary/30 selection:text-secondary-fixed">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-[240px] bg-surface-container-lowest border-r border-outline-variant flex flex-col py-lg z-40">
+<div class="px-lg mb-xl">
+<h1 class="font-headline-sm text-headline-sm font-bold text-on-surface uppercase tracking-widest">FITBOARD</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-base">Admin Console</p>
+</div>
+<nav class="flex-1 flex flex-col gap-base">
+<a class="text-on-surface-variant pl-4 py-3 hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer flex items-center gap-sm mx-sm rounded-DEFAULT group" href="#">
+<span class="material-symbols-outlined group-hover:text-on-surface text-on-surface-variant">dashboard</span>
+<span class="font-label-caps text-label-caps uppercase">Dashboard</span>
+</a>
+<a class="text-on-surface-variant pl-4 py-3 hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer flex items-center gap-sm mx-sm rounded-DEFAULT group" href="#">
+<span class="material-symbols-outlined group-hover:text-on-surface text-on-surface-variant">style</span>
+<span class="font-label-caps text-label-caps uppercase">Fits Manager</span>
+</a>
+<!-- Active State: Products Manager -->
+<a class="text-secondary-fixed border-l-2 border-secondary-fixed bg-surface-container-low pl-4 py-3 hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer flex items-center gap-sm mr-sm rounded-r-DEFAULT" href="#">
+<span class="material-symbols-outlined icon-fill text-secondary-fixed">shopping_bag</span>
+<span class="font-label-caps text-label-caps uppercase">Products Manager</span>
+</a>
+<a class="text-on-surface-variant pl-4 py-3 hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer flex items-center gap-sm mx-sm rounded-DEFAULT group" href="#">
+<span class="material-symbols-outlined group-hover:text-on-surface text-on-surface-variant">push_pin</span>
+<span class="font-label-caps text-label-caps uppercase">Pin Editor</span>
+</a>
+<a class="text-on-surface-variant pl-4 py-3 hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer flex items-center gap-sm mx-sm rounded-DEFAULT group" href="#">
+<span class="material-symbols-outlined group-hover:text-on-surface text-on-surface-variant">settings</span>
+<span class="font-label-caps text-label-caps uppercase">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-sm border-t border-outline-variant pt-md">
+<a class="text-on-surface-variant pl-4 py-3 hover:bg-surface-container-high hover:text-error transition-all cursor-pointer flex items-center gap-sm rounded-DEFAULT group" href="#">
+<span class="material-symbols-outlined group-hover:text-error text-on-surface-variant">logout</span>
+<span class="font-label-caps text-label-caps uppercase">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 ml-[240px] h-screen overflow-y-auto bg-background relative">
+<div class="max-w-[1440px] mx-auto px-xl py-xl">
+<!-- Top Header -->
+<header class="flex justify-between items-end mb-xxl">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Products Directory</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-base">Manage your high-fashion inventory and affiliate links.</p>
+</div>
+<button class="bg-on-surface text-surface hover:bg-surface-tint font-label-caps text-label-caps uppercase px-lg py-sm rounded-full transition-colors flex items-center gap-sm h-fit" onclick="toggleModal('addProductModal')">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                    Add Product
+                </button>
+</header>
+<!-- Tools / Filters Row -->
+<div class="flex justify-between items-center mb-xl border-b border-outline-variant pb-md">
+<div class="flex gap-md">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="bg-surface-container border border-outline-variant rounded-DEFAULT py-sm pl-xl pr-md text-body-sm focus:border-secondary focus:ring-0 text-on-surface w-[300px] placeholder:text-on-surface-variant transition-colors" placeholder="Search products..." type="text">
+</div>
+<button class="flex items-center gap-xs px-md py-sm border border-outline-variant rounded-DEFAULT text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[16px]">filter_list</span>
+                        Filters
+                    </button>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant text-body-sm">
+<span>Showing 1-12 of 144</span>
+<div class="flex gap-xs ml-sm border border-outline-variant rounded-DEFAULT p-xs">
+<button class="p-xs bg-surface-container rounded-sm text-on-surface"><span class="material-symbols-outlined text-[18px]">grid_view</span></button>
+<button class="p-xs hover:bg-surface-container rounded-sm text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[18px]">list</span></button>
+</div>
+</div>
+</div>
+<!-- Product Grid (Bento/Card Style) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-lg pb-xxl">
+<!-- Product Card 1 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-lg overflow-hidden group hover:border-outline transition-colors duration-300 flex flex-col">
+<div class="aspect-[4/5] relative bg-surface-bright overflow-hidden">
+<img class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 opacity-90" data-alt="A high-fashion studio shot of a classic black leather motorcycle jacket displayed against a pure dark charcoal background. The lighting is dramatic and directional, creating stark shadows and highlighting the texture of the leather and metallic silver zippers. The aesthetic is Minimalist-Noir, focusing entirely on the sleek silhouette of the garment with a luxury, editorial feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPimowlIgA-PYOyotjkVW0Yateluavcz11nqMq1yqnbCNyA66tRvw9mTqLZ9v1gJywqviw1__hEeoNGRsQC7zbQp7XGMtkzNyBOmPqXa7FZ3lq74Jovk2mgWbe8DixCZuMjL7yE0WVVGDOn5oM6qxEKQ49C9KNPBucARGdopct_xZmwd-J5sfLyXN72w03aJUtFj4lvVh_Sw_K4Yg0BHNbBNYNPNCIp20m2gkbBAeIX-g7JXHgK9hl1rcgIxvXLbS7BwQVPFuQ8rk">
+<div class="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-md justify-between">
+<button class="bg-surface/90 backdrop-blur text-on-surface p-sm rounded-full hover:bg-secondary hover:text-on-secondary transition-colors"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="bg-surface/90 backdrop-blur text-on-surface p-sm rounded-full hover:bg-error hover:text-on-error transition-colors"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+<div class="p-md flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Saint Laurent</span>
+<span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-[#1C2C1C] text-[#86EFac] border border-[#2E4A2E]">Active</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-xs line-clamp-1">Classic L01 Leather Moto</h3>
+<p class="font-body-sm text-body-sm text-secondary-fixed mb-md">INR 3,45,000</p>
+<div class="mt-auto flex items-center gap-xs text-on-surface-variant font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[14px]">link</span>
+<span class="truncate">farfetch.com/aff...</span>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-lg overflow-hidden group hover:border-outline transition-colors duration-300 flex flex-col">
+<div class="aspect-[4/5] relative bg-surface-bright overflow-hidden">
+<img class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 opacity-90" data-alt="A pair of pristine white designer sneakers presented in a minimalist, dark studio environment. The shoes rest on a reflective black surface, illuminated by a soft, cool top-light that emphasizes their clean lines and subtle branding details. The background falls off into deep black, adhering to a high-end luxury e-commerce aesthetic with a sophisticated, moody undertone." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpXvySqooAL_sUT-1VaPVS1NvESS7Jo_wQ5Rb0TBmQoYatyhQbl0BIqZprehxnPxU-DOYft473dbZR6j_xBXESsbOeSNAr9bWgvvqN9uKOHKE97Umtmf1BM362Jibscxz5fE8cktSqXjAyz436Pp305bpUQo6pE11hWC_JXu-TEb7ybq-Hz3ETOonBnY8knMDZC7BDcinsAdo-IMPa5xb6Luf_GGmkPcLvCTv5U3fvvn5suSmXnei7ofsvILjqRC7ZlY2WzP5kuDM">
+<div class="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-md justify-between">
+<button class="bg-surface/90 backdrop-blur text-on-surface p-sm rounded-full hover:bg-secondary hover:text-on-secondary transition-colors"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="bg-surface/90 backdrop-blur text-on-surface p-sm rounded-full hover:bg-error hover:text-on-error transition-colors"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+<div class="p-md flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Common Projects</span>
+<span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-surface-container-highest text-on-surface-variant border border-outline-variant">Draft</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-xs line-clamp-1">Original Achilles Low</h3>
+<p class="font-body-sm text-body-sm text-secondary-fixed mb-md">INR 32,500</p>
+<div class="mt-auto flex items-center gap-xs text-on-surface-variant font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[14px]">link_off</span>
+<span class="truncate italic">No link provided</span>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-lg overflow-hidden group hover:border-outline transition-colors duration-300 flex flex-col">
+<div class="aspect-[4/5] relative bg-surface-bright overflow-hidden">
+<img class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 opacity-90" data-alt="A high-end analog wristwatch with a sleek silver metallic band and a minimalist white face, photographed against a stark, pure black background. The lighting catches the polished edges of the watch dial, creating sharp, elegant highlights. The composition is strictly editorial, focusing on luxury, precision, and a dark, moody atmosphere typical of premium men's accessories." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMFPkj-_9HVhBLgGIih3irzH-TRyzm1U7HkmUGi77duAdtfjp1hEgj3NDp1qtKPLJ9BQjgW8H4xDz1tshaLOpTDV3nvSaIO8ZM7_GN-jfGaeU06Rk_9_7W-0AEuJlxS3BI-i-NY8HQJ8Q4gt98Xe7VzrPaIqTvZGqXdxQOmxt_GzorLNC4lnJzWgeI-5Xk2WuY619FL_HNLLDfHPLnoJwif_wvPDlJBLjBmBoAec6CAW-jRJTFjyzRmiGJ0Y33aQerhPLwws08TPE">
+<div class="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-md justify-between">
+<button class="bg-surface/90 backdrop-blur text-on-surface p-sm rounded-full hover:bg-secondary hover:text-on-secondary transition-colors"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="bg-surface/90 backdrop-blur text-on-surface p-sm rounded-full hover:bg-error hover:text-on-error transition-colors"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+<div class="p-md flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Braun</span>
+<span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-[#1C2C1C] text-[#86EFac] border border-[#2E4A2E]">Active</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-xs line-clamp-1">BN0032 Classic Watch</h3>
+<p class="font-body-sm text-body-sm text-secondary-fixed mb-md">INR 18,990</p>
+<div class="mt-auto flex items-center gap-xs text-on-surface-variant font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[14px]">link</span>
+<span class="truncate">amazon.in/aff...</span>
+</div>
+</div>
+</div>
+<!-- Add New Placeholder Card -->
+<button class="bg-surface-container-lowest border border-dashed border-outline-variant rounded-lg flex flex-col items-center justify-center gap-sm hover:border-secondary hover:bg-surface-container-low transition-all duration-300 min-h-[300px] group" onclick="toggleModal('addProductModal')">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-secondary group-hover:text-on-secondary text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[24px]">add</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-surface-variant group-hover:text-secondary transition-colors">Add New Product</span>
+</button>
+</div>
+</div>
+</main>
+<!-- ADD PRODUCT MODAL (Centered Card / Overlay) -->
+<!-- Initial state set to display block for design review, typically would be 'hidden' -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-lg" id="addProductModal">
+<!-- Modal Container -->
+<div class="bg-surface-container border border-outline-variant rounded-xl w-full max-w-[800px] max-h-[921px] flex flex-col shadow-2xl relative overflow-hidden">
+<!-- Modal Header -->
+<div class="flex justify-between items-center p-xl border-b border-outline-variant bg-surface-container-low/50">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Add New Product</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Enter product details for the styling catalog.</p>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors p-sm rounded-full hover:bg-surface-container-high" onclick="toggleModal('addProductModal')">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Modal Body (Scrollable) -->
+<div class="p-xl overflow-y-auto flex-1 custom-scrollbar flex flex-col md:flex-row gap-xl">
+<!-- Left: Upload Zone -->
+<div class="w-full md:w-1/3 flex flex-col gap-sm">
+<label class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider">Product Image</label>
+<div class="border-2 border-dashed border-outline-variant rounded-lg aspect-[3/4] flex flex-col items-center justify-center text-center p-md cursor-pointer hover:border-secondary hover:bg-surface-container-high transition-colors group relative overflow-hidden">
+<div class="z-10 flex flex-col items-center gap-sm">
+<span class="material-symbols-outlined text-[32px] text-on-surface-variant group-hover:text-secondary">cloud_upload</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Drag &amp; drop high-res image or <span class="text-secondary underline">browse</span></span>
+<span class="font-label-caps text-[10px] text-outline">JPG, PNG up to 5MB</span>
+</div>
+</div>
+</div>
+<!-- Right: Form Fields -->
+<div class="w-full md:w-2/3 flex flex-col gap-lg">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Field: Name -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider">Product Name *</label>
+<input class="bg-surface-container-low border border-outline-variant rounded-DEFAULT py-sm px-md text-body-md text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all placeholder:text-on-surface-variant/50" placeholder="e.g., Classic Trench Coat" type="text">
+</div>
+<!-- Field: Brand -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider">Brand *</label>
+<input class="bg-surface-container-low border border-outline-variant rounded-DEFAULT py-sm px-md text-body-md text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all placeholder:text-on-surface-variant/50" placeholder="e.g., Burberry" type="text">
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Field: Category -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider">Category *</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border border-outline-variant rounded-DEFAULT py-sm pl-md pr-xl text-body-md text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none appearance-none transition-all cursor-pointer">
+<option class="text-on-surface-variant" disabled="" selected="" value="">Select category</option>
+<option value="outerwear">Outerwear</option>
+<option value="tops">Tops &amp; Shirts</option>
+<option value="bottoms">Bottoms</option>
+<option value="footwear">Footwear</option>
+<option value="accessories">Accessories</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+<!-- Field: Price -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider">Price (INR) *</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant font-body-md">₹</span>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-DEFAULT py-sm pl-xl pr-md text-body-md text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all placeholder:text-on-surface-variant/50" placeholder="0.00" type="number">
+</div>
+</div>
+</div>
+<!-- Field: Affiliate URL -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider">Affiliate URL *</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant text-[18px]">link</span>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-DEFAULT py-sm pl-[36px] pr-md text-body-md text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all placeholder:text-on-surface-variant/50" placeholder="https://..." type="url">
+</div>
+</div>
+<!-- Field: Tags (Pills) -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider">Tags</label>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-DEFAULT py-sm px-md text-body-md text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all placeholder:text-on-surface-variant/50 mb-xs" placeholder="Type and press Enter (e.g., minimal, core)" type="text">
+<div class="flex flex-wrap gap-xs mt-xs">
+<span class="inline-flex items-center gap-xs px-3 py-1 rounded-full bg-[#2C2C2C] text-secondary font-label-caps text-[11px] border border-secondary/30">
+                                minimal
+                                <button class="hover:text-on-surface transition-colors flex items-center justify-center"><span class="material-symbols-outlined text-[12px]">close</span></button>
+</span>
+<span class="inline-flex items-center gap-xs px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant font-label-caps text-[11px] border border-outline-variant">
+                                streetwear
+                                <button class="hover:text-on-surface transition-colors flex items-center justify-center"><span class="material-symbols-outlined text-[12px]">close</span></button>
+</span>
+</div>
+</div>
+<!-- Field: Description -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider">Description</label>
+<textarea class="w-full bg-surface-container-low border border-outline-variant rounded-DEFAULT py-sm px-md text-body-md text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all resize-none placeholder:text-on-surface-variant/50" placeholder="Brief editorial description..." rows="4"></textarea>
+</div>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="p-xl border-t border-outline-variant bg-surface-container-lowest flex justify-end gap-md">
+<button class="px-xl py-sm font-label-caps text-label-caps uppercase border border-outline-variant text-on-surface hover:bg-surface-container-high rounded-DEFAULT transition-colors" onclick="toggleModal('addProductModal')">
+                    Cancel
+                </button>
+<button class="px-xl py-sm font-label-caps text-label-caps uppercase bg-on-surface text-surface hover:bg-surface-tint rounded-DEFAULT transition-colors">
+                    Save Product
+                </button>
+</div>
+</div>
+</div>
+<!-- Simple script to handle modal toggle if needed for interaction testing -->
+<script>
+        function toggleModal(modalID) {
+            const modal = document.getElementById(modalID);
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            } else {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+    </script>
+</body></html>

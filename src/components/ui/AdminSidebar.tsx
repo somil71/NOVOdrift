@@ -2,19 +2,23 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutGrid, Package, Settings, LogOut } from 'lucide-react'
-import { cn } from '@/lib/utils'
 import { createSupabaseBrowserClient } from '@/lib/supabase/client'
 
 const navItems = [
-  { href: '/admin/fits', label: 'Fits', icon: LayoutGrid },
-  { href: '/admin/products', label: 'Products', icon: Package },
-  { href: '/admin/settings', label: 'Settings', icon: Settings },
+  { href: '/admin',          label: 'Dashboard',         icon: 'dashboard' },
+  { href: '/admin/fits',     label: 'Fits Manager',      icon: 'style' },
+  { href: '/admin/products', label: 'Products Manager',  icon: 'shopping_bag' },
+  { href: '/admin/settings', label: 'Settings',          icon: 'settings' },
 ]
 
 export default function AdminSidebar() {
   const pathname = usePathname()
   const router = useRouter()
+
+  const isActive = (href: string) => {
+    if (href === '/admin') return pathname === '/admin'
+    return pathname.startsWith(href)
+  }
 
   const handleLogout = async () => {
     await fetch('/api/auth/logout', { method: 'POST' })
@@ -25,42 +29,49 @@ export default function AdminSidebar() {
   }
 
   return (
-    <aside className="w-56 flex-shrink-0 bg-bg-card border-r border-border flex flex-col min-h-screen">
-      <div className="px-6 py-5 border-b border-border">
-        <Link href="/fits" className="text-lg font-bold text-accent-gold">
-          FitBoard
+    <nav className="hidden md:flex flex-col py-lg bg-surface-container-lowest fixed left-0 top-0 h-screen w-[240px] border-r border-outline-variant z-50">
+      <div className="px-lg mb-xl">
+        <Link href="/fits" className="font-headline-sm text-headline-sm font-bold text-on-surface hover:text-secondary transition-colors">
+          FITBOARD
         </Link>
-        <p className="text-xs text-text-muted mt-0.5">Admin Panel</p>
+        <p className="font-label-caps text-label-caps text-on-surface-variant mt-base">Admin Console</p>
       </div>
 
-      <nav className="flex-1 p-3">
-        {navItems.map(({ href, label, icon: Icon }) => (
-          <Link
-            key={href}
-            href={href}
-            className={cn(
-              'flex items-center gap-3 px-3 py-2.5 rounded-button text-sm font-medium transition-colors mb-1',
-              pathname.startsWith(href)
-                ? 'bg-accent-gold/10 text-accent-gold'
-                : 'text-text-muted hover:text-text-primary hover:bg-bg-surface'
-            )}
-          >
-            <Icon size={16} />
-            {label}
-          </Link>
-        ))}
-      </nav>
+      <ul className="flex flex-col flex-grow">
+        {navItems.map(({ href, label, icon }) => {
+          const active = isActive(href)
+          return (
+            <li key={href}>
+              <Link
+                href={href}
+                className={
+                  active
+                    ? 'flex items-center gap-sm text-secondary border-l-2 border-secondary bg-surface-container-low pl-4 py-3'
+                    : 'flex items-center gap-sm text-on-surface-variant pl-4 py-3 hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer'
+                }
+              >
+                <span
+                  className="material-symbols-outlined text-[20px]"
+                  style={{ fontVariationSettings: active ? "'FILL' 1" : "'FILL' 0" }}
+                >
+                  {icon}
+                </span>
+                <span className="font-label-caps text-label-caps uppercase">{label}</span>
+              </Link>
+            </li>
+          )
+        })}
+      </ul>
 
-      <div className="p-3 border-t border-border">
+      <div className="mt-auto">
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-button text-sm font-medium
-            text-text-muted hover:text-red-400 hover:bg-red-400/10 transition-colors w-full"
+          className="flex items-center gap-sm text-on-surface-variant pl-4 py-3 hover:bg-surface-container-high hover:text-on-surface transition-all w-full cursor-pointer"
         >
-          <LogOut size={16} />
-          Log Out
+          <span className="material-symbols-outlined text-[20px]">logout</span>
+          <span className="font-label-caps text-label-caps uppercase">Logout</span>
         </button>
       </div>
-    </aside>
+    </nav>
   )
 }

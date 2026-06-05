@@ -1,30 +1,36 @@
 import Link from 'next/link'
-import { Search } from 'lucide-react'
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-40 bg-bg-primary/90 backdrop-blur-md border-b border-border">
-      <nav className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
+    <header className="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-outline-variant">
+      <nav className="flex justify-between items-center h-16 px-lg max-w-7xl mx-auto">
         <Link
           href="/fits"
-          className="text-xl font-bold tracking-tight text-text-primary hover:text-accent-gold transition-colors"
+          className="font-headline-sm text-headline-sm tracking-[3px] text-on-surface hover:text-secondary transition-colors duration-200 uppercase"
         >
-          FitBoard
+          FITBOARD
         </Link>
-        <div className="flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-lg">
           <Link
             href="/search/fits"
-            className="flex items-center gap-1.5 text-sm text-text-muted hover:text-text-primary transition-colors"
+            className="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors duration-200"
           >
-            <Search size={15} />
             Search Fits
           </Link>
           <Link
             href="/search/products"
-            className="flex items-center gap-1.5 text-sm text-text-muted hover:text-text-primary transition-colors"
+            className="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors duration-200"
           >
-            <Search size={15} />
-            Search Products
+            Shop Products
+          </Link>
+        </div>
+        <div className="flex items-center gap-md">
+          <Link
+            href="/search/fits"
+            className="text-on-surface hover:text-secondary transition-colors duration-200"
+            aria-label="Search"
+          >
+            <span className="material-symbols-outlined text-[22px]">search</span>
           </Link>
         </div>
       </nav>

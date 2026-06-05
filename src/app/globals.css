@@ -11,77 +11,70 @@
 }
 
 body {
-  background-color: #0D0D0D;
-  color: #FFFFFF;
+  background-color: #121414;
+  color: #e3e2e2;
   font-family: var(--font-inter), sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Pin pulse ring animation */
-@keyframes pulse-ring {
-  0% {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-  70% {
-    transform: scale(1.7);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1.7);
-    opacity: 0;
-  }
+/* Material Symbols default variation */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
-.pin-pulse::before {
+/* Text selection uses gold */
+::selection {
+  background-color: #e9c169;
+  color: #3f2e00;
+}
+
+/* === Lookbook Pin === */
+@keyframes pin-pulse {
+  0%   { transform: scale(1);   opacity: 0.8; }
+  70%  { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+.pin-pulse-ring::before {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: #E8C068;
-  animation: pulse-ring 2s ease-out infinite;
+  background: rgba(255, 255, 255, 0.5);
+  animation: pin-pulse 2s ease-out infinite;
   z-index: -1;
 }
 
-/* Skeleton shimmer */
+/* === Skeleton shimmer === */
 @keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
 }
 
 .skeleton {
-  background: linear-gradient(90deg, #1A1A1A 25%, #2C2C2C 50%, #1A1A1A 75%);
+  background: linear-gradient(90deg, #1a1c1c 25%, #1e2020 50%, #1a1c1c 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
-  border-radius: 12px;
+  border-radius: 0.25rem;
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
+/* === Scrollbar === */
+::-webkit-scrollbar        { width: 4px; height: 4px; }
+::-webkit-scrollbar-track  { background: #121414; }
+::-webkit-scrollbar-thumb  { background: #444748; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #8e9192; }
 
-::-webkit-scrollbar-track {
-  background: #0D0D0D;
-}
+/* Hide scrollbar for vibe filter */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
-::-webkit-scrollbar-thumb {
-  background: #333333;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #999999;
-}
+/* === Masonry Grid === */
+.masonry-grid { column-count: 1; column-gap: 16px; }
+@media (min-width: 768px)  { .masonry-grid { column-count: 2; } }
+@media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
+.masonry-item { break-inside: avoid; margin-bottom: 16px; }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  .text-balance { text-wrap: balance; }
 }
