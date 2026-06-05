@@ -27,6 +27,9 @@ export default function PinEditor({ fitId, imageUrl, initialPins }: PinEditorPro
   const [pins, setPins] = useState<Pin[]>(initialPins)
   const [pendingPin, setPendingPin] = useState<PendingPin | null>(null)
   const [editingPinId, setEditingPinId] = useState<string | null>(null)
+  // Match the container to the image's natural ratio so the admin sees the full
+  // uncropped image — pins placed here line up exactly on the public detail view.
+  const [aspectRatio, setAspectRatio] = useState('3 / 4')
 
   const createPin = useMutation({
     mutationFn: async (data: Omit<Pin, 'id' | 'created_at'>) => {
@@ -106,7 +109,7 @@ export default function PinEditor({ fitId, imageUrl, initialPins }: PinEditorPro
         <div
           ref={imageRef}
           className="relative rounded-xl overflow-hidden border border-outline-variant cursor-crosshair bg-surface-container-low flex-shrink-0"
-          style={{ width: '100%', maxWidth: 480, aspectRatio: '3/4' }}
+          style={{ width: '100%', maxWidth: 480, aspectRatio }}
           onClick={handleImageClick}
         >
           <Image
@@ -114,8 +117,14 @@ export default function PinEditor({ fitId, imageUrl, initialPins }: PinEditorPro
             alt="Outfit"
             fill
             sizes="480px"
-            className="object-cover pointer-events-none"
+            className="object-contain pointer-events-none"
             priority
+            onLoad={(e) => {
+              const img = e.currentTarget
+              if (img.naturalWidth && img.naturalHeight) {
+                setAspectRatio(`${img.naturalWidth} / ${img.naturalHeight}`)
+              }
+            }}
           />
 
           {/* Existing pins */}

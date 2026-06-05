@@ -15,6 +15,8 @@ interface FitDetailProps {
 
 export default function FitDetail({ fit, pins }: FitDetailProps) {
   const [activePinId, setActivePinId] = useState<string | null>(null)
+  // Default to 3/4 until the image loads, then snap to its true ratio so nothing crops
+  const [aspectRatio, setAspectRatio] = useState('3 / 4')
 
   const handleActivate = (id: string | null) => {
     setActivePinId(id)
@@ -38,31 +40,39 @@ export default function FitDetail({ fit, pins }: FitDetailProps) {
         </Link>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Image with pins */}
-          <div
-            className="relative w-full lg:w-[60%] overflow-hidden rounded-xl border border-outline-variant bg-surface-container-low"
-            style={{ aspectRatio: '3/4', maxHeight: '80vh' }}
-            onClick={handleImageClick}
-          >
-            <Image
-              src={fit.image_url}
-              alt={fit.title}
-              fill
-              sizes="(max-width: 1024px) 100vw, 60vw"
-              className="object-cover"
-              priority
-            />
-
-            {/* Pin dots */}
-            {pins.map((pin, i) => (
-              <PinDot
-                key={pin.id}
-                pin={pin}
-                index={i}
-                isActive={activePinId === pin.id}
-                onActivate={handleActivate}
+          {/* Image with pins — container matches image's natural ratio so nothing is cropped */}
+          <div className="w-full lg:w-[55%] flex-shrink-0">
+            <div
+              className="relative w-full overflow-hidden rounded-xl border border-outline-variant bg-surface-container-low mx-auto"
+              style={{ aspectRatio }}
+              onClick={handleImageClick}
+            >
+              <Image
+                src={fit.image_url}
+                alt={fit.title}
+                fill
+                sizes="(max-width: 1024px) 100vw, 55vw"
+                className="object-contain"
+                priority
+                onLoad={(e) => {
+                  const img = e.currentTarget
+                  if (img.naturalWidth && img.naturalHeight) {
+                    setAspectRatio(`${img.naturalWidth} / ${img.naturalHeight}`)
+                  }
+                }}
               />
-            ))}
+
+              {/* Pin dots — positioned by % within this ratio-matched container */}
+              {pins.map((pin, i) => (
+                <PinDot
+                  key={pin.id}
+                  pin={pin}
+                  index={i}
+                  isActive={activePinId === pin.id}
+                  onActivate={handleActivate}
+                />
+              ))}
+            </div>
           </div>
 
           {/* Right panel */}
