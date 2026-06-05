@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { createSupabaseServerClient } from '@/lib/supabase/server'
+import { createSupabaseAdminClient } from '@/lib/supabase/server'
 import FitForm from '@/components/admin/FitForm'
 
 interface PageProps {
@@ -7,7 +7,7 @@ interface PageProps {
 }
 
 export default async function EditFitPage({ params }: PageProps) {
-  const supabase = await createSupabaseServerClient()
+  const supabase = await createSupabaseAdminClient()
   const { data: fit } = await supabase.from('fits').select('*').eq('id', params.id).single()
 
   if (!fit) notFound()

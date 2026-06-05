@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { createSupabaseServerClient } from '@/lib/supabase/server'
+import { createSupabaseAdminClient } from '@/lib/supabase/server'
 import ProductForm from '@/components/admin/ProductForm'
 
 interface PageProps {
@@ -7,7 +7,7 @@ interface PageProps {
 }
 
 export default async function EditProductPage({ params }: PageProps) {
-  const supabase = await createSupabaseServerClient()
+  const supabase = await createSupabaseAdminClient()
   const { data: product } = await supabase
     .from('products')
     .select('*')

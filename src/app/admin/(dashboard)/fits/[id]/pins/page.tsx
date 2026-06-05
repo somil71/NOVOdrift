@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
-import { createSupabaseServerClient } from '@/lib/supabase/server'
+import { createSupabaseAdminClient } from '@/lib/supabase/server'
 import PinEditor from '@/components/admin/PinEditor'
 
 interface PageProps {
@@ -9,7 +9,7 @@ interface PageProps {
 }
 
 export default async function PinsEditorPage({ params }: PageProps) {
-  const supabase = await createSupabaseServerClient()
+  const supabase = await createSupabaseAdminClient()
 
   const { data: fit } = await supabase.from('fits').select('*').eq('id', params.id).single()
   if (!fit) notFound()

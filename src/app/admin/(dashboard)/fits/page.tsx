@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import { Plus } from 'lucide-react'
-import { createSupabaseServerClient } from '@/lib/supabase/server'
+import { createSupabaseAdminClient } from '@/lib/supabase/server'
 import FitsTable from '@/components/admin/FitsTable'
 
 export const dynamic = 'force-dynamic'
 
 async function getAllFits() {
-  const supabase = await createSupabaseServerClient()
+  const supabase = await createSupabaseAdminClient()
   const { data } = await supabase
     .from('fits')
     .select('*')
