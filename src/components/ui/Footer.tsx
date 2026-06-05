@@ -15,11 +15,9 @@ export default function Footer() {
               Wear the look. Own every piece.
             </p>
             <div className="flex gap-md">
-              <a href="#" aria-label="Instagram" className="text-on-surface-variant hover:text-secondary transition-colors">
+              {/* Replace # with real social links when available */}
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-on-surface-variant hover:text-secondary transition-colors">
                 <span className="material-symbols-outlined text-[20px]">photo_camera</span>
-              </a>
-              <a href="#" aria-label="X / Twitter" className="text-on-surface-variant hover:text-secondary transition-colors">
-                <span className="material-symbols-outlined text-[20px]">alternate_email</span>
               </a>
             </div>
           </div>

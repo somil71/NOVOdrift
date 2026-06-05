@@ -3,10 +3,13 @@ import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { createSupabaseAdminClient } from '@/lib/supabase/server'
 import PinEditor from '@/components/admin/PinEditor'
+import PublishToggle from '@/components/admin/PublishToggle'
 
 interface PageProps {
   params: { id: string }
 }
+
+export const dynamic = 'force-dynamic'
 
 export default async function PinsEditorPage({ params }: PageProps) {
   const supabase = await createSupabaseAdminClient()
@@ -35,12 +38,16 @@ export default async function PinsEditorPage({ params }: PageProps) {
           <h1 className="text-2xl font-bold text-on-surface">Pin Editor</h1>
           <p className="text-on-surface-variant text-sm mt-0.5">{fit.title}</p>
         </div>
-        <Link
-          href={`/admin/fits/${fit.id}/edit`}
-          className="text-sm text-on-surface-variant hover:text-on-surface transition-colors"
-        >
-          Edit metadata →
-        </Link>
+        <div className="flex items-center gap-md">
+          <Link
+            href={`/admin/fits/${fit.id}/edit`}
+            className="text-sm text-on-surface-variant hover:text-on-surface transition-colors"
+          >
+            Edit details →
+          </Link>
+          {/* Publish toggle right here — no need to go back to fits table */}
+          <PublishToggle fitId={fit.id} initialPublished={fit.published} />
+        </div>
       </div>
 
       <PinEditor fitId={fit.id} imageUrl={fit.image_url} initialPins={pins ?? []} />

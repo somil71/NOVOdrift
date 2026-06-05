@@ -96,8 +96,11 @@ export default function SearchFitsPage() {
         )}
 
         {!isLoading && debouncedSearch && fits.length === 0 && (
-          <div className="flex flex-col items-center justify-center py-16 text-on-surface-variant">
-            <p className="text-lg font-medium">No fits found for &quot;{debouncedSearch}&quot;</p>
+          <div className="flex flex-col items-center justify-center py-16 text-on-surface-variant gap-md">
+            <p className="font-headline-sm text-headline-sm">No fits found for &quot;{debouncedSearch}&quot;</p>
+            <a href="/fits" className="font-label-caps text-label-caps uppercase text-secondary hover:text-secondary-fixed transition-colors tracking-widest">
+              ← Browse all fits
+            </a>
           </div>
         )}
 

@@ -42,10 +42,10 @@ export default async function ProfilePage() {
           <p className="font-body-md text-body-md text-on-surface-variant mt-base">{user.email}</p>
           <div className="flex gap-md mt-xl">
             <Link
-              href="/auth"
+              href="/admin/settings"
               className="bg-on-surface text-background font-label-caps text-label-caps px-lg py-xs rounded hover:bg-surface-tint transition-colors uppercase tracking-wider"
             >
-              Edit Profile
+              Settings
             </Link>
             <SignOutButton />
           </div>

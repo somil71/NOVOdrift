@@ -1,3 +1,4 @@
+import Link from "next/link"
 
 export default function TermsPage() {
   return (
@@ -37,6 +38,11 @@ export default function TermsPage() {
             </p>
           </section>
         </div>
+      <div className="mt-xxl">
+        <Link href="/fits" className="font-label-caps text-label-caps uppercase text-secondary hover:text-secondary-fixed transition-colors tracking-widest">
+          ← Back to Feed
+        </Link>
+      </div>
       </main>
     </>
   )
