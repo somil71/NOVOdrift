@@ -7,7 +7,7 @@ export default function NewProductPage() {
   const router = useRouter()
 
   return (
-    <div className="p-8 max-w-2xl mx-auto">
+    <div className="p-8 max-w-4xl">
       <h1 className="text-2xl font-bold text-on-surface mb-6">New Product</h1>
       <ProductForm mode="create" onSuccess={() => router.push('/admin/products')} />
     </div>
