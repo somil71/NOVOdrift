@@ -18,28 +18,26 @@ export async function GET(request: NextRequest) {
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1)
 
-    if (vibe && vibe !== 'All') {
-      query = query.contains('vibe_tags', [vibe])
-    }
-    if (search) {
-      query = query.ilike('title', `%${search}%`)
-    }
+    if (vibe && vibe !== 'All') query = query.contains('vibe_tags', [vibe])
+    if (search) query = query.ilike('title', `%${search}%`)
 
     const { data, error, count } = await query
-
     if (error) throw error
-
     return NextResponse.json({ data, total: count ?? 0, limit, offset, error: null })
   } catch (err) {
     console.error('[GET /api/fits]', err)
-    return NextResponse.json(
-      { data: null, error: { message: 'Failed to fetch fits', code: 'SERVER_ERROR' } },
-      { status: 500 }
-    )
+    return NextResponse.json({ data: null, error: { message: 'Failed to fetch fits', code: 'SERVER_ERROR' } }, { status: 500 })
   }
 }
 
 export async function POST(request: NextRequest) {
+  // Auth check: verify session before any write operation
+  const authClient = await createSupabaseServerClient()
+  const { data: { user } } = await authClient.auth.getUser()
+  if (!user) {
+    return NextResponse.json({ data: null, error: { message: 'Unauthorized', code: 'UNAUTHORIZED' } }, { status: 401 })
+  }
+
   try {
     const body = await request.json()
     const parsed = createFitSchema.safeParse(body)
@@ -50,21 +48,18 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Service role used only after auth is confirmed
     const supabase = await createSupabaseServiceClient()
     const { data, error } = await supabase
       .from('fits')
-      .insert({ ...parsed.data, vibe_tags: parsed.data.vibe_tags ?? [], published: false })
+      .insert({ ...parsed.data, vibe_tags: parsed.data.vibe_tags ?? [], published: false, user_id: user.id })
       .select()
       .single()
 
     if (error) throw error
-
     return NextResponse.json({ data, error: null }, { status: 201 })
   } catch (err) {
     console.error('[POST /api/fits]', err)
-    return NextResponse.json(
-      { data: null, error: { message: 'Failed to create fit', code: 'SERVER_ERROR' } },
-      { status: 500 }
-    )
+    return NextResponse.json({ data: null, error: { message: 'Failed to create fit', code: 'SERVER_ERROR' } }, { status: 500 })
   }
 }

@@ -89,11 +89,18 @@ export default function FitForm({ mode, initialData, onSuccess }: FitFormProps) 
   }
 
   const toggleVibe = (vibe: string) => {
-    const updated = selectedVibes.includes(vibe)
-      ? selectedVibes.filter((v) => v !== vibe)
-      : [...selectedVibes, vibe].slice(0, 5)
-    setSelectedVibes(updated)
-    setValue('vibe_tags', updated)
+    if (selectedVibes.includes(vibe)) {
+      const updated = selectedVibes.filter((v) => v !== vibe)
+      setSelectedVibes(updated)
+      setValue('vibe_tags', updated)
+    } else if (selectedVibes.length >= 5) {
+      // Explicit feedback instead of silently dropping the selection
+      toast.error('Maximum 5 vibe tags allowed')
+    } else {
+      const updated = [...selectedVibes, vibe]
+      setSelectedVibes(updated)
+      setValue('vibe_tags', updated)
+    }
   }
 
   const onSubmit = (data: CreateFitInput) => {
@@ -152,19 +159,25 @@ export default function FitForm({ mode, initialData, onSuccess }: FitFormProps) 
             Vibe Tags (max 5)
           </label>
           <div className="flex flex-wrap gap-2">
-            {VIBE_FILTERS.filter((v) => v !== 'All').map((vibe) => (
-              <button
-                key={vibe}
-                type="button"
-                onClick={() => toggleVibe(vibe)}
-                className="transition-all"
-              >
-                <Badge variant={selectedVibes.includes(vibe) ? 'gold' : 'default'}>
-                  {selectedVibes.includes(vibe) && <X size={10} className="inline mr-0.5" />}
-                  {vibe}
-                </Badge>
-              </button>
-            ))}
+            {VIBE_FILTERS.filter((v) => v !== 'All').map((vibe) => {
+              const isSelected = selectedVibes.includes(vibe)
+              const isDisabled = !isSelected && selectedVibes.length >= 5
+              return (
+                <button
+                  key={vibe}
+                  type="button"
+                  onClick={() => toggleVibe(vibe)}
+                  disabled={isDisabled}
+                  className={`transition-all ${isDisabled ? 'opacity-40 cursor-not-allowed' : ''}`}
+                  title={isDisabled ? 'Maximum 5 vibe tags reached' : undefined}
+                >
+                  <Badge variant={isSelected ? 'gold' : 'default'}>
+                    {isSelected && <X size={10} className="inline mr-0.5" />}
+                    {vibe}
+                  </Badge>
+                </button>
+              )
+            })}
           </div>
         </div>
 

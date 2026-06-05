@@ -20,6 +20,7 @@ export interface Database {
           image_url: string
           vibe_tags?: string[]
           published?: boolean
+          user_id?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -29,6 +30,7 @@ export interface Database {
           image_url?: string
           vibe_tags?: string[]
           published?: boolean
+          user_id?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -83,6 +85,7 @@ export interface Database {
           affiliate_url: string
           tags: string[]
           published: boolean
+          user_id: string | null
           created_at: string
         }
         Insert: {
@@ -95,6 +98,7 @@ export interface Database {
           affiliate_url: string
           tags?: string[]
           published?: boolean
+          user_id?: string | null
           created_at?: string
         }
         Update: {
