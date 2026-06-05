@@ -23,7 +23,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         hover:border-secondary hover:shadow-[0_4px_20px_rgba(232,192,104,0.15)]
         transition-[border-color,box-shadow] duration-200"
     >
-      {/* Product image */}
+      {/* Product image — fixed square box, image contained so nothing is cropped (Amazon-style uniform cards) */}
       <div className="relative aspect-square w-full bg-surface-container">
         {product.image_url ? (
           <Image
@@ -31,7 +31,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             alt={product.name}
             fill
             sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
-            className="object-cover"
+            className="object-contain p-2"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
