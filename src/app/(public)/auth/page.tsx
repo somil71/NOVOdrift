@@ -4,6 +4,9 @@ import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createSupabaseBrowserClient } from '@/lib/supabase/client'
 
+// Auth is interactive & user-specific — never prerender it.
+export const dynamic = 'force-dynamic'
+
 type Tab = 'signin' | 'signup'
 
 function AuthForm() {
@@ -20,12 +23,11 @@ function AuthForm() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
 
-  const supabase = createSupabaseBrowserClient()
-
   const reset = () => { setError(''); setSuccess('') }
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault(); reset(); setLoading(true)
+    const supabase = createSupabaseBrowserClient()
     const { error: err } = await supabase.auth.signInWithPassword({ email, password })
     if (err) { setError(err.message); setLoading(false); return }
     router.push(next); router.refresh()
@@ -35,9 +37,12 @@ function AuthForm() {
     e.preventDefault()
     if (!agreed) { setError('Please agree to the Terms of Service'); return }
     reset(); setLoading(true)
+    const supabase = createSupabaseBrowserClient()
+    // Confirmation email returns the user to THIS origin (prod or local), not localhost.
+    const emailRedirectTo = `${window.location.origin}/fits`
     const { error: err } = await supabase.auth.signUp({
       email, password,
-      options: { data: { full_name: name } },
+      options: { data: { full_name: name }, emailRedirectTo },
     })
     if (err) { setError(err.message); setLoading(false); return }
     setSuccess('Check your email to confirm your account.')

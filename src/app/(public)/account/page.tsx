@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createSupabaseBrowserClient } from '@/lib/supabase/client'
 
+export const dynamic = 'force-dynamic'
+
 export default function AccountPage() {
   const router = useRouter()
   const [email, setEmail] = useState('')
