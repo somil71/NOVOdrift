@@ -37,6 +37,7 @@ export default function FitForm({ mode, initialData, onSuccess }: FitFormProps) 
   const [imagePreview, setImagePreview] = useState<string>(initialData?.image_url ?? '')
   const [uploading, setUploading] = useState(false)
   const [selectedVibes, setSelectedVibes] = useState<string[]>(initialData?.vibe_tags ?? [])
+  const [accentColor, setAccentColor] = useState<string>(initialData?.accent_color ?? '#E8C068')
 
   const {
     register,
@@ -108,7 +109,7 @@ export default function FitForm({ mode, initialData, onSuccess }: FitFormProps) 
   }
 
   const onSubmit = (data: CreateFitInput) => {
-    mutation.mutate({ ...data, vibe_tags: selectedVibes })
+    mutation.mutate({ ...data, vibe_tags: selectedVibes, accent_color: accentColor })
   }
 
   const liveTitle = watch('title')
@@ -185,6 +186,41 @@ export default function FitForm({ mode, initialData, onSuccess }: FitFormProps) 
                 </button>
               )
             })}
+          </div>
+        </div>
+
+        {/* Accent colour — drives the Themed spotlight view */}
+        <div className="flex flex-col gap-2">
+          <label className="text-[13px] font-medium text-on-surface-variant">
+            Accent Colour
+          </label>
+          <p className="text-xs text-on-surface-variant/70 -mt-1">
+            Pick a tone from the outfit (e.g. the jacket). Themes the fit&apos;s spotlight page.
+          </p>
+          <div className="flex items-center gap-3">
+            {['#E8C068', '#B5682A', '#7C8AA5', '#9A6B4F', '#6B7A99', '#6FA8A0', '#9B7BB8', '#B5654A'].map((c) => (
+              <button
+                key={c}
+                type="button"
+                onClick={() => setAccentColor(c)}
+                className="w-7 h-7 rounded-full border-2 transition-transform hover:scale-110"
+                style={{ background: c, borderColor: accentColor === c ? '#fff' : 'transparent' }}
+                aria-label={`Accent ${c}`}
+              />
+            ))}
+            <span className="w-px h-6 bg-outline-variant mx-1" />
+            <label className="relative cursor-pointer" title="Custom colour">
+              <input
+                type="color"
+                value={accentColor}
+                onChange={(e) => setAccentColor(e.target.value)}
+                className="absolute inset-0 opacity-0 cursor-pointer w-7 h-7"
+              />
+              <span className="w-7 h-7 rounded-full border-2 border-outline-variant flex items-center justify-center" style={{ background: accentColor }}>
+                <span className="material-symbols-outlined text-[14px] text-white mix-blend-difference">colorize</span>
+              </span>
+            </label>
+            <span className="font-mono text-xs text-on-surface-variant ml-1">{accentColor}</span>
           </div>
         </div>
 

@@ -11,6 +11,7 @@ export interface Database {
           vibe_tags: string[]
           published: boolean
           user_id: string | null
+          accent_color: string | null
           created_at: string
           updated_at: string
         }
@@ -21,6 +22,7 @@ export interface Database {
           vibe_tags?: string[]
           published?: boolean
           user_id?: string | null
+          accent_color?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -31,6 +33,7 @@ export interface Database {
           vibe_tags?: string[]
           published?: boolean
           user_id?: string | null
+          accent_color?: string | null
           updated_at?: string
         }
         Relationships: []
