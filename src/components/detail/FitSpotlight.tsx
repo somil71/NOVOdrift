@@ -35,13 +35,21 @@ const rgba = (hex: string, a: number) => {
 
 interface Line { x1: number; y1: number; x2: number; y2: number }
 
+type View = 'attributes' | 'themed' | 'similar'
+
 export default function FitSpotlight({ fit, pins, similar }: FitSpotlightProps) {
+  const [view, setView] = useState<View>('attributes')
   const [revealed, setRevealed] = useState(false)
   const [activePin, setActivePin] = useState<string | null>(null)
-  const [accent, setAccent] = useState<string>(
-    VIBE_ACCENT[fit.vibe_tags?.[0] ?? ''] ?? '#E8C068'
-  )
+  const [derivedAccent, setDerivedAccent] = useState<string | null>(null)
+  const [aspectRatio, setAspectRatio] = useState('3 / 4')
   const [lines, setLines] = useState<Line[]>([])
+
+  const vibeAccent = VIBE_ACCENT[fit.vibe_tags?.[0] ?? ''] ?? '#E8C068'
+  // Idea 2 (Themed) uses the image-derived color; the others use neutral gold so
+  // each idea can be evaluated in isolation.
+  const accent = view === 'themed' ? (derivedAccent ?? vibeAccent) : '#E8C068'
+  const showSimilar = view === 'similar'
 
   const stageRef = useRef<HTMLDivElement>(null)
   const pinRefs = useRef<(HTMLButtonElement | null)[]>([])
@@ -77,7 +85,7 @@ export default function FitSpotlight({ fit, pins, similar }: FitSpotlightProps) 
         if (count < 20) return // not enough chromatic signal — keep vibe fallback
         r = Math.round(r / count); g = Math.round(g / count); b = Math.round(b / count)
         const hex = '#' + [r, g, b].map((v) => v.toString(16).padStart(2, '0')).join('')
-        setAccent(hex)
+        setDerivedAccent(hex)
       } catch {
         /* tainted canvas / CORS — keep the vibe fallback */
       }
@@ -174,6 +182,27 @@ export default function FitSpotlight({ fit, pins, similar }: FitSpotlightProps) 
           </Link>
         </div>
 
+        {/* Idea switcher — evaluate each design in isolation */}
+        <div className="flex justify-center mb-8">
+          <div className="inline-flex bg-surface-container-low border border-outline-variant rounded-full p-1">
+            {([
+              ['attributes', '① Attributes'],
+              ['themed', '② Themed'],
+              ['similar', '③ Similar'],
+            ] as [View, string][]).map(([v, label]) => (
+              <button
+                key={v}
+                onClick={() => { setView(v); if (v !== 'attributes') setRevealed(true) }}
+                className={`font-label-caps text-label-caps uppercase tracking-widest px-4 py-2 rounded-full transition-colors ${
+                  view === v ? 'bg-secondary text-on-secondary' : 'text-on-surface-variant hover:text-on-surface'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Title */}
         <div className="text-center mb-8">
           <h1 className="font-display-mobile text-display-mobile text-on-surface">{fit.title}</h1>
@@ -204,15 +233,21 @@ export default function FitSpotlight({ fit, pins, similar }: FitSpotlightProps) 
             {leftPins.map((pin) => renderCard(pin, pins.indexOf(pin), 'left'))}
           </div>
 
-          {/* Center image */}
-          <div className="relative mx-auto" style={{ aspectRatio: '3 / 4', height: 'min(70vh, 620px)' }}>
+          {/* Center image — natural ratio, never cropped */}
+          <div className="relative mx-auto" style={{ aspectRatio, height: 'min(72vh, 640px)' }}>
             <button
               onClick={() => setRevealed((r) => !r)}
-              className="relative w-full h-full rounded-2xl overflow-hidden block group"
+              className="relative w-full h-full rounded-2xl overflow-hidden block group bg-surface-container-low"
               style={{ boxShadow: `0 0 60px ${rgba(accent, revealed ? 0.3 : 0.15)}` }}
             >
               <Image src={fit.image_url} alt={fit.title} fill sizes="(max-width:1024px) 100vw, 50vw"
-                className={`object-cover transition-all duration-700 ${revealed ? '' : 'brightness-90'}`} priority />
+                className={`object-contain transition-all duration-700 ${revealed ? '' : 'brightness-90'}`} priority
+                onLoad={(e) => {
+                  const img = e.currentTarget
+                  if (img.naturalWidth && img.naturalHeight) {
+                    setAspectRatio(`${img.naturalWidth} / ${img.naturalHeight}`)
+                  }
+                }} />
 
               {/* Pins overlaid on the image */}
               {pins.map((pin, i) => (
@@ -272,7 +307,7 @@ export default function FitSpotlight({ fit, pins, similar }: FitSpotlightProps) 
         </div>
 
         {/* Idea 3: similar fits to fill the space */}
-        {similar.length > 0 && (
+        {showSimilar && similar.length > 0 && (
           <section className="mt-24">
             <div className="flex items-center gap-3 mb-6">
               <span className="h-px flex-1" style={{ background: rgba(accent, 0.3) }} />
