@@ -24,7 +24,7 @@ export default async function ProfilePage() {
     .eq('user_id', user.id)
     .order('created_at', { ascending: false })
 
-  const savedFits = (wishlistRows as WishlistRow[] ?? []).filter((w) => w.fits).map((w) => w.fits as Fit)
+  const savedFits = ((wishlistRows as unknown as WishlistRow[]) ?? []).filter((w) => w.fits).map((w) => w.fits as Fit)
 
   const displayName = (user.user_metadata?.full_name as string) || user.email?.split('@')[0] || 'Fashion Curator'
 

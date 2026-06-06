@@ -4,6 +4,7 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 import type { Product, Fit } from '@/lib/supabase/types'
+import ViewTracker from '@/components/analytics/ViewTracker'
 
 export const revalidate = 60
 
@@ -65,6 +66,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
   return (
     <main className="relative min-h-screen overflow-hidden">
+      <ViewTracker type="products" id={product.id} />
       {/* Ambient accent auras (admin-set theme) */}
       <div className="pointer-events-none fixed top-[-120px] right-0 w-[500px] h-[500px] rounded-full" style={{ background: accent, filter: 'blur(120px)', opacity: 0.1 }} />
       <div className="pointer-events-none fixed bottom-[-80px] left-[-60px] w-[320px] h-[320px] rounded-full" style={{ background: accent, filter: 'blur(90px)', opacity: 0.07 }} />

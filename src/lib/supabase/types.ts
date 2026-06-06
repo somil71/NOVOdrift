@@ -12,6 +12,7 @@ export interface Database {
           published: boolean
           user_id: string | null
           accent_color: string | null
+          view_count: number
           created_at: string
           updated_at: string
         }
@@ -23,6 +24,7 @@ export interface Database {
           published?: boolean
           user_id?: string | null
           accent_color?: string | null
+          view_count?: number
           created_at?: string
           updated_at?: string
         }
@@ -90,6 +92,7 @@ export interface Database {
           published: boolean
           user_id: string | null
           accent_color: string | null
+          view_count: number
           created_at: string
         }
         Insert: {
@@ -104,6 +107,7 @@ export interface Database {
           published?: boolean
           user_id?: string | null
           accent_color?: string | null
+          view_count?: number
           created_at?: string
         }
         Update: {
@@ -163,7 +167,20 @@ export interface Database {
       }
     }
     Views: Record<string, never>
-    Functions: Record<string, never>
+    Functions: {
+      increment_view: {
+        Args: { p_table: string; p_id: string }
+        Returns: undefined
+      }
+      get_user_count: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
+      top_saved_fits: {
+        Args: { lim: number }
+        Returns: { fit_id: string; title: string; saves: number }[]
+      }
+    }
     Enums: Record<string, never>
     CompositeTypes: Record<string, never>
   }

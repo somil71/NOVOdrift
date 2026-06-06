@@ -4,6 +4,7 @@ import { createSupabaseServerClient } from '@/lib/supabase/server'
 import type { Fit, Pin } from '@/lib/supabase/types'
 import FitDetail from '@/components/detail/FitDetail'
 import FitSpotlight from '@/components/detail/FitSpotlight'
+import ViewTracker from '@/components/analytics/ViewTracker'
 
 export const revalidate = 30
 
@@ -72,11 +73,14 @@ export default async function FitDetailPage({ params, searchParams }: PageProps)
 
   // Spotlight is the main experience
   return (
-    <FitSpotlight
-      fit={result.fit}
-      pins={result.pins}
-      prevId={result.prevId}
-      nextId={result.nextId}
-    />
+    <>
+      <ViewTracker type="fits" id={result.fit.id} />
+      <FitSpotlight
+        fit={result.fit}
+        pins={result.pins}
+        prevId={result.prevId}
+        nextId={result.nextId}
+      />
+    </>
   )
 }

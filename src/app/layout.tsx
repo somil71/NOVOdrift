@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 import QueryProvider from '@/components/providers/QueryProvider'
 
@@ -31,6 +33,8 @@ export default function RootLayout({
       </head>
       <body className="bg-background text-on-surface antialiased selection:bg-secondary selection:text-on-secondary">
         <QueryProvider>{children}</QueryProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

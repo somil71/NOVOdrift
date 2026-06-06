@@ -1,25 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createSupabaseAdminClient, createSupabaseServerClient } from '@/lib/supabase/server'
+import { rateLimit } from '@/lib/rate-limit'
 
-// Simple in-memory rate limiter — 60 requests per IP per minute
-// Note: resets on cold start (serverless). Acceptable for click fraud protection.
-const rateMap = new Map<string, { count: number; resetAt: number }>()
-
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now()
-  const entry = rateMap.get(ip)
-  if (!entry || now > entry.resetAt) {
-    rateMap.set(ip, { count: 1, resetAt: now + 60_000 })
-    return true
-  }
-  if (entry.count >= 60) return false
-  entry.count++
-  return true
-}
-
+// 60 clicks per IP per minute — Upstash Redis when configured, in-memory fallback otherwise.
 export async function GET(request: NextRequest) {
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown'
-  if (!checkRateLimit(ip)) {
+  if (!(await rateLimit(`track:${ip}`))) {
     return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
   }
 
