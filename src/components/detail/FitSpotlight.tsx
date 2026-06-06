@@ -53,20 +53,20 @@ export default function FitSpotlight({ fit, pins, similar, prevId, nextId }: Fit
             </button>
           ))}
         </div>
-        <Link href={`/fits/${fit.id}`} className="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant hover:text-on-surface transition-colors hidden sm:block">
+        <Link href={`/fits/${fit.id}?classic=1`} className="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant hover:text-on-surface transition-colors hidden sm:block">
           Classic →
         </Link>
       </div>
 
       {/* Prev / Next fit navigation */}
       {prevId && (
-        <Link href={`/fits/${prevId}/spotlight`} aria-label="Previous fit"
+        <Link href={`/fits/${prevId}`} aria-label="Previous fit"
           className="fixed left-3 top-1/2 -translate-y-1/2 z-40 w-11 h-11 rounded-full bg-surface-container-low/80 backdrop-blur border border-outline-variant flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:border-secondary transition-colors">
           <ChevronLeft size={22} />
         </Link>
       )}
       {nextId && (
-        <Link href={`/fits/${nextId}/spotlight`} aria-label="Next fit"
+        <Link href={`/fits/${nextId}`} aria-label="Next fit"
           className="fixed right-3 top-1/2 -translate-y-1/2 z-40 w-11 h-11 rounded-full bg-surface-container-low/80 backdrop-blur border border-outline-variant flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:border-secondary transition-colors">
           <ChevronRight size={22} />
         </Link>
@@ -341,7 +341,7 @@ function ThemedView({ fit, pins, similar, accent, aspectRatio, setAspectRatio }:
                 <p className="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant mb-3">Similar fits</p>
                 <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
                   {similar.slice(0, 4).map((s) => (
-                    <Link key={s.id} href={`/fits/${s.id}/spotlight`}
+                    <Link key={s.id} href={`/fits/${s.id}`}
                       onMouseEnter={() => setSimHover(s.id)} onMouseLeave={() => setSimHover(null)}
                       className="group relative aspect-[3/4] rounded-lg overflow-hidden border transition-all"
                       style={{

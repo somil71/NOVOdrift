@@ -35,6 +35,7 @@ export default function ProductForm({ mode, initialData, onSuccess }: ProductFor
   const [imagePreview, setImagePreview] = useState(initialData?.image_url ?? '')
   const [uploading, setUploading] = useState(false)
   const [published, setPublished] = useState(initialData?.published ?? false)
+  const [accentColor, setAccentColor] = useState<string>(initialData?.accent_color ?? '#E8C068')
 
   const {
     register,
@@ -121,7 +122,7 @@ export default function ProductForm({ mode, initialData, onSuccess }: ProductFor
     <>
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 items-start">
         {/* LEFT — form fields */}
-        <form onSubmit={handleSubmit((d) => mutation.mutate(d))} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit((d) => mutation.mutate({ ...d, accent_color: accentColor }))} className="flex flex-col gap-4">
           <Input
             id="name"
             label="Product Name *"
@@ -196,6 +197,25 @@ export default function ProductForm({ mode, initialData, onSuccess }: ProductFor
             error={errors.affiliate_url?.message}
             {...register('affiliate_url')}
           />
+
+          {/* Accent colour — themes the product detail page */}
+          <div className="flex flex-col gap-2">
+            <label className="text-[13px] font-medium text-on-surface-variant">Accent Colour</label>
+            <div className="flex items-center gap-3 flex-wrap">
+              {['#E8C068', '#B5682A', '#7C8AA5', '#9A6B4F', '#6B7A99', '#6FA8A0', '#9B7BB8', '#B5654A'].map((c) => (
+                <button key={c} type="button" onClick={() => setAccentColor(c)}
+                  className="w-7 h-7 rounded-full border-2 transition-transform hover:scale-110"
+                  style={{ background: c, borderColor: accentColor === c ? '#fff' : 'transparent' }} aria-label={`Accent ${c}`} />
+              ))}
+              <label className="relative cursor-pointer" title="Custom colour">
+                <input type="color" value={accentColor} onChange={(e) => setAccentColor(e.target.value)} className="absolute inset-0 opacity-0 cursor-pointer w-7 h-7" />
+                <span className="w-7 h-7 rounded-full border-2 border-outline-variant flex items-center justify-center" style={{ background: accentColor }}>
+                  <span className="material-symbols-outlined text-[14px] text-white mix-blend-difference">colorize</span>
+                </span>
+              </label>
+              <span className="font-mono text-xs text-on-surface-variant">{accentColor}</span>
+            </div>
+          </div>
 
           <div className="flex items-center gap-3 pt-2">
             <Button type="submit" loading={mutation.isPending || uploading}>

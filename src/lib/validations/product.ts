@@ -12,6 +12,7 @@ export const createProductSchema = z.object({
   image_url: z.string().url().nullish().or(z.literal('')),
   affiliate_url: z.string().url('Must be a valid URL'),
   tags: z.array(z.string()).optional(),
+  accent_color: z.string().regex(/^#[0-9a-fA-F]{6}$/, 'Must be a hex color').nullish(),
 })
 
 export const updateProductSchema = createProductSchema

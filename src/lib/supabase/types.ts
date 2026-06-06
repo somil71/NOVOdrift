@@ -89,6 +89,7 @@ export interface Database {
           tags: string[]
           published: boolean
           user_id: string | null
+          accent_color: string | null
           created_at: string
         }
         Insert: {
@@ -102,6 +103,7 @@ export interface Database {
           tags?: string[]
           published?: boolean
           user_id?: string | null
+          accent_color?: string | null
           created_at?: string
         }
         Update: {
@@ -113,6 +115,7 @@ export interface Database {
           affiliate_url?: string
           tags?: string[]
           published?: boolean
+          accent_color?: string | null
         }
         Relationships: []
       }

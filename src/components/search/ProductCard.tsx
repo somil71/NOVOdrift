@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ShoppingBag } from 'lucide-react'
 import type { Product } from '@/lib/supabase/types'
@@ -11,7 +12,8 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const handleBuy = () => {
+  const handleBuy = (e: React.MouseEvent) => {
+    e.preventDefault()
     window.open(`/api/track/r?product=${product.id}`, '_blank', 'noopener,noreferrer')
   }
 
@@ -19,49 +21,55 @@ export default function ProductCard({ product }: ProductCardProps) {
     <motion.div
       whileHover={{ y: -4 }}
       transition={{ duration: 0.2, ease: 'easeOut' }}
-      className="flex flex-col bg-surface-container-low border border-outline-variant rounded-xl overflow-hidden
+      className="relative flex flex-col bg-surface-container-low border border-outline-variant rounded-xl overflow-hidden
         hover:border-secondary hover:shadow-[0_4px_20px_rgba(232,192,104,0.15)]
         transition-[border-color,box-shadow] duration-200"
     >
-      {/* Product image — fixed square box, image contained so nothing is cropped (Amazon-style uniform cards) */}
-      <div className="relative aspect-square w-full bg-surface-container">
-        {product.image_url ? (
-          <Image
-            src={product.image_url}
-            alt={product.name}
-            fill
-            sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
-            className="object-contain p-2"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <ShoppingBag size={32} className="text-on-surface-variant" />
-          </div>
-        )}
-      </div>
-
-      {/* Product info */}
-      <div className="p-3 flex flex-col gap-2 flex-1">
-        <div>
-          <p className="text-sm font-semibold text-on-surface line-clamp-2 leading-tight">
-            {product.name}
-          </p>
-          {product.brand && (
-            <p className="text-xs text-on-surface-variant mt-0.5">{product.brand}</p>
-          )}
-        </div>
-        <div className="flex items-center justify-between mt-auto">
-          {product.price != null ? (
-            <p className="text-sm font-medium text-secondary">
-              ₹{product.price.toLocaleString('en-IN')}
-            </p>
+      {/* Whole card links to the themed product detail page */}
+      <Link href={`/products/${product.id}`} className="flex flex-col flex-1">
+        {/* Product image — fixed square box, image contained (Amazon-style uniform cards) */}
+        <div className="relative aspect-square w-full bg-surface-container">
+          {product.image_url ? (
+            <Image
+              src={product.image_url}
+              alt={product.name}
+              fill
+              sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
+              className="object-contain p-2"
+            />
           ) : (
-            <span />
+            <div className="w-full h-full flex items-center justify-center">
+              <ShoppingBag size={32} className="text-on-surface-variant" />
+            </div>
           )}
-          <span className="text-xs text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full">
-            {product.category}
-          </span>
         </div>
+
+        {/* Product info */}
+        <div className="p-3 flex flex-col gap-2 flex-1">
+          <div>
+            <p className="text-sm font-semibold text-on-surface line-clamp-2 leading-tight">
+              {product.name}
+            </p>
+            {product.brand && (
+              <p className="text-xs text-on-surface-variant mt-0.5">{product.brand}</p>
+            )}
+          </div>
+          <div className="flex items-center justify-between mt-auto">
+            {product.price != null ? (
+              <p className="text-sm font-medium" style={{ color: product.accent_color ?? '#E8C068' }}>
+                ₹{product.price.toLocaleString('en-IN')}
+              </p>
+            ) : (
+              <span />
+            )}
+            <span className="text-xs text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full">
+              {product.category}
+            </span>
+          </div>
+        </div>
+      </Link>
+
+      <div className="px-3 pb-3">
         <Button size="sm" className="w-full" onClick={handleBuy}>
           Buy Now
         </Button>
