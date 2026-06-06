@@ -75,7 +75,6 @@ export default async function FitDetailPage({ params, searchParams }: PageProps)
     <FitSpotlight
       fit={result.fit}
       pins={result.pins}
-      similar={result.similar}
       prevId={result.prevId}
       nextId={result.nextId}
     />

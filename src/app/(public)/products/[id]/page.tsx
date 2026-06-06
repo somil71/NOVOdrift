@@ -77,7 +77,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
           {/* Central figure — image with accent halo */}
-          <div className="w-full lg:w-auto flex justify-center flex-shrink-0">
+          <div className="w-full sm:w-[360px] flex-shrink-0 flex justify-center">
             <div className="relative w-full max-w-[360px]" style={{ aspectRatio: '1 / 1' }}>
               <div className="absolute -inset-6 rounded-3xl" style={{ background: accent, filter: 'blur(45px)', opacity: 0.3 }} />
               <div className="relative w-full h-full rounded-2xl overflow-hidden bg-surface-container-low"

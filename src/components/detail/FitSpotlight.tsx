@@ -9,15 +9,8 @@ import type { Fit, Pin } from '@/lib/supabase/types'
 interface FitSpotlightProps {
   fit: Fit
   pins: Pin[]
-  similar: Fit[]
   prevId: string | null
   nextId: string | null
-}
-
-const VIBE_ACCENT: Record<string, string> = {
-  Street: '#7C8AA5', Minimal: '#C9B79C', 'Dark Academia': '#9A6B4F',
-  Ethnic: '#B5654A', Formal: '#6B7A99', Casual: '#6FA8A0',
-  'Avant-Garde': '#9B7BB8', Techwear: '#5FA0B5',
 }
 
 function hexToRgb(hex: string): [number, number, number] {
@@ -29,32 +22,15 @@ const rgba = (hex: string, a: number) => {
   return `rgba(${r}, ${g}, ${b}, ${a})`
 }
 
-type View = 'attributes' | 'themed'
-
-export default function FitSpotlight({ fit, pins, similar, prevId, nextId }: FitSpotlightProps) {
-  const [view, setView] = useState<View>('attributes')
+export default function FitSpotlight({ fit, pins, prevId, nextId }: FitSpotlightProps) {
   const [aspectRatio, setAspectRatio] = useState('3 / 4')
-  const themedAccent = fit.accent_color ?? VIBE_ACCENT[fit.vibe_tags?.[0] ?? ''] ?? '#E8C068'
 
   return (
     <main className="relative min-h-screen overflow-hidden">
       {/* Top bar */}
       <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 pt-[80px] sm:pt-[88px] flex items-center justify-between gap-2">
         <Link href="/fits" className="inline-flex items-center gap-1.5 text-sm text-on-surface-variant hover:text-on-surface transition-colors flex-shrink-0">
-          <ArrowLeft size={16} /> <span className="hidden xs:inline sm:inline">Back</span>
-        </Link>
-        <div className="inline-flex bg-surface-container-low border border-outline-variant rounded-full p-1">
-          {([['attributes', '① Attributes'], ['themed', '② Themed']] as [View, string][]).map(([v, label]) => (
-            <button key={v} onClick={() => setView(v)}
-              className={`font-label-caps text-label-caps uppercase tracking-widest px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-colors whitespace-nowrap ${
-                view === v ? 'bg-secondary text-on-secondary' : 'text-on-surface-variant hover:text-on-surface'
-              }`}>
-              {label}
-            </button>
-          ))}
-        </div>
-        <Link href={`/fits/${fit.id}?classic=1`} className="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant hover:text-on-surface transition-colors hidden sm:block flex-shrink-0">
-          Classic →
+          <ArrowLeft size={16} /> Back to Feed
         </Link>
       </div>
 
@@ -72,9 +48,7 @@ export default function FitSpotlight({ fit, pins, similar, prevId, nextId }: Fit
         </Link>
       )}
 
-      {view === 'attributes'
-        ? <AttributesView fit={fit} pins={pins} aspectRatio={aspectRatio} setAspectRatio={setAspectRatio} />
-        : <ThemedView fit={fit} pins={pins} similar={similar} accent={themedAccent} aspectRatio={aspectRatio} setAspectRatio={setAspectRatio} />}
+      <AttributesView fit={fit} pins={pins} aspectRatio={aspectRatio} setAspectRatio={setAspectRatio} />
     </main>
   )
 }
@@ -252,114 +226,3 @@ function AttributesView({ fit, pins, aspectRatio, setAspectRatio }: {
   )
 }
 
-/* ── DESIGN 2 — Themed: admin accent, central figure, visible pins, similar fits ── */
-function ThemedView({ fit, pins, similar, accent, aspectRatio, setAspectRatio }: {
-  fit: Fit; pins: Pin[]; similar: Fit[]; accent: string; aspectRatio: string; setAspectRatio: (s: string) => void
-}) {
-  const [hoverPin, setHoverPin] = useState<string | null>(null)
-  const [simHover, setSimHover] = useState<string | null>(null)
-
-  return (
-    <div className="relative">
-      <div className="pointer-events-none fixed top-[-120px] right-0 w-[500px] h-[500px] rounded-full" style={{ background: accent, filter: 'blur(120px)', opacity: 0.10 }} />
-      <div className="pointer-events-none fixed bottom-[-80px] left-[-60px] w-[320px] h-[320px] rounded-full" style={{ background: accent, filter: 'blur(90px)', opacity: 0.07 }} />
-
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-xxl">
-        <div className="flex flex-col lg:flex-row gap-10 items-start">
-          {/* Image with halo + visible pins (trails not clipped) */}
-          <div className="w-full lg:w-auto flex justify-center flex-shrink-0">
-            <div className="relative" style={{ aspectRatio, height: 'min(60vh, 520px)' }}>
-              <div className="absolute -inset-6 rounded-3xl" style={{ background: accent, filter: 'blur(45px)', opacity: 0.35 }} />
-              {/* image clip wrapper */}
-              <div className="absolute inset-0 rounded-2xl overflow-hidden bg-surface-container-low"
-                style={{ border: `1px solid ${rgba(accent, 0.3)}`, boxShadow: `0 0 50px ${rgba(accent, 0.4)}` }}>
-                <Image src={fit.image_url} alt={fit.title} fill sizes="(max-width:1024px) 100vw, 40vw"
-                  className="object-contain" priority
-                  onLoad={(e) => {
-                    const img = e.currentTarget
-                    if (img.naturalWidth && img.naturalHeight) setAspectRatio(`${img.naturalWidth} / ${img.naturalHeight}`)
-                  }} />
-              </div>
-              {/* pins as siblings so tooltips aren't clipped */}
-              {pins.map((pin) => (
-                <div key={pin.id} className="absolute z-30 -translate-x-1/2 -translate-y-1/2"
-                  style={{ left: `${pin.x_percent}%`, top: `${pin.y_percent}%` }}
-                  onMouseEnter={() => setHoverPin(pin.id)} onMouseLeave={() => setHoverPin(null)}>
-                  <span className="relative flex items-center justify-center cursor-pointer">
-                    <span className="block w-5 h-5 rounded-full border-[2.5px] border-white"
-                      style={{ background: accent, boxShadow: `0 0 0 5px ${rgba(accent, 0.35)}, 0 0 18px ${rgba(accent, 0.8)}` }} />
-                    <span className="absolute inset-0 rounded-full animate-ping" style={{ background: rgba(accent, 0.5) }} />
-                  </span>
-                  {hoverPin === pin.id && (
-                    <div className="absolute top-[calc(100%+12px)] left-1/2 -translate-x-1/2 w-44 bg-surface-container border rounded-lg p-2.5 shadow-xl z-40"
-                      style={{ borderColor: rgba(accent, 0.5) }}>
-                      <p className="font-body-sm text-body-sm text-on-surface leading-tight">{pin.product_name}</p>
-                      {pin.brand && <p className="text-xs text-on-surface-variant">{pin.brand}</p>}
-                      {pin.price != null && <p className="text-xs mt-0.5" style={{ color: accent }}>₹{pin.price.toLocaleString('en-IN')}</p>}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Info column */}
-          <div className="flex-1 min-w-0">
-            <h1 className="font-display-mobile text-display-mobile text-on-surface">{fit.title}</h1>
-            <div className="flex flex-wrap gap-2 mt-3 mb-4">
-              {fit.vibe_tags.map((t) => (
-                <span key={t} className="font-label-caps text-label-caps uppercase tracking-widest px-3 py-1 rounded-full border" style={{ borderColor: accent, color: accent }}>{t}</span>
-              ))}
-            </div>
-            <p className="font-body-sm text-body-sm text-on-surface-variant mb-4">
-              {pins.length} item{pins.length !== 1 ? 's' : ''} in this outfit · hover the pins or list to shop
-            </p>
-            <div className="flex flex-col gap-2">
-              {pins.map((pin) => (
-                <a key={pin.id} href={`/api/track/r?pin=${pin.id}`} target="_blank" rel="noopener noreferrer"
-                  onMouseEnter={() => setHoverPin(pin.id)} onMouseLeave={() => setHoverPin(null)}
-                  className="flex items-center justify-between p-3 rounded-lg border transition-all"
-                  style={{
-                    borderColor: hoverPin === pin.id ? rgba(accent, 0.5) : 'rgba(255,255,255,0.07)',
-                    background: hoverPin === pin.id ? rgba(accent, 0.1) : 'rgba(255,255,255,0.02)',
-                  }}>
-                  <div>
-                    <p className="font-body-md text-body-md text-on-surface">{pin.product_name}</p>
-                    {pin.brand && <p className="font-body-sm text-body-sm text-on-surface-variant">{pin.brand}</p>}
-                  </div>
-                  <div className="text-right">
-                    {pin.price != null && <p className="font-medium" style={{ color: accent }}>₹{pin.price.toLocaleString('en-IN')}</p>}
-                    <p className="text-xs text-on-surface-variant">Shop →</p>
-                  </div>
-                </a>
-              ))}
-            </div>
-
-            {/* Similar fits — moved into the info column so it fills the space beside/under the image */}
-            {similar.length > 0 && (
-              <div className="mt-8">
-                <p className="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant mb-3">Similar fits</p>
-                <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
-                  {similar.slice(0, 4).map((s) => (
-                    <Link key={s.id} href={`/fits/${s.id}`}
-                      onMouseEnter={() => setSimHover(s.id)} onMouseLeave={() => setSimHover(null)}
-                      className="group relative aspect-[3/4] rounded-lg overflow-hidden border transition-all"
-                      style={{
-                        borderColor: simHover === s.id ? rgba(accent, 0.6) : 'rgba(255,255,255,0.06)',
-                        boxShadow: simHover === s.id ? `0 6px 18px ${rgba(accent, 0.3)}` : 'none',
-                      }}>
-                      <Image src={s.image_url} alt={s.title} fill sizes="120px" className="object-cover transition-transform duration-500 group-hover:scale-105" />
-                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-1.5">
-                        <p className="text-[11px] text-white line-clamp-1">{s.title}</p>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
