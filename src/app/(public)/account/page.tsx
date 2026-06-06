@@ -15,9 +15,8 @@ export default function AccountPage() {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
-  const supabase = createSupabaseBrowserClient()
-
   useEffect(() => {
+    const supabase = createSupabaseBrowserClient()
     supabase.auth.getUser().then(({ data: { user } }) => {
       if (!user) {
         router.push('/auth?next=/account')
@@ -33,6 +32,7 @@ export default function AccountPage() {
   const saveName = async (e: React.FormEvent) => {
     e.preventDefault()
     setSaving(true); setError(''); setMessage('')
+    const supabase = createSupabaseBrowserClient()
     const { error: err } = await supabase.auth.updateUser({ data: { full_name: name } })
     if (err) setError(err.message)
     else { setMessage('Profile updated'); router.refresh() }
@@ -43,6 +43,7 @@ export default function AccountPage() {
     e.preventDefault()
     if (newPassword.length < 8) { setError('Password must be at least 8 characters'); return }
     setSaving(true); setError(''); setMessage('')
+    const supabase = createSupabaseBrowserClient()
     const { error: err } = await supabase.auth.updateUser({ password: newPassword })
     if (err) setError(err.message)
     else { setMessage('Password changed'); setNewPassword('') }
@@ -50,6 +51,7 @@ export default function AccountPage() {
   }
 
   const signOut = async () => {
+    const supabase = createSupabaseBrowserClient()
     await supabase.auth.signOut()
     router.push('/fits')
     router.refresh()
