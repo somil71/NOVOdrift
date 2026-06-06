@@ -30,14 +30,23 @@ export default function FitDetail({ fit, pins }: FitDetailProps) {
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-6 py-8">
-        {/* Back link */}
-        <Link
-          href="/fits"
-          className="inline-flex items-center gap-2 text-sm text-on-surface-variant hover:text-on-surface transition-colors mb-6"
-        >
-          <ArrowLeft size={16} />
-          Back to Feed
-        </Link>
+        {/* Back link + spotlight view toggle */}
+        <div className="flex items-center justify-between mb-6">
+          <Link
+            href="/fits"
+            className="inline-flex items-center gap-2 text-sm text-on-surface-variant hover:text-on-surface transition-colors"
+          >
+            <ArrowLeft size={16} />
+            Back to Feed
+          </Link>
+          <Link
+            href={`/fits/${fit.id}/spotlight`}
+            className="inline-flex items-center gap-2 font-label-caps text-label-caps uppercase tracking-widest text-secondary hover:text-secondary-fixed transition-colors"
+          >
+            <span className="material-symbols-outlined text-[16px]">auto_awesome</span>
+            Spotlight view
+          </Link>
+        </div>
 
         <div className="flex flex-col lg:flex-row gap-10 lg:items-start">
           {/* Image with pins — height-capped, pins NOT clipped so tooltips show fully */}
