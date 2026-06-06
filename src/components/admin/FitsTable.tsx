@@ -65,8 +65,8 @@ export default function FitsTable({ fits }: FitsTableProps) {
 
   return (
     <>
-      <div className="overflow-hidden rounded-xl border border-outline-variant">
-        <table className="w-full text-sm">
+      <div className="overflow-x-auto rounded-xl border border-outline-variant">
+        <table className="w-full text-sm min-w-[640px]">
           <thead>
             <tr className="border-b border-outline-variant bg-surface-container">
               <th className="text-left px-4 py-3 text-on-surface-variant font-medium">Title</th>

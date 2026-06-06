@@ -9,6 +9,7 @@ export default function Navbar() {
   const router = useRouter()
   const [isUser, setIsUser] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [navOpen, setNavOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -39,10 +40,15 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-outline-variant">
-      <nav className="flex justify-between items-center h-16 px-lg max-w-7xl mx-auto">
+      <nav className="flex justify-between items-center h-16 px-4 sm:px-lg max-w-7xl mx-auto">
+        {/* Mobile hamburger */}
+        <button onClick={() => setNavOpen((o) => !o)} aria-label="Menu" className="md:hidden text-on-surface-variant hover:text-on-surface transition-colors">
+          <span className="material-symbols-outlined text-[24px]">{navOpen ? 'close' : 'menu'}</span>
+        </button>
+
         <Link
           href="/fits"
-          className="font-headline-sm text-headline-sm tracking-[3px] text-on-surface hover:text-secondary transition-colors duration-200 uppercase"
+          className="font-headline-sm text-headline-sm tracking-[3px] text-on-surface hover:text-secondary transition-colors duration-200 uppercase md:flex-none absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0"
         >
           FITBOARD
         </Link>
@@ -54,9 +60,6 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-md">
-          <Link href="/search/fits" className="text-on-surface-variant hover:text-secondary transition-colors duration-200 md:hidden" aria-label="Search">
-            <span className="material-symbols-outlined text-[22px]">search</span>
-          </Link>
 
           {isUser ? (
             <div className="relative" ref={menuRef}>
@@ -104,6 +107,24 @@ export default function Navbar() {
           )}
         </div>
       </nav>
+
+      {/* Mobile nav drawer */}
+      {navOpen && (
+        <div className="md:hidden border-t border-outline-variant bg-surface/95 backdrop-blur-md">
+          <div className="flex flex-col px-4 py-2">
+            {[
+              { href: '/fits', label: 'Feed' },
+              { href: '/search/fits', label: 'Search Fits' },
+              { href: '/search/products', label: 'Shop Products' },
+            ].map(({ href, label }) => (
+              <Link key={href} href={href} onClick={() => setNavOpen(false)}
+                className="font-body-md text-body-md text-on-surface-variant hover:text-on-surface py-3 border-b border-outline-variant/50 last:border-0 transition-colors">
+                {label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </header>
   )
 }

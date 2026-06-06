@@ -91,9 +91,9 @@ export default async function AdminDashboardPage() {
   ]
 
   return (
-    <div className="p-xxl max-w-[1200px] mx-auto">
+    <div className="p-4 sm:p-xxl max-w-[1200px] mx-auto">
       {/* Header */}
-      <header className="flex justify-between items-end mb-xxl">
+      <header className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-md mb-xl sm:mb-xxl">
         <div>
           <h2 className="font-headline-md text-headline-md text-on-surface tracking-tight">
             {greeting}, Admin

@@ -24,7 +24,7 @@ export default async function PinsEditorPage({ params }: PageProps) {
     .order('created_at')
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-8">
       <Link
         href="/admin/fits"
         className="inline-flex items-center gap-2 text-sm text-on-surface-variant hover:text-on-surface transition-colors mb-6"

@@ -71,7 +71,7 @@ export default function SearchFitsPage() {
 
   return (
     <>
-      <main className="max-w-7xl mx-auto px-6 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 pt-[88px]">
         <h1 className="text-3xl font-bold text-on-surface mb-6">Search Fits</h1>
 
         <SearchBar

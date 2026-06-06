@@ -32,7 +32,7 @@ export default function AdminSettingsPage() {
   }
 
   return (
-    <div className="p-8 max-w-5xl">
+    <div className="p-4 sm:p-8 max-w-5xl">
       <h1 className="text-2xl font-bold text-on-surface mb-1">Settings</h1>
       <p className="text-on-surface-variant text-sm mb-8">Manage your account and platform configuration.</p>
 

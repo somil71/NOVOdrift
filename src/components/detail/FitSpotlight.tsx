@@ -39,21 +39,21 @@ export default function FitSpotlight({ fit, pins, similar, prevId, nextId }: Fit
   return (
     <main className="relative min-h-screen overflow-hidden">
       {/* Top bar */}
-      <div className="relative z-30 max-w-7xl mx-auto px-6 pt-[88px] flex items-center justify-between">
-        <Link href="/fits" className="inline-flex items-center gap-2 text-sm text-on-surface-variant hover:text-on-surface transition-colors">
-          <ArrowLeft size={16} /> Back to Feed
+      <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 pt-[80px] sm:pt-[88px] flex items-center justify-between gap-2">
+        <Link href="/fits" className="inline-flex items-center gap-1.5 text-sm text-on-surface-variant hover:text-on-surface transition-colors flex-shrink-0">
+          <ArrowLeft size={16} /> <span className="hidden xs:inline sm:inline">Back</span>
         </Link>
         <div className="inline-flex bg-surface-container-low border border-outline-variant rounded-full p-1">
           {([['attributes', '① Attributes'], ['themed', '② Themed']] as [View, string][]).map(([v, label]) => (
             <button key={v} onClick={() => setView(v)}
-              className={`font-label-caps text-label-caps uppercase tracking-widest px-4 py-2 rounded-full transition-colors ${
+              className={`font-label-caps text-label-caps uppercase tracking-widest px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-colors whitespace-nowrap ${
                 view === v ? 'bg-secondary text-on-secondary' : 'text-on-surface-variant hover:text-on-surface'
               }`}>
               {label}
             </button>
           ))}
         </div>
-        <Link href={`/fits/${fit.id}?classic=1`} className="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant hover:text-on-surface transition-colors hidden sm:block">
+        <Link href={`/fits/${fit.id}?classic=1`} className="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant hover:text-on-surface transition-colors hidden sm:block flex-shrink-0">
           Classic →
         </Link>
       </div>
@@ -160,7 +160,7 @@ function AttributesView({ fit, pins, aspectRatio, setAspectRatio }: {
   }
 
   return (
-    <div className="px-6 py-8">
+    <div className="px-4 sm:px-6 py-6 sm:py-8">
       {/* Title */}
       <div className="text-center mb-6">
         <h1 className="font-display-mobile text-display-mobile text-on-surface">{fit.title}</h1>
@@ -191,7 +191,7 @@ function AttributesView({ fit, pins, aspectRatio, setAspectRatio }: {
         </div>
 
         {/* Center hero image */}
-        <div className="relative" style={{ aspectRatio, height: 'min(72vh, 640px)' }}>
+        <div className="relative" style={{ aspectRatio, height: 'min(60vh, 640px)' }}>
           <div className="absolute inset-0 rounded-2xl overflow-hidden bg-surface-container-low"
             style={{ boxShadow: `0 0 80px ${rgba(GOLD, revealed ? 0.2 : 0.08)}` }}>
             <button onClick={() => { setRevealed((r) => !r); if (revealed) setActiveId(null) }} className="block w-full h-full">
@@ -264,7 +264,7 @@ function ThemedView({ fit, pins, similar, accent, aspectRatio, setAspectRatio }:
       <div className="pointer-events-none fixed top-[-120px] right-0 w-[500px] h-[500px] rounded-full" style={{ background: accent, filter: 'blur(120px)', opacity: 0.10 }} />
       <div className="pointer-events-none fixed bottom-[-80px] left-[-60px] w-[320px] h-[320px] rounded-full" style={{ background: accent, filter: 'blur(90px)', opacity: 0.07 }} />
 
-      <div className="relative max-w-6xl mx-auto px-6 pt-8 pb-xxl">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-xxl">
         <div className="flex flex-col lg:flex-row gap-10 items-start">
           {/* Image with halo + visible pins (trails not clipped) */}
           <div className="w-full lg:w-auto flex justify-center flex-shrink-0">
