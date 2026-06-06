@@ -63,9 +63,20 @@ export async function middleware(request: NextRequest) {
     )
   }
 
-  // Protect user-only pages
-  if ((pathname === '/profile' || pathname === '/account') && !user) {
-    return withCors(NextResponse.redirect(new URL(`/auth?next=${pathname}`, request.url)))
+  // Compulsory auth for all content pages — landing (/) and /auth stay public.
+  // Unauthenticated visitors are sent to /auth and returned after login.
+  const isGatedContent = (
+    pathname === '/fits' ||
+    pathname.startsWith('/fits/') ||
+    pathname.startsWith('/search') ||
+    pathname.startsWith('/products/') ||
+    pathname === '/profile' ||
+    pathname === '/account'
+  )
+
+  if (isGatedContent && !user) {
+    const next = encodeURIComponent(pathname + (request.nextUrl.search || ''))
+    return withCors(NextResponse.redirect(new URL(`/auth?next=${next}`, request.url)))
   }
 
   return withCors(supabaseResponse)
@@ -76,8 +87,14 @@ export const config = {
     // Catch /admin exactly AND /admin/* except /admin/login
     '/admin',
     '/admin/((?!login).*)',
+    // Gated content (compulsory login)
+    '/fits',
+    '/fits/:path*',
+    '/search/:path*',
+    '/products/:path*',
     '/profile',
     '/account',
+    // API guards
     '/api/fits/:path*',
     '/api/pins/:path*',
     '/api/products/:path*',
