@@ -10,7 +10,7 @@ interface PageProps {
   params: { id: string }
 }
 
-async function getData(id: string): Promise<{ fit: Fit; pins: Pin[]; similar: Fit[] } | null> {
+async function getData(id: string): Promise<{ fit: Fit; pins: Pin[]; similar: Fit[]; prevId: string | null; nextId: string | null } | null> {
   const supabase = await createSupabaseServerClient()
 
   const { data: fit } = await supabase
@@ -27,6 +27,14 @@ async function getData(id: string): Promise<{ fit: Fit; pins: Pin[]; similar: Fi
     .select('*')
     .eq('fit_id', id)
     .order('created_at')
+
+  // Neighboring fits in feed order (created_at DESC). prev = newer, next = older.
+  const [{ data: newer }, { data: older }] = await Promise.all([
+    supabase.from('fits').select('id').eq('published', true).gt('created_at', fit.created_at).order('created_at', { ascending: true }).limit(1),
+    supabase.from('fits').select('id').eq('published', true).lt('created_at', fit.created_at).order('created_at', { ascending: false }).limit(1),
+  ])
+  const prevId = newer?.[0]?.id ?? null
+  const nextId = older?.[0]?.id ?? null
 
   // Similar fits — share at least one vibe tag, exclude self
   let similar: Fit[] = []
@@ -57,7 +65,7 @@ async function getData(id: string): Promise<{ fit: Fit; pins: Pin[]; similar: Fi
     }
   }
 
-  return { fit, pins: pins ?? [], similar }
+  return { fit, pins: pins ?? [], similar, prevId, nextId }
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -73,5 +81,5 @@ export default async function FitSpotlightPage({ params }: PageProps) {
   const result = await getData(params.id)
   if (!result) notFound()
 
-  return <FitSpotlight fit={result.fit} pins={result.pins} similar={result.similar} />
+  return <FitSpotlight fit={result.fit} pins={result.pins} similar={result.similar} prevId={result.prevId} nextId={result.nextId} />
 }
