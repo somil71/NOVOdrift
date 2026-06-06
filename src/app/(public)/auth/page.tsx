@@ -27,26 +27,37 @@ function AuthForm() {
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault(); reset(); setLoading(true)
-    const supabase = createSupabaseBrowserClient()
-    const { error: err } = await supabase.auth.signInWithPassword({ email, password })
-    if (err) { setError(err.message); setLoading(false); return }
-    router.push(next); router.refresh()
+    try {
+      const supabase = createSupabaseBrowserClient()
+      const { error: err } = await supabase.auth.signInWithPassword({ email, password })
+      if (err) { setError(err.message); return }
+      router.push(next); router.refresh()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Sign-in failed — please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!agreed) { setError('Please agree to the Terms of Service'); return }
     reset(); setLoading(true)
-    const supabase = createSupabaseBrowserClient()
-    // Confirmation email returns the user to THIS origin (prod or local), not localhost.
-    const emailRedirectTo = `${window.location.origin}/fits`
-    const { error: err } = await supabase.auth.signUp({
-      email, password,
-      options: { data: { full_name: name }, emailRedirectTo },
-    })
-    if (err) { setError(err.message); setLoading(false); return }
-    setSuccess('Check your email to confirm your account.')
-    setLoading(false)
+    try {
+      const supabase = createSupabaseBrowserClient()
+      // Confirmation email returns the user to THIS origin (prod or local), not localhost.
+      const emailRedirectTo = `${window.location.origin}/fits`
+      const { error: err } = await supabase.auth.signUp({
+        email, password,
+        options: { data: { full_name: name }, emailRedirectTo },
+      })
+      if (err) { setError(err.message); return }
+      setSuccess('Check your email to confirm your account.')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Sign-up failed — please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const inputClass =
