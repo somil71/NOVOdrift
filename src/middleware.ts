@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import { isAdminEmail } from '@/lib/admin'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? '*'
 
@@ -41,12 +42,20 @@ export async function middleware(request: NextRequest) {
   // Always use getUser() — validates session against Supabase server
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Protect admin frontend pages
-  if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login') && !user) {
-    return withCors(NextResponse.redirect(new URL('/admin/login', request.url)))
+  const admin = isAdminEmail(user?.email)
+
+  // Protect admin frontend pages — must be logged in AND on the admin allowlist
+  if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
+    if (!user) {
+      return withCors(NextResponse.redirect(new URL('/admin/login', request.url)))
+    }
+    if (!admin) {
+      // Logged in but not an admin → bounce to the public feed
+      return withCors(NextResponse.redirect(new URL('/fits', request.url)))
+    }
   }
 
-  // Protect mutation API routes — belt-and-suspenders on top of per-route checks
+  // Protect content-write API routes — admin only
   const isApiMutation = (
     pathname.startsWith('/api/fits') ||
     pathname.startsWith('/api/pins') ||
@@ -54,11 +63,11 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith('/api/upload')
   ) && ['POST', 'PATCH', 'DELETE', 'PUT'].includes(request.method)
 
-  if (isApiMutation && !user) {
+  if (isApiMutation && (!user || !admin)) {
     return withCors(
       NextResponse.json(
-        { data: null, error: { message: 'Unauthorized', code: 'UNAUTHORIZED' } },
-        { status: 401 }
+        { data: null, error: { message: user ? 'Forbidden' : 'Unauthorized', code: user ? 'FORBIDDEN' : 'UNAUTHORIZED' } },
+        { status: user ? 403 : 401 }
       )
     )
   }
