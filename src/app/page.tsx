@@ -3,19 +3,18 @@ import Image from 'next/image'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 import type { Fit } from '@/lib/supabase/types'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 export default async function LandingPage() {
   const supabase = await createSupabaseServerClient()
-  const [{ data: { user } }, fitsRes, countRes] = await Promise.all([
-    supabase.auth.getUser(),
+  const [fitsRes, countRes] = await Promise.all([
     supabase.from('fits').select('id, title, image_url').eq('published', true).order('created_at', { ascending: false }).limit(14),
     supabase.from('fits').select('*', { count: 'exact', head: true }).eq('published', true),
   ])
 
   const fits = (fitsRes.data ?? []) as Pick<Fit, 'id' | 'title' | 'image_url'>[]
   const fitCount = countRes.count ?? 0
-  const enterHref = user ? '/fits' : '/auth?next=/fits'
+  const enterHref = '/fits'
 
   // Split images into two marquee columns
   const colA = fits.filter((_, i) => i % 2 === 0)
@@ -27,8 +26,8 @@ export default async function LandingPage() {
       {/* ── Top bar ── */}
       <header className="absolute top-0 inset-x-0 z-30 flex items-center justify-between px-5 sm:px-10 py-5">
         <span className="font-headline-sm text-headline-sm tracking-[3px] uppercase">FITBOARD</span>
-        <Link href={user ? '/fits' : '/auth'} className="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors">
-          {user ? 'Enter →' : 'Sign In'}
+        <Link href="/fits" className="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors">
+          Enter →
         </Link>
       </header>
 
@@ -55,15 +54,9 @@ export default async function LandingPage() {
           <div className="flex flex-col sm:flex-row gap-3 mt-10">
             <Link href={enterHref}
               className="group inline-flex items-center justify-center gap-2 bg-secondary text-on-secondary font-label-caps text-label-caps uppercase tracking-widest px-8 py-4 rounded-lg hover:bg-secondary-fixed transition-all hover:shadow-[0_0_28px_rgba(232,192,104,0.4)]">
-              {user ? 'Enter FITBOARD' : 'Create Account'}
+              Enter FITBOARD
               <span className="material-symbols-outlined text-[18px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
             </Link>
-            {!user && (
-              <Link href="/auth?next=/fits"
-                className="inline-flex items-center justify-center border border-outline-variant font-label-caps text-label-caps uppercase tracking-widest px-8 py-4 rounded-lg hover:border-secondary hover:text-secondary transition-colors">
-                Sign In
-              </Link>
-            )}
           </div>
 
           {/* stat row */}
@@ -93,7 +86,7 @@ export default async function LandingPage() {
                 <div className="flex flex-col gap-3 animate-[scrollUp_38s_linear_infinite]">
                   {[...colA, ...colA].map((f, i) => (
                     <div key={`a-${i}`} className="relative w-full aspect-[3/4] rounded-lg overflow-hidden">
-                      <Image src={f.image_url} alt={f.title} fill sizes="25vw" className="object-cover" />
+                      <Image src={f.image_url} alt={f.title} fill sizes="25vw" className="object-cover" priority={i === 0} />
                     </div>
                   ))}
                 </div>
@@ -156,7 +149,7 @@ export default async function LandingPage() {
         </h2>
         <Link href={enterHref}
           className="inline-flex items-center gap-2 bg-secondary text-on-secondary font-label-caps text-label-caps uppercase tracking-widest px-8 py-4 rounded-lg hover:bg-secondary-fixed transition-all hover:shadow-[0_0_28px_rgba(232,192,104,0.4)]">
-          {user ? 'Enter FITBOARD' : 'Start free'}
+          Enter FITBOARD
           <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
         </Link>
       </section>

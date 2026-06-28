@@ -72,8 +72,9 @@ export async function middleware(request: NextRequest) {
     )
   }
 
-  // Compulsory auth for all content pages — landing (/) and /auth stay public.
-  // Unauthenticated visitors are sent to /auth and returned after login.
+  // LOGIN GATE DISABLED — content is open to unauthenticated visitors.
+  // Restore by un-commenting the block below.
+  /*
   const isGatedContent = (
     pathname === '/fits' ||
     pathname.startsWith('/fits/') ||
@@ -87,6 +88,7 @@ export async function middleware(request: NextRequest) {
     const next = encodeURIComponent(pathname + (request.nextUrl.search || ''))
     return withCors(NextResponse.redirect(new URL(`/auth?next=${next}`, request.url)))
   }
+  */
 
   return withCors(supabaseResponse)
 }
